@@ -1,16 +1,51 @@
 import React from 'react';
+import styled, { createGlobalStyle } from 'styled-components';
 import 'i18n';
-import { useTranslation } from 'react-i18next';
+import { createBrowserHistory } from 'history';
+import {
+  Router,
+  Switch,
+  Route,
+}from 'react-router-dom';
+import backgroundImage from 'assets/images/background.jpg';
+import SignIn from 'pages/SignIn';
+
+const history = createBrowserHistory();
 
 const App: React.FC = () => {
-  const { t } = useTranslation();
-
   return (
-    <div className="App">
-      <h1>{t('title')}</h1>
-      <p>API_URL: {process.env.REACT_APP_API_URL}</p>
-    </div>
+    <Router history={history}>
+      <Wrapper>
+        <Switch>
+          <Route component={SignIn} />
+        </Switch>
+      </Wrapper>
+      <GlobalStyle />
+    </Router>
   );
 };
 
 export default App;
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    margin: 0;
+	  padding: 0;
+	  border: 0;
+    min-height: 100%;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${backgroundImage});
+  background-size: cover;
+  background-position: center;
+`;
