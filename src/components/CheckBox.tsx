@@ -17,6 +17,9 @@ const CheckBox = (props: Props) => {
     setChecked(!checked);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const doNothing = () => {};
+
   return (
     <Wrapper onClick={handleChange} checked={checked} error={error} className={className}>
       {checked && (
@@ -24,7 +27,7 @@ const CheckBox = (props: Props) => {
           <polyline points="20 6 9 17 4 12" />
         </Icon>
       )}
-      <HiddenCheckbox defaultChecked={checked} name={name} />
+      <HiddenCheckbox onChange={doNothing} checked={checked} name={name} />
     </Wrapper>
   );
 };

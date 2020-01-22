@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { BACKGROUND_GREY2, BLUE_TEXT, TEXT_GREY } from 'styles/colors';
@@ -16,7 +16,20 @@ interface Props {
 const SignIn = (props: Props) => {
   const { className } = props;
   // const [loading, setLoading] = useState(false);
+  const [valid, setValid] = useState({
+    email: false,
+    password: false,
+  });
   const { t } = useTranslation();
+
+  const handleFieldValidChange = (field: string, value: boolean) => {
+    setValid({
+      ...valid,
+      [field]: value,
+    });
+  };
+
+  const isFormValid = Object.values(valid).every(Boolean);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -24,9 +37,7 @@ const SignIn = (props: Props) => {
     const form: any = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    const remember = form.remember.defaultChecked;
-
-    if (!emailValidate(email) || !passwordValidate(password)) return;
+    const remember = form.remember.checked;
 
     console.log({
       email, password, remember,
@@ -40,16 +51,16 @@ const SignIn = (props: Props) => {
         type="text"
         label={t('email')}
         name="email"
-        value=""
-        focus
         validate={emailValidate}
+        onFieldValidChange={handleFieldValidChange}
+        focus
       />
       <StyledInput
         type="password"
         label={t('password')}
-        value=""
         name="password"
         validate={passwordValidate}
+        onFieldValidChange={handleFieldValidChange}
       />
 
       <WideRow>
@@ -62,7 +73,7 @@ const SignIn = (props: Props) => {
         </BlueLink>
       </WideRow>
 
-      <Button type="submit">
+      <Button disabled={!isFormValid} type="submit">
         {t('signin-button')}
       </Button>
 

@@ -4,18 +4,28 @@ import { useTranslation } from 'react-i18next';
 import { TEXT_GREY, TEXT_ORANGE, BACKGROUND_GREY } from 'styles/colors';
 import { EyeLineThroughIcon, EyeIcon } from 'assets/icons';
 interface Props {
-  className?: string;
   type: string;
   name: string;
   label: string;
-  value: string;
-  error?: string;
+  onFieldValidChange: (field: string, value: boolean) => void;
   validate: (value: string) => boolean;
+  className?: string;
+  value?: string;
   focus?: boolean;
 }
 
 const Input = (props: Props) => {
-  const { className, name, validate, value: initValue, label, type: initType, focus, ...rest } = props;
+  const {
+    className,
+    name,
+    validate,
+    label,
+    focus,
+    onFieldValidChange,
+    type: initType,
+    value: initValue = '',
+    ...rest
+  } = props;
   const { t } = useTranslation();
   const [type, setType] = useState(initType);
   const [value, setValue] = useState(initValue);
@@ -27,24 +37,35 @@ const Input = (props: Props) => {
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
+    setValue(event.target.value);
+  };
+
+  const handleValidate = () => {
     let newError = '';
 
-    if (!newValue) {
+    if (!value) {
       newError = t('empty-field');
-    } else if (!validate(newValue)) {
+    } else if (!validate(value)) {
       newError = t(`${name}-incorrect`);
     }
 
+    onFieldValidChange(name, !newError);
     setError(newError);
-    setValue(newValue);
   };
 
   return (
     <Wrapper className={className}>
       <Label>{`${label}*`}</Label>
       <FieldWrapper error={!!error}>
-        <Field name={name} value={value} onChange={handleChange} type={type} autoFocus={focus} {...rest} />
+        <Field 
+          name={name}
+          value={value}
+          onChange={handleChange}
+          type={type}
+          onBlur={handleValidate}
+          autoFocus={focus}
+          {...rest}
+        />
         {initType === 'password' && (
           <IconWrapper onClick={toggleType}>
             {type === 'password' && <ShowPasswordIcon  />}
@@ -57,12 +78,13 @@ const Input = (props: Props) => {
   );
 };
 
-export default Input;
+export default React.memo(Input);
 
 const IconWrapper = styled.div`
   position: absolute;
   top: 50%;
   right: 16px;
+  display: flex;
   transform: translateY(-50%);
   z-index: 2;
 `;
