@@ -1,14 +1,34 @@
 import styled from 'styled-components';
-import { BLUE, BACKGROUND_GREY } from './colors';
+import { BLUE, BACKGROUND_GREY, TEXT_ORANGE } from './colors';
 
 export const Row = styled.div`
   display: flex;
+  flex-direction: row;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
+`;
+
+export const TinyText = styled.span`
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: 0.01em;
+`;
+
+export const ErrorText = styled.span`
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+  color: ${TEXT_ORANGE};
 `;
 
 export const Button = styled.button<{ color?: string }>`
   width: 100%;
-  padding: 14px 24px;
   background: ${({ disabled, color = BLUE }) => disabled ? BACKGROUND_GREY : color};
   border: 0;
   border-radius: 2px;
@@ -16,12 +36,11 @@ export const Button = styled.button<{ color?: string }>`
   font-size: 12px;
   line-height: 150%;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: white;
   text-align: center;
 
   &:hover {
-    opacity: 0.8;
+    opacity: ${({ disabled }) => disabled ? 1 : 0.8};;
   }
 
   &:active {

@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { BACKGROUND_GREY2, BLUE_TEXT, TEXT_GREY } from 'styles/colors';
@@ -7,7 +7,8 @@ import Input from 'components/Input';
 import { passwordValidate, emailValidate } from 'helpers';
 import CheckBox from 'components/CheckBox';
 import { Link } from 'react-router-dom';
-import { Button, Row } from 'styles/primitives';
+import { Button, Row, TinyText } from 'styles/primitives';
+import SocialButtons from 'components/SocialButtons';
 
 interface Props {
   className?: string;
@@ -15,21 +16,30 @@ interface Props {
 
 const SignIn = (props: Props) => {
   const { className } = props;
-  // const [loading, setLoading] = useState(false);
-  const [valid, setValid] = useState({
-    email: false,
-    password: false,
-  });
   const { t } = useTranslation();
+  // const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({
+    email: {
+      value: '',
+      touched: false,
+    },
+    password: {
+      value: '',
+      touched: false,
+    },
+  });
 
-  const handleFieldValidChange = (field: string, value: boolean) => {
-    setValid({
-      ...valid,
-      [field]: value,
+  const handleErrorsChange = (field: string, value: string) => {
+    setErrors({
+      ...errors,
+      [field]: {
+        value,
+        touched: true,
+      },
     });
   };
 
-  const isFormValid = Object.values(valid).every(Boolean);
+  const isFormValid = Object.values(errors).every(({ value, touched }) => !value && touched);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -47,20 +57,22 @@ const SignIn = (props: Props) => {
   return (
     <Wrapper className={className} onSubmit={handleSubmit}>
       <Header title={t('sign-in')} />
+      <StyledSocialButtons />
       <StyledInput
         type="text"
         label={t('email')}
         name="email"
+        error={errors.email.value}
         validate={emailValidate}
-        onFieldValidChange={handleFieldValidChange}
-        focus
+        onFieldErrorChange={handleErrorsChange}
       />
       <StyledInput
         type="password"
         label={t('password')}
         name="password"
+        error={errors.password.value}
         validate={passwordValidate}
-        onFieldValidChange={handleFieldValidChange}
+        onFieldErrorChange={handleErrorsChange}
       />
 
       <WideRow>
@@ -68,33 +80,31 @@ const SignIn = (props: Props) => {
           <StyledCheckbox checked={false} name="remember" />
           {t('remember')}
         </Remember>
-        <BlueLink to="/forgot">
-          {t('forgot-password')}
-        </BlueLink>
+        <TinyText>
+          <BlueLink to="/forgot">
+            {t('forgot-password')}?
+          </BlueLink>
+        </TinyText>
       </WideRow>
 
-      <Button disabled={!isFormValid} type="submit">
-        {t('signin-button')}
-      </Button>
+      <StyledButton disabled={!isFormValid} type="submit">
+        {t('sign-in')}
+      </StyledButton>
 
       <GreyText>
         {`${t('dont-have-account')}? `}
         <BlueLink to="sign-up">
-          {t('signup')}
-        </BlueLink>
+          {t('sign-up')}
+        </BlueLink>!
       </GreyText>
 
-      <Row>
-        <GreyLink to="/privacy-policy">
-          {t('privacy-policy')}
-        </GreyLink>
-        <GreyLink to="/qilin">
-          {t('qilin')}
-        </GreyLink>
-        <GreyLink to="/user-agreement">
-          {t('user-agreement')}
-        </GreyLink>
-      </Row>
+      <Privacy>
+        <StyledLink to="/privacy-policy">
+          <GreyText>
+            {t('privacy-policy')}
+          </GreyText>
+        </StyledLink>
+      </Privacy>
     </Wrapper>
   );
 };
@@ -109,11 +119,22 @@ const Wrapper = styled.form`
   justify-content: space-between;
   padding: 24px 40px;
   width: 480px;
-  min-height: 474px;
+  /* min-height: 474px; */
   border-radius: 8px;
 `;
 
+const StyledSocialButtons = styled(SocialButtons)`
+  margin: 16px 0;
+`;
+
+const StyledButton = styled(Button)`
+  padding: 14px 24px;
+  margin: 24px 0 16px 0;
+  text-transform: uppercase;
+`;
+
 const WideRow = styled(Row)`
+  justify-content: space-between;
   width: 100%;
 `;
 
@@ -121,11 +142,7 @@ const StyledInput = styled(Input)`
   width: 400px;
 `;
 
-const GreyText = styled.div`
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 150%;
-  letter-spacing: 0.01em;
+const GreyText = styled(TinyText)`
   color: ${TEXT_GREY};
 `;
 
@@ -133,11 +150,8 @@ const StyledCheckbox = styled(CheckBox)`
   margin: 0 6px 0 2px;
 `;
 
-const Remember = styled.span`
+const Remember = styled(TinyText)`
   display: inline-flex;
-  font-size: 12px;
-  line-height: 150%;
-  letter-spacing: 0.01em;
   color: white;
   align-items: center;
 `;
@@ -147,7 +161,11 @@ const BlueLink = styled(Link)`
   text-decoration: none;
 `;
 
-const GreyLink = styled(Link)`
-  color: ${TEXT_GREY};
+const StyledLink = styled(Link)`
   margin-right: 16px;
+  color: ${TEXT_GREY};
+`;
+
+const Privacy = styled(Row)`
+  margin-top: 16px;
 `;

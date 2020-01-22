@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BLUE, TEXT_ORANGE, BACKGROUND_GREY2 } from 'styles/colors';
+import { SuccessIcon } from 'assets/icons';
 
 interface Props {
   className?: string;
@@ -23,16 +24,14 @@ const CheckBox = (props: Props) => {
   return (
     <Wrapper onClick={handleChange} checked={checked} error={error} className={className}>
       {checked && (
-        <Icon viewBox="0 0 24 24">
-          <polyline points="20 6 9 17 4 12" />
-        </Icon>
+        <Icon />
       )}
       <HiddenCheckbox onChange={doNothing} checked={checked} name={name} />
     </Wrapper>
   );
 };
 
-export default CheckBox;
+export default React.memo(CheckBox);
 
 const getBorderColor = (checked: boolean, error: boolean) => {
   if (error) return TEXT_ORANGE;
@@ -40,7 +39,7 @@ const getBorderColor = (checked: boolean, error: boolean) => {
   return checked ? 'transparent' : 'rgba(255, 255, 255, 0.3)';
 };
 
-const Icon = styled.svg`
+const Icon = styled(SuccessIcon)`
   fill: none;
   stroke: white;
   stroke-width: 2px;

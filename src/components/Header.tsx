@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { LogoIcon } from 'assets/icons';
 
 interface Props {
   className?: string;
@@ -11,7 +12,7 @@ const Header = (props: Props) => {
 
   return (
     <Wrapper className={className}>
-      p1
+      <LogoIcon />
       <Title>
         {title}
       </Title>
@@ -19,7 +20,9 @@ const Header = (props: Props) => {
   );
 };
 
-export default Header;
+const areEqual = (prev: Props, next: Props) => prev.title === next.title;
+
+export default React.memo(Header, areEqual);
 
 const Wrapper = styled.div`
   display: flex;

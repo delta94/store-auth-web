@@ -1,16 +1,19 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { TEXT_GREY, TEXT_ORANGE, BACKGROUND_GREY } from 'styles/colors';
 import { EyeLineThroughIcon, EyeIcon } from 'assets/icons';
+import { ErrorText, TinyText } from 'styles/primitives';
+
 interface Props {
   type: string;
   name: string;
   label: string;
-  onFieldValidChange: (field: string, value: boolean) => void;
+  onFieldErrorChange: (field: string, value: string) => void;
   validate: (value: string) => boolean;
   className?: string;
   value?: string;
+  error?: string;
   focus?: boolean;
 }
 
@@ -21,15 +24,18 @@ const Input = (props: Props) => {
     validate,
     label,
     focus,
-    onFieldValidChange,
+    onFieldErrorChange,
     type: initType,
+    error: initError = '',
     value: initValue = '',
     ...rest
   } = props;
   const { t } = useTranslation();
   const [type, setType] = useState(initType);
   const [value, setValue] = useState(initValue);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(initError);
+
+  useEffect(() => setError(initError), [initError]);
 
   const toggleType = () => {
     const newType = type === 'password' ? 'text' : 'password';
@@ -44,12 +50,12 @@ const Input = (props: Props) => {
     let newError = '';
 
     if (!value) {
-      newError = t('empty-field');
+      newError = t('errors.empty-field');
     } else if (!validate(value)) {
-      newError = t(`${name}-incorrect`);
+      newError = t(`errors.${name}-incorrect`);
     }
 
-    onFieldValidChange(name, !newError);
+    onFieldErrorChange(name, newError);
     setError(newError);
   };
 
@@ -73,7 +79,11 @@ const Input = (props: Props) => {
           </IconWrapper>
         )}
       </FieldWrapper>
-      <Error show={!!error}>{error}</Error>
+      <Error show={!!error}>
+        <ErrorText>
+          {error}
+        </ErrorText>
+      </Error>
     </Wrapper>
   );
 };
@@ -113,11 +123,9 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Label = styled.label`
+const Label = styled(TinyText)`
   padding: 0 12px;
-  font-size: 12px;
-  line-height: 150%;
-  letter-spacing: 0.01em;
+  margin-bottom: 2px;
   color: ${TEXT_GREY};
 `;
 
@@ -131,7 +139,7 @@ const Field = styled.input`
   background-color: ${BACKGROUND_GREY};
 
   &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
-    -webkit-box-shadow: inset 0 0 0 150px ${BACKGROUND_GREY};
+    -webkit-box-shadow: inset 0 0 0 1000px ${BACKGROUND_GREY};
     -webkit-text-fill-color: white;
     -webkit-transition-delay: 99999s;
   }
@@ -142,8 +150,6 @@ const FieldWrapper = styled.div<{ error: boolean }>`
   border-bottom-color: ${({ error }) => error ? TEXT_ORANGE : BACKGROUND_GREY};
   position: relative;
   border-radius: 2px;
-  border-bottom-left-radius: ${({ error }) => error ? '0' : '2px'};
-  border-bottom-right-radius: ${({ error }) => error ? '0' : '2px'};
   overflow: hidden;
 `;
 
@@ -151,8 +157,4 @@ const Error = styled.span<{ show: boolean }>`
   opacity: ${({ show }) => show ? 1 : 0};
   height: 16px;
   padding: 0 12px;
-  font-size: 10px;
-  line-height: 16px;
-  letter-spacing: 0.4px;
-  color: ${TEXT_ORANGE};
 `;
