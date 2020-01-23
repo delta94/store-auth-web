@@ -23,9 +23,7 @@ const CheckBox = (props: Props) => {
 
   return (
     <Wrapper onClick={handleChange} checked={checked} error={error} className={className}>
-      {checked && (
-        <Icon />
-      )}
+      <Icon />
       <HiddenCheckbox onChange={doNothing} checked={checked} name={name} />
     </Wrapper>
   );
@@ -42,7 +40,6 @@ const getBorderColor = (checked: boolean, error: boolean) => {
 const Icon = styled(SuccessIcon)`
   fill: none;
   stroke: white;
-  stroke-width: 2px;
 `;
 
 const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
@@ -57,4 +54,8 @@ const Wrapper = styled.div<{ checked: boolean; error: boolean }>`
   border: 1px solid transparent;
   border-color: ${({ checked, error }) => getBorderColor(checked, error)};
   transition: all 150ms;
+
+  ${Icon} {
+    display: ${({ checked }) => checked ? 'block' : 'none'};
+  }
 `;

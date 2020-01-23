@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { TEXT_GREY, TEXT_ORANGE, BACKGROUND_GREY } from 'styles/colors';
 import { EyeLineThroughIcon, EyeIcon } from 'assets/icons';
-import { ErrorText, TinyText } from 'styles/primitives';
+import { ErrorText, TinyText, Column } from 'styles/primitives';
 
 interface Props {
   type: string;
   name: string;
   label: string;
-  onFieldErrorChange: (field: string, value: string) => void;
+  onValidate: (field: string, value: string) => void;
   validate: (value: string) => boolean;
   className?: string;
   value?: string;
@@ -24,12 +24,13 @@ const Input = (props: Props) => {
     validate,
     label,
     focus,
-    onFieldErrorChange,
+    onValidate,
     type: initType,
     error: initError = '',
     value: initValue = '',
     ...rest
   } = props;
+
   const { t } = useTranslation();
   const [type, setType] = useState(initType);
   const [value, setValue] = useState(initValue);
@@ -55,7 +56,7 @@ const Input = (props: Props) => {
       newError = t(`errors.${name}-incorrect`);
     }
 
-    onFieldErrorChange(name, newError);
+    onValidate(name, newError);
     setError(newError);
   };
 
@@ -74,8 +75,8 @@ const Input = (props: Props) => {
         />
         {initType === 'password' && (
           <IconWrapper onClick={toggleType}>
-            {type === 'password' && <ShowPasswordIcon  />}
-            {type === 'text' && <HidePasswordIcon />}
+            {type === 'password' && <EyeLineThroughIcon  />}
+            {type === 'text' && <EyeIcon />}
           </IconWrapper>
         )}
       </FieldWrapper>
@@ -97,29 +98,18 @@ const IconWrapper = styled.div`
   display: flex;
   transform: translateY(-50%);
   z-index: 2;
-`;
 
-const ShowPasswordIcon = styled(EyeLineThroughIcon)`
-  width: 16px;
-  height: 14px;
+  svg {
+    width: 16px;
+    height: 14px;
+  }
 
   path {
     fill: ${TEXT_GREY};
   }
 `;
 
-const HidePasswordIcon = styled(EyeIcon)`
-  width: 16px;
-  height: 14px;
-
-  path {
-    fill: ${TEXT_GREY};
-  }
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+const Wrapper = styled(Column)`
   justify-content: space-between;
 `;
 
@@ -132,12 +122,13 @@ const Label = styled(TinyText)`
 const Field = styled.input`
   min-width: 100%;
   padding: 10px 44px 10px 12px;
+  background-color: ${BACKGROUND_GREY};
+  color: white;
   font-size: 15px;
   line-height: 22px;
-  color: white;
   border: 0;
-  background-color: ${BACKGROUND_GREY};
 
+  /* Hack for styling autocompleted input in chrome  */
   &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
     -webkit-box-shadow: inset 0 0 0 1000px ${BACKGROUND_GREY};
     -webkit-text-fill-color: white;
@@ -146,14 +137,15 @@ const Field = styled.input`
 `;
 
 const FieldWrapper = styled.div<{ error: boolean }>`
+  position: relative;
+  overflow: hidden;
   border-bottom: 2px solid transparent;
   border-bottom-color: ${({ error }) => error ? TEXT_ORANGE : BACKGROUND_GREY};
-  position: relative;
   border-radius: 2px;
-  overflow: hidden;
 `;
 
 const Error = styled.span<{ show: boolean }>`
+  display: inline-flex;
   opacity: ${({ show }) => show ? 1 : 0};
   height: 16px;
   padding: 0 12px;

@@ -2,7 +2,6 @@ const PLATFORM = process.env.REACT_APP_PLATFORM;
 
 export default {
   translation: {
-    'title': 'Hello!',
     'facebook': 'Facebook',
     'twitter': 'Twitter',
     'email': 'Почта',

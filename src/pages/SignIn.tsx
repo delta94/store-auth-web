@@ -1,14 +1,11 @@
-import React, { FormEvent, useState, useEffect } from 'react';
+import React, { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { BACKGROUND_GREY2, BLUE_TEXT, TEXT_GREY } from 'styles/colors';
-import Header from 'components/Header';
-import Input from 'components/Input';
-import { passwordValidate, emailValidate } from 'helpers';
-import CheckBox from 'components/CheckBox';
 import { Link } from 'react-router-dom';
+import { Header, Input, CheckBox, SocialButtons } from 'components';
+import { passwordValidate, emailValidate } from 'helpers';
 import { Button, Row, TinyText } from 'styles/primitives';
-import SocialButtons from 'components/SocialButtons';
+import { BACKGROUND_GREY2, BLUE_TEXT, TEXT_GREY } from 'styles/colors';
 
 interface Props {
   className?: string;
@@ -41,10 +38,10 @@ const SignIn = (props: Props) => {
 
   const isFormValid = Object.values(errors).every(({ value, touched }) => !value && touched);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
 
-    const form: any = e.target;
+    const form: any = event.target;
     const email = form.email.value;
     const password = form.password.value;
     const remember = form.remember.checked;
@@ -64,7 +61,7 @@ const SignIn = (props: Props) => {
         name="email"
         error={errors.email.value}
         validate={emailValidate}
-        onFieldErrorChange={handleErrorsChange}
+        onValidate={handleErrorsChange}
       />
       <StyledInput
         type="password"
@@ -72,9 +69,8 @@ const SignIn = (props: Props) => {
         name="password"
         error={errors.password.value}
         validate={passwordValidate}
-        onFieldErrorChange={handleErrorsChange}
+        onValidate={handleErrorsChange}
       />
-
       <WideRow>
         <Remember>
           <StyledCheckbox checked={false} name="remember" />
@@ -86,18 +82,15 @@ const SignIn = (props: Props) => {
           </BlueLink>
         </TinyText>
       </WideRow>
-
       <StyledButton disabled={!isFormValid} type="submit">
         {t('sign-in')}
       </StyledButton>
-
       <GreyText>
         {`${t('dont-have-account')}? `}
         <BlueLink to="sign-up">
           {t('sign-up')}
         </BlueLink>!
       </GreyText>
-
       <Privacy>
         <StyledLink to="/privacy-policy">
           <GreyText>
@@ -109,17 +102,16 @@ const SignIn = (props: Props) => {
   );
 };
 
-export default SignIn;
+export default React.memo(SignIn);
 
 const Wrapper = styled.form`
-  background-color: ${BACKGROUND_GREY2};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 40px;
   width: 480px;
-  /* min-height: 474px; */
+  padding: 24px 40px;
+  background-color: ${BACKGROUND_GREY2};
   border-radius: 8px;
 `;
 
@@ -128,8 +120,8 @@ const StyledSocialButtons = styled(SocialButtons)`
 `;
 
 const StyledButton = styled(Button)`
-  padding: 14px 24px;
   margin: 24px 0 16px 0;
+  padding: 14px 24px;
   text-transform: uppercase;
 `;
 
@@ -152,8 +144,8 @@ const StyledCheckbox = styled(CheckBox)`
 
 const Remember = styled(TinyText)`
   display: inline-flex;
-  color: white;
   align-items: center;
+  color: white;
 `;
 
 const BlueLink = styled(Link)`

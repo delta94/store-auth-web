@@ -38,7 +38,7 @@ const StyledTwitterIcon = styled(TwitterIcon)`
   margin-right: 2px;
 `;
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(Button).attrs({ type: 'button' })`
   display: flex;
   align-items: center;
   justify-content: flex-start;

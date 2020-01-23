@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { BLUE, BACKGROUND_GREY, TEXT_ORANGE } from './colors';
 
 export const Row = styled.div`
@@ -6,10 +7,9 @@ export const Row = styled.div`
   flex-direction: row;
 `;
 
-const Column = styled.div`
+export const Column = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 `;
 
 export const TinyText = styled.span`
@@ -30,17 +30,17 @@ export const ErrorText = styled.span`
 export const Button = styled.button<{ color?: string }>`
   width: 100%;
   background: ${({ disabled, color = BLUE }) => disabled ? BACKGROUND_GREY : color};
+  color: white;
   border: 0;
   border-radius: 2px;
   font-weight: 500;
   font-size: 12px;
   line-height: 150%;
   letter-spacing: 0.08em;
-  color: white;
   text-align: center;
 
   &:hover {
-    opacity: ${({ disabled }) => disabled ? 1 : 0.8};;
+    opacity: ${({ disabled }) => disabled ? 1 : 0.8};
   }
 
   &:active {

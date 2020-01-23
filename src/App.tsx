@@ -28,11 +28,17 @@ const App: React.FC = () => {
 export default App;
 
 const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+
   html, body {
     margin: 0;
 	  padding: 0;
 	  border: 0;
     min-height: 100%;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
   }
 
   * {
