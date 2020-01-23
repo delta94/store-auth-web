@@ -25,9 +25,15 @@ export const Wrapper = styled(Column)`
 `;
 
 export const Label = styled(TinyText)`
+  display: inline-flex;
+  align-items: center;
   padding: 0 12px;
   margin-bottom: 2px;
   color: ${TEXT_GREY};
+
+  & >:first-child {
+    margin-right: 2px;
+  }
 `;
 
 export const Field = styled.input`

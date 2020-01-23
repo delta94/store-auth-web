@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ErrorText } from 'styles/primitives';
 import { EyeLineThroughIcon, EyeIcon } from 'assets/icons';
+import { ErrorText, TinyText } from 'styles/primitives';
+import { Hint } from 'components';
 
 import { Wrapper, FieldWrapper, IconWrapper, Label, Field, Error } from './style';
 
@@ -15,6 +16,7 @@ interface Props {
   value?: string;
   error?: string;
   focus?: boolean;
+  tooltip?: string;
 }
 
 const Input = (props: Props) => {
@@ -24,6 +26,7 @@ const Input = (props: Props) => {
     validate,
     label,
     focus,
+    tooltip,
     onValidate,
     type: initType,
     error: initError = '',
@@ -62,7 +65,17 @@ const Input = (props: Props) => {
 
   return (
     <Wrapper className={className}>
-      <Label>{`${label}*`}</Label>
+      <Label>
+        <TinyText>
+          {`${label}*`}
+        </TinyText>
+        {!!tooltip && (
+          <Hint 
+            title={tooltip}
+            disabled={!!error}
+          />
+        )}
+      </Label>
       <FieldWrapper error={!!error}>
         <Field 
           name={name}
