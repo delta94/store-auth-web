@@ -1,11 +1,22 @@
 import React, { FormEvent, useState } from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { Header, Input, CheckBox, SocialButtons } from 'components';
 import { passwordValidate, emailValidate } from 'helpers';
-import { Button, Row, TinyText } from 'styles/primitives';
-import { BACKGROUND_GREY2, BLUE_TEXT, TEXT_GREY } from 'styles/colors';
+import { FormHeader } from 'components';
+import { TinyText } from 'styles/primitives';
+
+import {
+  Wrapper,
+  WideRow,
+  BlueLink,
+  GreyText,
+  Privacy,
+  Remember,
+  StyledButton,
+  StyledCheckbox,
+  StyledInput,
+  StyledLink,
+  StyledSocialButtons,
+} from './style';
 
 interface Props {
   className?: string;
@@ -53,7 +64,7 @@ const SignIn = (props: Props) => {
 
   return (
     <Wrapper className={className} onSubmit={handleSubmit}>
-      <Header title={t('sign-in')} />
+      <FormHeader title={t('sign-in')} />
       <StyledSocialButtons />
       <StyledInput
         type="text"
@@ -74,7 +85,7 @@ const SignIn = (props: Props) => {
       <WideRow>
         <Remember>
           <StyledCheckbox checked={false} name="remember" />
-          {t('remember')}
+          <TinyText>{t('remember')}</TinyText>
         </Remember>
         <TinyText>
           <BlueLink to="/forgot">
@@ -103,61 +114,3 @@ const SignIn = (props: Props) => {
 };
 
 export default React.memo(SignIn);
-
-const Wrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  width: 480px;
-  padding: 24px 40px;
-  background-color: ${BACKGROUND_GREY2};
-  border-radius: 8px;
-`;
-
-const StyledSocialButtons = styled(SocialButtons)`
-  margin: 16px 0;
-`;
-
-const StyledButton = styled(Button)`
-  margin: 24px 0 16px 0;
-  padding: 14px 24px;
-  text-transform: uppercase;
-`;
-
-const WideRow = styled(Row)`
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const StyledInput = styled(Input)`
-  width: 400px;
-`;
-
-const GreyText = styled(TinyText)`
-  color: ${TEXT_GREY};
-`;
-
-const StyledCheckbox = styled(CheckBox)`
-  margin: 0 6px 0 2px;
-`;
-
-const Remember = styled(TinyText)`
-  display: inline-flex;
-  align-items: center;
-  color: white;
-`;
-
-const BlueLink = styled(Link)`
-  color: ${BLUE_TEXT};
-  text-decoration: none;
-`;
-
-const StyledLink = styled(Link)`
-  margin-right: 16px;
-  color: ${TEXT_GREY};
-`;
-
-const Privacy = styled(Row)`
-  margin-top: 16px;
-`;

@@ -1,33 +1,7 @@
-import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import 'i18n';
-import { createBrowserHistory } from 'history';
-import {
-  Router,
-  Switch,
-  Route,
-}from 'react-router-dom';
 import backgroundImage from 'assets/images/background.jpg';
-import SignIn from 'pages/SignIn';
 
-const history = createBrowserHistory();
-
-const App: React.FC = () => {
-  return (
-    <Router history={history}>
-      <Wrapper>
-        <Switch>
-          <Route component={SignIn} />
-        </Switch>
-      </Wrapper>
-      <GlobalStyle />
-    </Router>
-  );
-};
-
-export default App;
-
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
 
   html, body {
@@ -46,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

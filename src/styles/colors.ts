@@ -4,3 +4,5 @@ export const TEXT_GREY = '#919294';
 export const TEXT_ORANGE = '#F25849';
 export const BLUE = '#2E7AE6';
 export const BLUE_TEXT = '#2681FF';
+export const FACEBOOK = '#3B5998';
+export const TWITTER = '#1DA1F2';

@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { TEXT_GREY, TEXT_ORANGE, BACKGROUND_GREY } from 'styles/colors';
+import { ErrorText } from 'styles/primitives';
 import { EyeLineThroughIcon, EyeIcon } from 'assets/icons';
-import { ErrorText, TinyText, Column } from 'styles/primitives';
+
+import { Wrapper, FieldWrapper, IconWrapper, Label, Field, Error } from './style';
 
 interface Props {
   type: string;
@@ -90,63 +90,3 @@ const Input = (props: Props) => {
 };
 
 export default React.memo(Input);
-
-const IconWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  right: 16px;
-  display: flex;
-  transform: translateY(-50%);
-  z-index: 2;
-
-  svg {
-    width: 16px;
-    height: 14px;
-  }
-
-  path {
-    fill: ${TEXT_GREY};
-  }
-`;
-
-const Wrapper = styled(Column)`
-  justify-content: space-between;
-`;
-
-const Label = styled(TinyText)`
-  padding: 0 12px;
-  margin-bottom: 2px;
-  color: ${TEXT_GREY};
-`;
-
-const Field = styled.input`
-  min-width: 100%;
-  padding: 10px 44px 10px 12px;
-  background-color: ${BACKGROUND_GREY};
-  color: white;
-  font-size: 15px;
-  line-height: 22px;
-  border: 0;
-
-  /* Hack for styling autocompleted input in chrome  */
-  &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
-    -webkit-box-shadow: inset 0 0 0 1000px ${BACKGROUND_GREY};
-    -webkit-text-fill-color: white;
-    -webkit-transition-delay: 99999s;
-  }
-`;
-
-const FieldWrapper = styled.div<{ error: boolean }>`
-  position: relative;
-  overflow: hidden;
-  border-bottom: 2px solid transparent;
-  border-bottom-color: ${({ error }) => error ? TEXT_ORANGE : BACKGROUND_GREY};
-  border-radius: 2px;
-`;
-
-const Error = styled.span<{ show: boolean }>`
-  display: inline-flex;
-  opacity: ${({ show }) => show ? 1 : 0};
-  height: 16px;
-  padding: 0 12px;
-`;

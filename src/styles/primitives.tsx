@@ -38,6 +38,7 @@ export const Button = styled.button<{ color?: string }>`
   line-height: 150%;
   letter-spacing: 0.08em;
   text-align: center;
+  cursor: pointer;
 
   &:hover {
     opacity: ${({ disabled }) => disabled ? 1 : 0.8};
