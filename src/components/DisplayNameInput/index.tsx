@@ -52,6 +52,8 @@ const DisplayNameInput = (props: Props) => {
         onValidate('displayName', newError);
         setError(newError);
       });
+      
+    // eslint-disable-next-line
   }, [throttledValue]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

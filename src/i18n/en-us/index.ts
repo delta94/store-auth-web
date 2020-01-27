@@ -11,6 +11,7 @@ export default {
     'password': 'Password',
     'sign-in': 'Sign In',
     'sign-up': 'Sign Up',
+    'reset-password': 'Reset password',
     'remember': 'Remember me',
     'forgot-password': 'Forgot your password',
     'dont-have-account': `Don't have an ${PLATFORM} account`,

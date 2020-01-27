@@ -5,3 +5,4 @@ export { default as SocialButtons } from './SocialButtons';
 export { default as Hint } from './Hint';
 export { default as DisplayNameInput } from './DisplayNameInput';
 export { default as SimpleInput } from './SimpleInput';
+export { default as Loader } from './Loader';

@@ -11,6 +11,7 @@ export default {
     'password': 'Пароль',
     'sign-in': 'Вход',
     'sign-up': 'Регистрация',
+    'reset-password': 'Сброс пароля',
     'remember': 'Запомнить меня',
     'forgot-password': 'Забыли пароль',
     'dont-have-account': `Нет учетной записи ${PLATFORM}`,
