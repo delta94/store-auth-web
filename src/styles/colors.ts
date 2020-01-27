@@ -8,3 +8,4 @@ export const BLUE_HINT = '#4080FF';
 export const BLUE_TEXT = '#2681FF';
 export const FACEBOOK = '#3B5998';
 export const TWITTER = '#1DA1F2';
+export const SUCCESS_FIELD = '#00AD74';

@@ -5,7 +5,7 @@ import { FormHeader } from 'components';
 import { TinyText } from 'styles/primitives';
 
 import {
-  Wrapper,
+  Form,
   WideRow,
   BlueLink,
   GreyText,
@@ -16,7 +16,7 @@ import {
   StyledInput,
   StyledLink,
   StyledSocialButtons,
-} from './style';
+} from '../shared';
 
 interface Props {
   className?: string;
@@ -26,6 +26,8 @@ const SignIn = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
   // const [loading, setLoading] = useState(false);
+  const [remember, setRemember] = useState(false);
+
   const [errors, setErrors] = useState({
     email: {
       value: '',
@@ -36,6 +38,10 @@ const SignIn = (props: Props) => {
       touched: false,
     },
   });
+
+  const handleRememberChange = () => {
+    setRemember(!remember);
+  };
 
   const handleErrorsChange = (field: string, value: string) => {
     setErrors({
@@ -55,7 +61,6 @@ const SignIn = (props: Props) => {
     const form: any = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    const remember = form.remember.checked;
 
     console.log({
       email, password, remember,
@@ -63,7 +68,7 @@ const SignIn = (props: Props) => {
   };
 
   return (
-    <Wrapper className={className} onSubmit={handleSubmit}>
+    <Form className={className} onSubmit={handleSubmit}>
       <FormHeader title={t('sign-in')} />
       <StyledSocialButtons />
       <StyledInput
@@ -84,7 +89,7 @@ const SignIn = (props: Props) => {
       />
       <WideRow>
         <Remember>
-          <StyledCheckbox checked={false} name="remember" />
+          <StyledCheckbox checked={remember} onChange={handleRememberChange} name="remember" />
           <TinyText>{t('remember')}</TinyText>
         </Remember>
         <TinyText>
@@ -109,7 +114,7 @@ const SignIn = (props: Props) => {
           </GreyText>
         </StyledLink>
       </Privacy>
-    </Wrapper>
+    </Form>
   );
 };
 

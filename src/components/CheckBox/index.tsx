@@ -1,27 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Wrapper, Icon, HiddenCheckbox } from './style';
 
 interface Props {
   className?: string;
   checked: boolean;
+  onChange: () => void;
   name: string;
   error?: boolean;
 }
 
 const CheckBox = (props: Props) => {
-  const { className, checked: initChecked, name, error = false } = props;
-  const [checked, setChecked] = useState(initChecked);
-
-  const handleChange = () => {
-    setChecked(!checked);
-  };
+  const { className, checked, onChange, name, error = false } = props;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const doNothing = () => {};
 
   return (
-    <Wrapper onClick={handleChange} checked={checked} error={error} className={className}>
+    <Wrapper onClick={onChange} checked={checked} error={error} className={className}>
       <Icon />
       <HiddenCheckbox onChange={doNothing} checked={checked} name={name} />
     </Wrapper>

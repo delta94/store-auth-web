@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 const PLATFORM = process.env.REACT_APP_PLATFORM;
+const MIN_PASSWORD_LENGTH = process.env.REACT_APP_MIN_PASSWORD_LENGTH;
 
 export default {
   translation: {
@@ -16,6 +18,7 @@ export default {
     'terms-agree': 'Я прочитал(а) и принимаю',
     'terms-of-use': 'Условия предоставления услуг',
     'privacy-policy': 'Политика конфиденциальности',
+    'password-tooltip': `Пароль должен содержать ${MIN_PASSWORD_LENGTH}+ символов, не менее 1 цифры, не менее 1 буквы и не содержать пробелов.`,
     'errors': {
       'email-incorrect': 'Недопустимый адрес почты',
       'password-incorrect': 'Недопустимый пароль',

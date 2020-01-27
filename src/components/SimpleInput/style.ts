@@ -1,19 +1,42 @@
 import styled from 'styled-components';
-import { TEXT_GREY, TEXT_ORANGE, BACKGROUND_GREY } from 'styles/colors';
+import { TEXT_GREY, TEXT_ORANGE, BACKGROUND_GREY, SUCCESS_FIELD } from 'styles/colors';
 import { TinyText, Column } from 'styles/primitives';
+import { SuccessIcon, EyeLineThroughIcon, EyeIcon } from 'assets/icons';
 
 export const IconWrapper = styled.div`
   position: absolute;
   top: 50%;
-  right: 16px;
+  right: 12px;
   display: flex;
   transform: translateY(-50%);
   z-index: 2;
 
   svg {
-    width: 16px;
-    height: 14px;
+    width: 24px;
+    height: 24px;
   }
+`;
+
+export const StyledSuccessIcon = styled(SuccessIcon)`
+  cursor: default;
+  stroke: ${SUCCESS_FIELD};
+  fill: none;
+  
+  path {
+    fill: none;
+  }
+`;
+
+export const HiddenPassword = styled(EyeLineThroughIcon)`
+  cursor: pointer;
+
+  path {
+    fill: ${TEXT_GREY};
+  }
+`;
+
+export const ShowedPassword = styled(EyeIcon)`
+  cursor: pointer;
 
   path {
     fill: ${TEXT_GREY};

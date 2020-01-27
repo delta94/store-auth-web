@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 const PLATFORM = process.env.REACT_APP_PLATFORM;
+const MIN_PASSWORD_LENGTH = process.env.REACT_APP_MIN_PASSWORD_LENGTH;
 
 export default {
   translation: {
@@ -16,6 +18,7 @@ export default {
     'terms-agree': 'I have and agree to the',
     'terms-of-use': 'Terms of Use',
     'privacy-policy': 'Privacy policy',
+    'password-tooltip': `Password must have ${MIN_PASSWORD_LENGTH}+ characters, at least 1 number, at least 1 letter and no whitespace.`,
     'errors': {
       'email-incorrect': 'Incorrect email',
       'password-incorrect': 'Incorrect password',

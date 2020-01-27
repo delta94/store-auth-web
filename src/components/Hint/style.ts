@@ -1,35 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
-import { TinyText } from 'styles/primitives';
 import { BACKGROUND_GREY3, BLUE_HINT, TEXT_GREY } from 'styles/colors';
 import { HintIcon } from 'assets/icons';
 
-interface Props {
-  className?: string;
-  title: string;
-  disabled?: boolean;
-}
-
-const Tooltip = (props: Props) => {
-  const { className, title, disabled = false } = props;
-
-  return (
-    <Wrapper className={className}>
-      <Icon />
-      {!disabled && (
-        <Title>
-          <TinyText>{title}</TinyText>
-        </Title>
-      )}
-    </Wrapper>
-  );
-};
-
-const areEqual = (prev: Props, next: Props) => prev.disabled === next.disabled;
-
-export default React.memo(Tooltip, areEqual);
-
-const Title = styled.div`
+export const Title = styled.div`
   visibility: hidden;
   width: 232px;
   background-color: ${BACKGROUND_GREY3};
@@ -42,6 +15,7 @@ const Title = styled.div`
   bottom: 200%;
   left: 50%;
   transform: translateX(-50%);
+  transition: visibility .3 ease-in-out;
 
   &::after {
     content: "";
@@ -55,12 +29,12 @@ const Title = styled.div`
   }
 `;
 
-const Icon = styled(HintIcon)`
+export const Icon = styled(HintIcon)`
   width: 12px;
   height: 12px;
 `;
 
-const Wrapper = styled.span`
+export const Wrapper = styled.span`
   position: relative;
   display: inline-flex;
 

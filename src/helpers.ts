@@ -13,3 +13,8 @@ export const passwordValidate = (pass: string) => (
   /\d/.test(pass) && 
   /[a-z]/i.test(pass)
 );
+
+export const nameValidate = (name: string) => {
+  // Here will be responce from server
+  return Promise.resolve(name.length > 4);
+};
