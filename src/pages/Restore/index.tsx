@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form } from 'pages/shared';
-import { Header } from 'components';
+import { FormHeader } from 'components';
 
 interface Props {
   className?: string;
@@ -13,7 +13,7 @@ const Restore = (props: Props) => {
 
   return (
     <Form className={className}>
-      <Header title={t('reset-password')} />
+      <FormHeader title={t('reset-password')} />
     </Form>
   );
 };

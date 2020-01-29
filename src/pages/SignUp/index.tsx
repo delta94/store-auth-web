@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Header } from 'components';
+import { FormHeader } from 'components';
 import { passwordValidate, emailValidate, nameValidate } from 'helpers';
 
 import {
@@ -72,7 +72,7 @@ const SignUp = (props: Props) => {
 
   return (
     <Form className={className} onSubmit={handleSubmit}>
-      <Header title={t('sign-up')} />
+      <FormHeader title={t('sign-up')} />
       <StyledSocialButtons />
       <StyledDisplayNameInput
         label={t('display-name')}
