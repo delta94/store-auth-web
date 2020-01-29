@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+- 12
+
+stages:
+- name: deploy
+  if: branch IN (master)
+
+jobs:
+  include:
+  - stage: deploy
+    services: docker
+    install: true
+    script:
+    - docker run -it -e JENKINS_AUTH_TOKEN=$JENKINS_AUTH_TOKEN -e JENKINS_BUILD_TOKEN=$JENKINS_BUILD_TOKEN
+      -e JENKINS_BUILD_PROJECT=$TRAVIS_REPO_SLUG -e JENKINS_BUILD_BRANCH=$TRAVIS_BRANCH
+      p1hub/p1jenkinstrigger
+
+notifications:
+  email: false
+  slack:
+    secure: GrLjc/SMIY5f1oCqsctxXsQk6cJeSWX3u/VKjLUXyNZ1SYAbZztCNLeNEYsb2MHCU/s6kF9ZyvjYMVA9YavljYLJ4TAYjlbvDnBOW9nlo/ssfXGH+pQui51gqGc5mXH/7HDiQo3Q0e5BEQTXzBlXpY8LxRt7d5QS92V18BaxbSYlDH99HrZDZvrgv8PcrADS9ZQSeIUXW/jaE8+LOxWejc3AK52Z0bWsra0pBSRUSrR3xbhsQt+17wRuRrxMWn4SMMC0mGxA3TbcLLQ28bjOHLKJKuYFTUVJGnraYN3YvaRJmsrwfHeNCm1i4/TI6ZtYnW4s8ebqU86PpQZ92US/mYT6Wq1lQYOSQte0jBiVCTNG0hJ+osrWlYrM0QNLLRjdKYQWObgKySjSVcHRf8UyMoCxncB8YO3BasR2B6ExCJsVB5wdzXXw0NIu+Hme/0Ru9esVEq9kD/pJOGcGmWv9xzwCAxlGdYJmeyLRspU69nByT+3esrolr7zMqZd80tAl6p/XkQa9JUrXKEgmNJIzQ9g71iv2gDdrSEpo83T2pS0ZH8rDs9zQpGjO5ke7zPpYt86lG6EzUFQHmG07DMTEJ8RCZWpoKlhZSAtUgNCx/rvaggp60Ca+/BKaRJ0zVdYal1xhL35XObqVG3/DLG3QADfAAXbCTzJNeVjfSKD+yRk=

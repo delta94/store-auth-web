@@ -1,0 +1,8 @@
+version: '3.7'
+services:
+  auth_server:
+    build: .
+    image: p1hub/qilin-auth
+    restart: on-failure
+    ports:
+      - 80:80
