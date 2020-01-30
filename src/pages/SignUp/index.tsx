@@ -1,16 +1,14 @@
 import React, { FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { passwordValidate, emailValidate } from 'helpers';
 import { FormHeader } from 'components';
-import { TinyText } from 'styles/primitives';
+import { passwordValidate, emailValidate, nameValidate } from 'helpers';
 
 import {
   Form,
-  WideRow,
   BlueLink,
   GreyText,
   Privacy,
-  Remember,
+  TermsAgree,
   StyledButton,
   StyledCheckbox,
   StyledFormInput,
@@ -22,14 +20,17 @@ interface Props {
   className?: string;
 }
 
-const SignIn = (props: Props) => {
+const SignUp = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
   // const [loading, setLoading] = useState(false);
-  const [remember, setRemember] = useState(false);
-
+  const [agree, setAgree] = useState(false);
   const [errors, setErrors] = useState({
     email: {
+      value: '',
+      touched: false,
+    },
+    displayName: {
       value: '',
       touched: false,
     },
@@ -39,8 +40,8 @@ const SignIn = (props: Props) => {
     },
   });
 
-  const handleRememberChange = () => {
-    setRemember(!remember);
+  const handleAgreeChange = () => {
+    setAgree(!agree);
   };
 
   const handleErrorsChange = (field: string, value: string) => {
@@ -53,24 +54,35 @@ const SignIn = (props: Props) => {
     });
   };
 
-  const isFormValid = Object.values(errors).every(({ value, touched }) => !value && touched);
+  const isFormValid = Object.values(errors).every(({ value, touched }) => !value && touched) && agree;
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
     const form: any = event.target;
+    const displayName = form.displayName.value;
     const email = form.email.value;
     const password = form.password.value;
 
     console.log({
-      email, password, remember,
+      displayName, email, password, agree,
     });
   };
 
   return (
     <Form className={className} onSubmit={handleSubmit}>
-      <FormHeader title={t('sign-in')} />
+      <FormHeader title={t('sign-up')} />
       <StyledSocialButtons />
+      <StyledFormInput
+        type="text"
+        label={t('display-name')}
+        name="displayName"
+        error={errors.displayName.value}
+        validate={nameValidate}
+        onValidate={handleErrorsChange}
+        validationType="debounce"
+        isSuccessed={!errors.displayName.value && errors.displayName.touched}
+      />
       <StyledFormInput
         type="text"
         label={t('email')}
@@ -78,6 +90,7 @@ const SignIn = (props: Props) => {
         error={errors.email.value}
         validate={emailValidate}
         onValidate={handleErrorsChange}
+        isSuccessed={!errors.email.value && errors.email.touched}
       />
       <StyledFormInput
         type="password"
@@ -86,26 +99,24 @@ const SignIn = (props: Props) => {
         error={errors.password.value}
         validate={passwordValidate}
         onValidate={handleErrorsChange}
+        isSuccessed={!errors.password.value && errors.password.touched}
+        tooltip={t('password-tooltip')}
       />
-      <WideRow>
-        <Remember>
-          <StyledCheckbox checked={remember} onChange={handleRememberChange} name="remember" />
-          <TinyText>{t('remember')}</TinyText>
-        </Remember>
-        <TinyText>
-          <BlueLink to="/reset-password">
-            {t('forgot-password')}?
-          </BlueLink>
-        </TinyText>
-      </WideRow>
+      <TermsAgree>
+        <StyledCheckbox checked={agree} onChange={handleAgreeChange} name="agree" />
+        {t('terms-agree')}&ensp;
+        <StyledLink to="/terms-of-use">
+          {t('terms-of-use')}
+        </StyledLink>
+      </TermsAgree>
       <StyledButton disabled={!isFormValid} type="submit">
-        {t('sign-in')}
+        {t('sign-up')}
       </StyledButton>
       <GreyText>
-        {`${t('dont-have-account')}? `}
-        <BlueLink to="sign-up">
-          {t('sign-up')}
-        </BlueLink>!
+        {`${t('already-have-account')} `}
+        <BlueLink to="sign-in">
+          {t('sign-in')}
+        </BlueLink>
       </GreyText>
       <Privacy>
         <StyledLink to="/privacy-policy">
@@ -118,4 +129,4 @@ const SignIn = (props: Props) => {
   );
 };
 
-export default React.memo(SignIn);
+export default React.memo(SignUp);

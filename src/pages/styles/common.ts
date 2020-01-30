@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { Input, CheckBox, SocialButtons } from 'components';
 import { Link } from 'react-router-dom';
+import { FormInput, CheckBox, SocialButtons } from 'components';
+import { BLUE_TEXT, BACKGROUND_GREY2, TEXT_GREY } from 'styles/colors';
 import { Button, Row, TinyText } from 'styles/primitives';
-import { BACKGROUND_GREY2, BLUE_TEXT, TEXT_GREY } from 'styles/colors';
 
-export const Wrapper = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,12 +25,7 @@ export const StyledButton = styled(Button)`
   text-transform: uppercase;
 `;
 
-export const WideRow = styled(Row)`
-  justify-content: space-between;
-  width: 100%;
-`;
-
-export const StyledInput = styled(Input)`
+export const StyledFormInput = styled(FormInput)`
   width: 400px;
 `;
 
@@ -42,9 +37,15 @@ export const StyledCheckbox = styled(CheckBox)`
   margin: 0 6px 0 2px;
 `;
 
-export const Remember = styled.label`
+export const Remember = styled.span`
   display: inline-flex;
   align-items: center;
+  color: white;
+`;
+
+export const TermsAgree = styled(TinyText)`
+  display: inline-flex;
+  width: 100%;
   color: white;
 `;
 
@@ -60,4 +61,9 @@ export const StyledLink = styled(Link)`
 
 export const Privacy = styled(Row)`
   margin-top: 16px;
+`;
+
+export const WideRow = styled(Row)`
+  justify-content: space-between;
+  width: 100%;
 `;

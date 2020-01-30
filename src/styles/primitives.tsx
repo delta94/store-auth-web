@@ -39,6 +39,7 @@ export const Button = styled.button<{ color?: string }>`
   letter-spacing: 0.08em;
   text-align: center;
   cursor: pointer;
+  transition: opacity .3s ease-in-out;
 
   &:hover {
     opacity: ${({ disabled }) => disabled ? 1 : 0.8};
