@@ -1,66 +1,161 @@
-import React, { ChangeEvent, useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { SimpleInput } from 'components';
+import React, { useState, DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import styled from 'styled-components';
+import { ErrorText, TinyText, Column } from 'styles/primitives';
+import { Hint } from 'components';
+import { TEXT_GREY, TEXT_ORANGE, BACKGROUND_GREY, SUCCESS_FIELD } from 'styles/colors';
+import { SuccessIcon, EyeLineThroughIcon, EyeIcon } from 'assets/icons';
 
-interface Props {
-  type: string;
-  name: string;
+type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+
+interface Props extends InputProps{
   label: string;
-  onValidate: (field: string, value: string) => void;
-  validate: (value: string) => boolean;
   className?: string;
   isSuccessed?: boolean;
-  value?: string;
   error?: string;
-  focus?: boolean;
   tooltip?: string;
 }
 
 const Input = (props: Props) => {
   const {
-    name,
-    validate,
-    focus,
-    onValidate,
-    error: initError = '',
-    value: initValue = '',
+    className,
+    label,
+    tooltip,
+    error,
+    type: initType,
+    isSuccessed = false,
     ...rest
   } = props;
 
-  const { t } = useTranslation();
-  const [value, setValue] = useState(initValue);
-  const [error, setError] = useState(initError);
+  const [type, setType] = useState(initType);
 
-  useEffect(() => setError(initError), [initError]);
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-  };
-
-  const handleValidate = () => {
-    let newError = '';
-
-    if (!value) {
-      newError = t('errors.empty-field');
-    } else if (!validate(value)) {
-      newError = t(`errors.${name}-incorrect`);
-    }
-
-    onValidate(name, newError);
-    setError(newError);
+  const toggleType = () => {
+    const newType = type === 'password' ? 'text' : 'password';
+    setType(newType);
   };
 
   return (
-    <SimpleInput
-      name={name}
-      value={value}
-      onChange={handleChange}
-      onBlur={handleValidate}
-      autoFocus={focus}
-      error={error}
-      {...rest}
-    />
+    <Wrapper className={className}>
+      <Label>
+        <TinyText>
+          {`${label}*`}
+        </TinyText>
+        {!!tooltip && (
+          <Hint 
+            title={tooltip}
+            disabled={!!error}
+          />
+        )}
+      </Label>
+      <FieldWrapper error={!!error}>
+        <input
+          {...rest}
+          type={type}
+        />
+        <IconWrapper onClick={toggleType}>
+          {initType === 'password' && (
+            <>
+              {type === 'password' && <StyledEyeLineThroughIcon  />}
+              {type === 'text' && <StyledEyeIcon />}
+            </>
+          )}
+          {isSuccessed && <StyledSuccessIcon />}
+        </IconWrapper>
+      </FieldWrapper>
+      <Error show={!!error}>
+        <ErrorText>
+          {error}
+        </ErrorText>
+      </Error>
+    </Wrapper>
   );
 };
 
 export default React.memo(Input);
+
+const IconWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: flex;
+  transform: translateY(-50%);
+  z-index: 2;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+`;
+
+const StyledSuccessIcon = styled(SuccessIcon)`
+  cursor: default;
+  stroke: ${SUCCESS_FIELD};
+  fill: none;
+  
+  path {
+    fill: none;
+  }
+`;
+
+const StyledEyeLineThroughIcon = styled(EyeLineThroughIcon)`
+  cursor: pointer;
+
+  path {
+    fill: ${TEXT_GREY};
+  }
+`;
+
+const StyledEyeIcon = styled(EyeIcon)`
+  cursor: pointer;
+
+  path {
+    fill: ${TEXT_GREY};
+  }
+`;
+
+const Wrapper = styled(Column)`
+  justify-content: space-between;
+
+  input {
+    min-width: 100%;
+    padding: 10px 44px 10px 12px;
+    background-color: ${BACKGROUND_GREY};
+    color: white;
+    font-size: 15px;
+    line-height: 22px;
+    border: 0;
+
+    /* Hack for styling autocompleted input in chrome  */
+    &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
+      -webkit-box-shadow: inset 0 0 0 1000px ${BACKGROUND_GREY};
+      -webkit-text-fill-color: white;
+      -webkit-transition-delay: 99999s;
+    }
+  }
+`;
+
+const Label = styled(TinyText)`
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  margin-bottom: 2px;
+  color: ${TEXT_GREY};
+
+  & >:first-child {
+    margin-right: 2px;
+  }
+`;
+
+const FieldWrapper = styled.div<{ error: boolean }>`
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid transparent;
+  border-bottom-color: ${({ error }) => error ? TEXT_ORANGE : BACKGROUND_GREY};
+  border-radius: 2px;
+`;
+
+const Error = styled.span<{ show: boolean }>`
+  display: inline-flex;
+  opacity: ${({ show }) => show ? 1 : 0};
+  height: 16px;
+  padding: 0 12px;
+`;

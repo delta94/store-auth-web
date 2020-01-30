@@ -11,11 +11,10 @@ import {
   TermsAgree,
   StyledButton,
   StyledCheckbox,
-  StyledInput,
+  StyledFormInput,
   StyledLink,
   StyledSocialButtons,
-  StyledDisplayNameInput,
-} from '../shared';
+} from '../styles/common';
 
 interface Props {
   className?: string;
@@ -74,14 +73,17 @@ const SignUp = (props: Props) => {
     <Form className={className} onSubmit={handleSubmit}>
       <FormHeader title={t('sign-up')} />
       <StyledSocialButtons />
-      <StyledDisplayNameInput
+      <StyledFormInput
+        type="text"
         label={t('display-name')}
+        name="displayName"
         error={errors.displayName.value}
         validate={nameValidate}
         onValidate={handleErrorsChange}
+        validationType="debounce"
         isSuccessed={!errors.displayName.value && errors.displayName.touched}
       />
-      <StyledInput
+      <StyledFormInput
         type="text"
         label={t('email')}
         name="email"
@@ -90,7 +92,7 @@ const SignUp = (props: Props) => {
         onValidate={handleErrorsChange}
         isSuccessed={!errors.email.value && errors.email.touched}
       />
-      <StyledInput
+      <StyledFormInput
         type="password"
         label={t('password')}
         name="password"

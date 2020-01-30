@@ -13,10 +13,10 @@ import {
   Remember,
   StyledButton,
   StyledCheckbox,
-  StyledInput,
+  StyledFormInput,
   StyledLink,
   StyledSocialButtons,
-} from '../shared';
+} from '../styles/common';
 
 interface Props {
   className?: string;
@@ -71,7 +71,7 @@ const SignIn = (props: Props) => {
     <Form className={className} onSubmit={handleSubmit}>
       <FormHeader title={t('sign-in')} />
       <StyledSocialButtons />
-      <StyledInput
+      <StyledFormInput
         type="text"
         label={t('email')}
         name="email"
@@ -79,7 +79,7 @@ const SignIn = (props: Props) => {
         validate={emailValidate}
         onValidate={handleErrorsChange}
       />
-      <StyledInput
+      <StyledFormInput
         type="password"
         label={t('password')}
         name="password"

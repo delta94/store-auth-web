@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'pages/shared';
 import { FormHeader } from 'components';
+
+import { Form } from '../styles/common';
 
 interface Props {
   className?: string;

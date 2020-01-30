@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Input, CheckBox, SocialButtons, DisplayNameInput } from 'components';
+import { FormInput, CheckBox, SocialButtons } from 'components';
 import { BLUE_TEXT, BACKGROUND_GREY2, TEXT_GREY } from 'styles/colors';
 import { Button, Row, TinyText } from 'styles/primitives';
 
@@ -25,11 +25,7 @@ export const StyledButton = styled(Button)`
   text-transform: uppercase;
 `;
 
-export const StyledInput = styled(Input)`
-  width: 400px;
-`;
-
-export const StyledDisplayNameInput = styled(DisplayNameInput)`
+export const StyledFormInput = styled(FormInput)`
   width: 400px;
 `;
 
@@ -41,7 +37,7 @@ export const StyledCheckbox = styled(CheckBox)`
   margin: 0 6px 0 2px;
 `;
 
-export const Remember = styled.label`
+export const Remember = styled.span`
   display: inline-flex;
   align-items: center;
   color: white;

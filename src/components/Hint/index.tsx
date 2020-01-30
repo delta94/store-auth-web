@@ -14,13 +14,11 @@ const Tooltip = (props: Props) => {
   const { className, title, disabled = false } = props;
 
   return (
-    <Wrapper className={className}>
+    <Wrapper className={className} disabled={disabled}>
       <StyledHintIcon />
-      {!disabled && (
-        <Title>
-          <TinyText>{title}</TinyText>
-        </Title>
-      )}
+      <Title>
+        <TinyText>{title}</TinyText>
+      </Title>
     </Wrapper>
   );
 };
@@ -61,13 +59,13 @@ const StyledHintIcon = styled(HintIcon)`
   height: 12px;
 `;
 
-const Wrapper = styled.span`
+const Wrapper = styled.span<{ disabled: boolean }>`
   position: relative;
   display: inline-flex;
 
   ${StyledHintIcon} {
     path {
-      fill: ${BLUE_HINT}
+      fill: ${({ disabled }) => disabled ? TEXT_GREY : BLUE_HINT}
     }
   }
 
