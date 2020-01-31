@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TinyText } from 'styles/primitives';
-import { BACKGROUND_GREY3, BLUE_HINT, TEXT_GREY } from 'styles/colors';
+import { GRAY_700, BLUE_400, GRAY_TEXT } from 'styles/colors';
 import { HintIcon } from 'assets/icons';
 
 interface Props {
@@ -30,7 +30,7 @@ export default React.memo(Tooltip, areEqual);
 const Title = styled.div`
   visibility: hidden;
   width: 232px;
-  background-color: ${BACKGROUND_GREY3};
+  background-color: ${GRAY_700};
   color: white;
   text-align: center;
   border-radius: 2px;
@@ -50,7 +50,7 @@ const Title = styled.div`
     margin-left: -9px;
     border-width: 9px;
     border-style: solid;
-    border-color: ${BACKGROUND_GREY3} transparent transparent transparent;
+    border-color: ${GRAY_700} transparent transparent transparent;
   }
 `;
 
@@ -65,7 +65,7 @@ const Wrapper = styled.span<{ disabled: boolean }>`
 
   ${StyledHintIcon} {
     path {
-      fill: ${({ disabled }) => disabled ? TEXT_GREY : BLUE_HINT}
+      fill: ${({ disabled }) => disabled ? GRAY_TEXT : BLUE_400}
     }
   }
 
@@ -75,7 +75,7 @@ const Wrapper = styled.span<{ disabled: boolean }>`
 
   &:hover ${StyledHintIcon}{
     path {
-      fill: ${TEXT_GREY}
+      fill: ${GRAY_TEXT}
     }
   }
 `;
