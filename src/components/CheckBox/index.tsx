@@ -50,6 +50,7 @@ const Wrapper = styled.div<{ checked: boolean; error: boolean }>`
   border: 1px solid transparent;
   border-color: ${({ checked, error }) => getBorderColor(checked, error)};
   transition: all 150ms;
+  cursor: pointer;
 
   ${StyledSuccessIcon} {
     display: ${({ checked }) => checked ? 'block' : 'none'};
