@@ -10,10 +10,12 @@ const CAPTCHA_KEY = process.env.REACT_APP_CAPTCHA_KEY || '';
 
 interface Props {
   className?: string;
+  onFail: () => void;
+  onSuccess: () => void;
 }
 
 const Captcha = (props: Props) => {
-  const { className } = props;
+  const { className, onSuccess, onFail } = props;
   const { t } = useTranslation();
   const { token, loading, error } = useCaptcha(CAPTCHA_KEY);
 
@@ -21,6 +23,8 @@ const Captcha = (props: Props) => {
     event.preventDefault();
     // send token to backend
     console.log(token);
+    // if backend say OK - call onSuccess, else onFail
+    return Math.random() > 0.5 ? onSuccess() : onFail(); 
   };
 
   return (
