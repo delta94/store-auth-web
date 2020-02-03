@@ -68,3 +68,9 @@ export const WideRow = styled(Row)`
   justify-content: space-between;
   width: 100%;
 `;
+
+export const Description = styled(GreyText)`
+  margin-top: 8px;
+  padding: 0 16px;
+  text-align: center;
+`;
