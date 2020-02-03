@@ -1,4 +1,4 @@
-export const BACKGROUND_GREY = '#5C5F66';
+export const BACKGROUND_GREY = '#454952';
 export const BACKGROUND_GREY2 = '#333740';
 export const BACKGROUND_GREY3 = '#5E636B';
 export const TEXT_GREY = '#919294';

@@ -20,6 +20,9 @@ export default {
     'terms-of-use': 'Terms of Use',
     'privacy-policy': 'Privacy policy',
     'password-tooltip': `Password must have ${MIN_PASSWORD_LENGTH}+ characters, at least 1 number, at least 1 letter and no whitespace.`,
+    'captcha': 'Captcha',
+    'captcha-description': 'This question is for testing whether or not you are a human visitor prevent automated spam submissions',
+    'verify': 'verify',
     'errors': {
       'email-incorrect': 'Incorrect email',
       'password-incorrect': 'Incorrect password',

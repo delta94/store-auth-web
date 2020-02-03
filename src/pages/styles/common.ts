@@ -10,6 +10,7 @@ export const Form = styled.form`
   align-items: center;
   justify-content: space-between;
   width: 480px;
+  min-height: 206px;
   padding: 24px 40px;
   background-color: ${BACKGROUND_GREY2};
   border-radius: 8px;
