@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FormInput, CheckBox, SocialButtons } from 'components';
-import { BLUE_TEXT, BACKGROUND_GREY2, TEXT_GREY } from 'styles/colors';
+import { BLUE_700, GRAY_900, GRAY_TEXT } from 'styles/colors';
 import { Button, Row, TinyText } from 'styles/primitives';
 
 export const Form = styled.form`
@@ -12,7 +12,7 @@ export const Form = styled.form`
   width: 480px;
   min-height: 206px;
   padding: 24px 40px;
-  background-color: ${BACKGROUND_GREY2};
+  background-color: ${GRAY_900};
   border-radius: 8px;
 `;
 
@@ -31,7 +31,7 @@ export const StyledFormInput = styled(FormInput)`
 `;
 
 export const GreyText = styled(TinyText)`
-  color: ${TEXT_GREY};
+  color: ${GRAY_TEXT};
 `;
 
 export const StyledCheckbox = styled(CheckBox)`
@@ -51,13 +51,13 @@ export const TermsAgree = styled(TinyText)`
 `;
 
 export const BlueLink = styled(Link)`
-  color: ${BLUE_TEXT};
+  color: ${BLUE_700};
   text-decoration: none;
 `;
 
 export const StyledLink = styled(Link)`
   margin-right: 16px;
-  color: ${TEXT_GREY};
+  color: ${GRAY_TEXT};
 `;
 
 export const Privacy = styled(Row)`

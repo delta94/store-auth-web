@@ -2,7 +2,7 @@ import React, { useState, DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { ErrorText, TinyText, Column } from 'styles/primitives';
 import { Hint } from 'components';
-import { TEXT_GREY, TEXT_ORANGE, BACKGROUND_GREY, SUCCESS_FIELD } from 'styles/colors';
+import { GRAY_TEXT, ORANGE_500, GRAY_800, SUCCESS_FIELD } from 'styles/colors';
 import { SuccessIcon, EyeLineThroughIcon, EyeIcon } from 'assets/icons';
 
 type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
@@ -100,7 +100,7 @@ const StyledEyeLineThroughIcon = styled(EyeLineThroughIcon)`
   cursor: pointer;
 
   path {
-    fill: ${TEXT_GREY};
+    fill: ${GRAY_TEXT};
   }
 `;
 
@@ -108,7 +108,7 @@ const StyledEyeIcon = styled(EyeIcon)`
   cursor: pointer;
 
   path {
-    fill: ${TEXT_GREY};
+    fill: ${GRAY_TEXT};
   }
 `;
 
@@ -118,7 +118,7 @@ const Wrapper = styled(Column)`
   input {
     min-width: 100%;
     padding: 10px 44px 10px 12px;
-    background-color: ${BACKGROUND_GREY};
+    background-color: ${GRAY_800};
     color: white;
     font-size: 15px;
     line-height: 22px;
@@ -126,7 +126,7 @@ const Wrapper = styled(Column)`
 
     /* Hack for styling autocompleted input in chrome  */
     &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
-      -webkit-box-shadow: inset 0 0 0 1000px ${BACKGROUND_GREY};
+      -webkit-box-shadow: inset 0 0 0 1000px ${GRAY_800};
       -webkit-text-fill-color: white;
       -webkit-transition-delay: 99999s;
     }
@@ -138,7 +138,7 @@ const Label = styled(TinyText)`
   align-items: center;
   padding: 0 12px;
   margin-bottom: 2px;
-  color: ${TEXT_GREY};
+  color: ${GRAY_TEXT};
 
   & >:first-child {
     margin-right: 2px;
@@ -149,7 +149,7 @@ const FieldWrapper = styled.div<{ error: boolean }>`
   position: relative;
   overflow: hidden;
   border-bottom: 2px solid transparent;
-  border-bottom-color: ${({ error }) => error ? TEXT_ORANGE : BACKGROUND_GREY};
+  border-bottom-color: ${({ error }) => error ? ORANGE_500 : GRAY_800};
   border-radius: 2px;
 `;
 
