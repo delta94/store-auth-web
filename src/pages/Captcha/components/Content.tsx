@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { ErrorText } from 'styles/primitives';
 import { Loader } from 'components';
-import { useTranslation } from 'react-i18next';
-
 import { GreyText, StyledButton } from 'pages/styles/common';
+
 interface Props {
   className?: string;
   loading: boolean;
