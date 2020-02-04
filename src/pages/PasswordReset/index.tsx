@@ -1,13 +1,13 @@
 import React, { useState, FormEvent } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { FormHeader } from 'components';
 import Captcha from 'pages/Captcha';
 import { emailValidate } from 'helpers';
 import { EmailSentIcon } from 'assets/icons';
 
 import { Form, StyledFormInput, StyledButton, GreyText, BlueLink, Description } from '../styles/common';
-import { Link, RouteComponentProps } from 'react-router-dom';
 
 type Step = 'enter' | 'captcha' | 'success';
 
@@ -49,8 +49,8 @@ const PasswordReset = (props: Props) => {
   };
 
   const handleCaptchaFail = () => {
-    setStep('enter');
-    alert('Captcha Fail');
+    // show captcha error?
+    alert('Captcha check Fail!');
   };
 
   const handleCaptchaSuccess = () => {
@@ -65,7 +65,32 @@ const PasswordReset = (props: Props) => {
   };
 
   switch (step) {
+    case 'captcha':
+      return (
+        <Captcha 
+          onFail={handleCaptchaFail}
+          onSuccess={handleCaptchaSuccess}
+        />
+      );
+
+    case 'success':
+      return (
+        <Form className={className} onSubmit={goToSignIn}>
+          <StyledEmailSentIcon />
+          <Title>{t('email-sent-title')}</Title>
+          <Description>{t('email-sent-text-start')}
+            {' '}
+            <WhiteLink to="/sign-in">{t('contact-us')}</WhiteLink>
+            {' '}
+            {t('email-sent-text-end')}.</Description>
+          <StyledButton type="submit">
+            {t('ok')}
+          </StyledButton>
+        </Form>
+      );
+
     case 'enter':
+    default:
       return (
         <Form className={className} onSubmit={handlePasswordReset}>
           <FormHeader title={t('password-reset')} />
@@ -88,33 +113,10 @@ const PasswordReset = (props: Props) => {
           </GreyText>
         </Form>
       );
-
-    case 'captcha':
-      return (
-        <Captcha 
-          onFail={handleCaptchaFail}
-          onSuccess={handleCaptchaSuccess}
-        />
-      );
   }
-
-  return (
-    <Form className={className} onSubmit={goToSignIn}>
-      <StyledEmailSentIcon />
-      <Title>{t('email-sent-title')}</Title>
-      <Description>{t('email-sent-text-start')}{' '}
-      <WhiteLink to="/sign-in">{t('contact-us')}</WhiteLink>
-      {' '}{t('email-sent-text-end')}.</Description>
-      <StyledButton type="submit">
-        {t('ok')}
-      </StyledButton>
-    </Form>
-  );
 };
 
-const areEqual = (prev: Props, next: Props) => prev === next;
-
-export default React.memo(PasswordReset, areEqual);
+export default React.memo(PasswordReset);
 
 const StyledResetButton = styled(StyledButton)`
   margin-top: 16px;
