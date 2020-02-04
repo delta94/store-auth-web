@@ -13,7 +13,7 @@ import { Loader } from 'components';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
-const Restore = React.lazy(() => import('pages/Restore'));
+const PasswordReset = React.lazy(() => import('pages/PasswordReset'));
 const Captcha = React.lazy(() => import('pages/Captcha'));
 
 const history = createBrowserHistory();
@@ -26,7 +26,7 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/sign-in" component={SignIn} />
             <Route path="/sign-up" component={SignUp} />
-            <Route path="/reset-password" component={Restore} />
+            <Route path="/password-reset" component={PasswordReset} />
             <Route path="/captcha" component={Captcha} />
             <Redirect to="/sign-in" />
           </Switch>

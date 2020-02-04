@@ -93,7 +93,7 @@ const SignIn = (props: Props) => {
           <TinyText>{t('remember')}</TinyText>
         </Remember>
         <TinyText>
-          <BlueLink to="/reset-password">
+          <BlueLink to="/password-reset">
             {t('forgot-password')}?
           </BlueLink>
         </TinyText>
