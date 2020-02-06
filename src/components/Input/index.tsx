@@ -2,7 +2,7 @@ import React, { useState, DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { ErrorText, TinyText, Column } from 'styles/primitives';
 import { Hint } from 'components';
-import { GRAY_TEXT, ORANGE_500, GRAY_800, SUCCESS_FIELD } from 'styles/colors';
+import { GRAY_TEXT, ORANGE_500, GRAY_800, SUCCESS_FIELD, BLUE_500 } from 'styles/colors';
 import { SuccessIcon, EyeLineThroughIcon, EyeIcon } from 'assets/icons';
 
 type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
@@ -114,23 +114,6 @@ const StyledEyeIcon = styled(EyeIcon)`
 
 const Wrapper = styled(Column)`
   justify-content: space-between;
-
-  input {
-    min-width: 100%;
-    padding: 10px 44px 10px 12px;
-    background-color: ${GRAY_800};
-    color: white;
-    font-size: 15px;
-    line-height: 22px;
-    border: 0;
-
-    /* Hack for styling autocompleted input in chrome  */
-    &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
-      -webkit-box-shadow: inset 0 0 0 1000px ${GRAY_800};
-      -webkit-text-fill-color: white;
-      -webkit-transition-delay: 99999s;
-    }
-  }
 `;
 
 const Label = styled(TinyText)`
@@ -148,9 +131,31 @@ const Label = styled(TinyText)`
 const FieldWrapper = styled.div<{ error: boolean }>`
   position: relative;
   overflow: hidden;
-  border-bottom: 2px solid transparent;
-  border-bottom-color: ${({ error }) => error ? ORANGE_500 : GRAY_800};
-  border-radius: 2px;
+
+  input {
+    min-width: 100%;
+    padding: 10px 44px 10px 12px;
+    background-color: ${GRAY_800};
+    color: white;
+    font-size: 15px;
+    line-height: 22px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-bottom-color: ${({ error }) => error ? ORANGE_500 : GRAY_800};
+    border-radius: 2px;
+    outline: none;
+
+    &:focus {
+      border-bottom-color: ${({ error }) => error ? ORANGE_500 : BLUE_500};
+    }
+
+    /* Hack for styling autocompleted input in chrome  */
+    &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
+      -webkit-box-shadow: inset 0 0 0 1000px ${GRAY_800};
+      -webkit-text-fill-color: white;
+      -webkit-transition-delay: 99999s;
+    }
+  }
 `;
 
 const Error = styled.span<{ show: boolean }>`
