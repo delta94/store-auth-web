@@ -4,7 +4,7 @@ import { FormInput, CheckBox, SocialButtons } from 'components';
 import { BLUE_700, GRAY_900, GRAY_TEXT } from 'styles/colors';
 import { Button, Row, TinyText } from 'styles/primitives';
 
-export const Form = styled.form`
+export const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,6 +14,14 @@ export const Form = styled.form`
   padding: 24px 40px;
   background-color: ${GRAY_900};
   border-radius: 8px;
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 export const StyledSocialButtons = styled(SocialButtons)`
@@ -58,10 +66,6 @@ export const BlueLink = styled(Link)`
 export const StyledLink = styled(Link)`
   margin-right: 16px;
   color: ${GRAY_TEXT};
-`;
-
-export const Privacy = styled(Row)`
-  margin-top: 16px;
 `;
 
 export const WideRow = styled(Row)`

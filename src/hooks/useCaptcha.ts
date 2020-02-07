@@ -34,6 +34,7 @@ export default (captchaKey: string) => {
 
   useEffect(() => {
     initCaptcha();
+    // eslint-disable-next-line 
   }, []);
 
   return { token, loading, error };
