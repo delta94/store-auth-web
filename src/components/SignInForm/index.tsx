@@ -11,54 +11,32 @@ import {
   StyledCheckbox,
   StyledFormInput,
 } from 'styles/common';
+import { EMAIL, PASSWORD } from 'const';
+import useForm from 'hooks/useForm';
 
 interface Props {
   className?: string;
 }
+
+const signInFields = [EMAIL, PASSWORD];
 
 const SignInForm = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
   // const [loading, setLoading] = useState(false);
   const [remember, setRemember] = useState(false);
-
-  const [errors, setErrors] = useState({
-    email: {
-      value: '',
-      touched: false,
-    },
-    password: {
-      value: '',
-      touched: false,
-    },
-  });
+  const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(signInFields);
 
   const handleRememberChange = () => {
     setRemember(!remember);
   };
 
-  const handleErrorsChange = (field: string, value: string) => {
-    setErrors({
-      ...errors,
-      [field]: {
-        value,
-        touched: true,
-      },
-    });
-  };
-
-  const isFormValid = Object.values(errors).every(({ value, touched }) => !value && touched);
-
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    const form: any = event.target;
-    const email = form.email.value;
-    const password = form.password.value;
+    const formData = { remember, ...getFormSubmitData(event) };
 
-    console.log({
-      email, password, remember,
-    });
+    console.log(formData);
   };
 
   return (

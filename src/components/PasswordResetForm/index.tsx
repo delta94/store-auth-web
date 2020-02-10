@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { FormEvent } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { emailValidate } from 'helpers';
@@ -9,6 +9,8 @@ import {
   GreyText,
   BlueLink,
 } from 'styles/common';
+import { EMAIL } from 'const';
+import useForm from 'hooks/useForm';
 
 type Step = 'enter' | 'captcha' | 'success';
 
@@ -17,35 +19,20 @@ interface Props {
   onSubmit?: () => void;
 }
 
+const resetFields = [EMAIL];
+
 const PasswordResetForm = (props: Props) => {
   const { onSubmit, className } = props;
   const { t } = useTranslation();
-  const [errors, setErrors] = useState({
-    email: {
-      value: '',
-      touched: false,
-    },
-  });
-
-  const handleErrorsChange = (field: string, value: string) => {
-    setErrors({
-      ...errors,
-      [field]: {
-        value,
-        touched: true,
-      },
-    });
-  };
-
-  const isFormValid = Object.values(errors).every(({ value, touched }) => !value && touched);
+  const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(resetFields);
 
   const handlePasswordReset = (event: FormEvent) => {
     event.preventDefault();
 
-    const form: any = event.target;
-    const email = form.email.value;
+    const formData = getFormSubmitData(event);
 
-    console.log({ email });
+    console.log(formData);
+
     if (onSubmit) onSubmit();
   };
 
