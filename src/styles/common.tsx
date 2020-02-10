@@ -30,52 +30,52 @@ export const StyledSocialButtons = styled((props: any) => <SocialButtons {...pro
 `;
 
 export const StyledButton = styled(Button)`
-margin: 24px 0 16px 0;
-padding: 14px 24px;
-text - transform: uppercase;
+  margin: 24px 0 16px 0;
+  padding: 14px 24px;
+  text-transform: uppercase;
 `;
 
 export const StyledFormInput = styled((props: any) => <FormInput {...props} />)`
-width: 400px;
+  width: 400px;
 `;
 
 export const GreyText = styled(TinyText)`
-color: ${ GRAY_TEXT};
+  color: ${GRAY_TEXT};
 `;
 
 export const StyledCheckbox = styled((props: any) => <CheckBox {...props} />)`
-margin: 0 6px 0 2px;
+  margin: 0 6px 0 2px;
 `;
 
 export const Remember = styled.span`
-display: inline - flex;
-align - items: center;
-color: white;
+  display: inline-flex;
+  align-items: center;
+  color: white;
 `;
 
 export const TermsAgree = styled(TinyText)`
-display: inline - flex;
-width: 100 %;
-color: white;
+  display: inline-flex;
+  width: 100%;
+  color: white;
 `;
 
 export const BlueLink = styled(Link)`
-color: ${ BLUE_700};
-text - decoration: none;
+  color: ${BLUE_700};
+  text-decoration: none;
 `;
 
 export const StyledLink = styled(Link)`
-margin - right: 16px;
-color: ${ GRAY_TEXT};
+  margin-right: 16px;
+  color: ${GRAY_TEXT};
 `;
 
 export const WideRow = styled(Row)`
-justify - content: space - between;
-width: 100 %;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 export const Description = styled(GreyText)`
-margin - top: 8px;
-padding: 0 16px;
-text - align: center;
+  margin-top: 8px;
+  padding: 0 16px;
+  text-align: center;
 `;
