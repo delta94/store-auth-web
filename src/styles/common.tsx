@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FormInput, CheckBox, SocialButtons } from 'components';
@@ -24,7 +25,7 @@ export const Form = styled.form`
   width: 100%;
 `;
 
-export const StyledSocialButtons = styled(SocialButtons)`
+export const StyledSocialButtons = styled((props: any) => <SocialButtons {...props} />)`
   margin: 16px 0;
 `;
 
@@ -34,7 +35,7 @@ export const StyledButton = styled(Button)`
   text-transform: uppercase;
 `;
 
-export const StyledFormInput = styled(FormInput)`
+export const StyledFormInput = styled((props: any) => <FormInput {...props} />)`
   width: 400px;
 `;
 
@@ -42,7 +43,7 @@ export const GreyText = styled(TinyText)`
   color: ${GRAY_TEXT};
 `;
 
-export const StyledCheckbox = styled(CheckBox)`
+export const StyledCheckbox = styled((props: any) => <CheckBox {...props} />)`
   margin: 0 6px 0 2px;
 `;
 
