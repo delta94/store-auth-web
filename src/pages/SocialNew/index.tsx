@@ -9,14 +9,15 @@ import {
   GreyText,
   BlueLink,
 } from 'styles/common';
+import { useParams } from 'react-router-dom';
 
 interface Props {
   className?: string;
-  name?: string;
 }
 
 const SocialNew = (props: Props) => {
-  const { className, name = 'Facebook' } = props;
+  const { className } = props;
+  const { name } = useParams();
   const { t } = useTranslation();
   
   return (

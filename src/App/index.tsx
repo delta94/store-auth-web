@@ -26,9 +26,7 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/sign-in" component={SignIn} />
             <Route path="/sign-up" component={SignUp} />
-            <Route path="/social-new">
-              <SocialNew name="Facebook" />
-            </Route>
+            <Route path="/social-new/:name" component={SocialNew} />
             <Route path="/password-reset" component={PasswordReset} />
             <Redirect to="/sign-in" />
           </Switch>
