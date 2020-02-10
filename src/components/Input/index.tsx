@@ -21,12 +21,27 @@ const Input = (props: Props) => {
     label,
     tooltip,
     error,
+    onBlur,
+    onFocus,
     type: initType,
     isSuccessed = false,
     ...rest
   } = props;
 
   const [type, setType] = useState(initType);
+  const [active, setActive] = useState(false);
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    setActive(false);
+
+    if (onBlur) onBlur(event);
+  };
+
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    setActive(true);
+
+    if (onFocus) onFocus(event);
+  };
 
   const toggleType = () => {
     const newType = type === 'password' ? 'text' : 'password';
@@ -46,10 +61,12 @@ const Input = (props: Props) => {
           />
         )}
       </Label>
-      <FieldWrapper error={!!error}>
+      <FieldWrapper error={!!error} active={active}>
         <input
           {...rest}
           type={type}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         <IconWrapper onClick={toggleType}>
           {initType === 'password' && (
@@ -71,6 +88,12 @@ const Input = (props: Props) => {
 };
 
 export default React.memo(Input);
+
+const getBorderColor = (error: boolean, active: boolean) => {
+  if (error) return ORANGE_500;
+
+  return active ? BLUE_500 : GRAY_800;
+};
 
 const IconWrapper = styled.div`
   position: absolute;
@@ -128,9 +151,13 @@ const Label = styled(TinyText)`
   }
 `;
 
-const FieldWrapper = styled.div<{ error: boolean }>`
+const FieldWrapper = styled.div<{ error: boolean; active: boolean }>`
   position: relative;
   overflow: hidden;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-bottom-color: ${({ error, active }) => getBorderColor(error, active)};
+  border-radius: 2px;
 
   input {
     min-width: 100%;
@@ -139,15 +166,8 @@ const FieldWrapper = styled.div<{ error: boolean }>`
     color: white;
     font-size: 15px;
     line-height: 22px;
-    border: 0;
-    border-bottom: 2px solid transparent;
-    border-bottom-color: ${({ error }) => error ? ORANGE_500 : GRAY_800};
-    border-radius: 2px;
     outline: none;
-
-    &:focus {
-      border-bottom-color: ${({ error }) => error ? ORANGE_500 : BLUE_500};
-    }
+    border: 0;
 
     /* Hack for styling autocompleted input in chrome  */
     &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {

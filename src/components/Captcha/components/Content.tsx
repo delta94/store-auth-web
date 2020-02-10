@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { ErrorText } from 'styles/primitives';
 import { Loader } from 'components';
-import { StyledButton, Description } from 'pages/styles/common';
+import { ErrorText } from 'styles/primitives';
+import { StyledButton, Description } from 'styles/common';
 
 interface Props {
   className?: string;
