@@ -36,9 +36,9 @@ const SocialNew = (props: Props) => {
       </StyledTabs>
       <GreyText>
         {`${t('dont-link')}? `}
-        <BlueLink to="/sign-up">
-          {t('sign-up')}
-        </BlueLink>!
+        <BlueLink to="/sign-in">
+          {t('sign-in')}
+        </BlueLink>
       </GreyText>
       <Privacy />
     </FormWrapper>

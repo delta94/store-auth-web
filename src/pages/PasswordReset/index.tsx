@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { FormHeader, Captcha, PasswordResetForm, PasswordResetSuccess } from 'components';
-import { FormWrapper } from 'styles/common';
+import { FormWrapper, Description } from 'styles/common';
 
 type Step = 'enter' | 'captcha' | 'success';
 
@@ -48,6 +49,9 @@ const PasswordReset = (props: Props) => {
         return (
           <>
             <FormHeader title={t('password-reset')} />
+            <StyledDescription>
+              {t('password-reset-description')}
+            </StyledDescription>
             <PasswordResetForm onSubmit={showCaptcha} />
           </>
         );
@@ -62,3 +66,7 @@ const PasswordReset = (props: Props) => {
 };
 
 export default React.memo(PasswordReset);
+
+const StyledDescription = styled(Description)`
+  margin-bottom: 16px;
+`;

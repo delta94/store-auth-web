@@ -7,6 +7,7 @@ import {
   FormWrapper,
   BlueLink,
 } from 'styles/common';
+import { PLATFORM } from 'const';
 
 interface Props {
   className?: string;
@@ -22,7 +23,7 @@ const SignIn = (props: Props) => {
       <StyledSocialButtons />
       <SignInForm />
       <GreyText>
-        {`${t('dont-have-account')}? `}
+        {`${t('dont-have-account', { platform: PLATFORM })}? `}
         <BlueLink to="/sign-up">
           {t('sign-up')}
         </BlueLink>!
