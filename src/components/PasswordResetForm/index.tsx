@@ -60,7 +60,7 @@ const PasswordResetForm = (props: Props) => {
         onValidate={handleErrorsChange}
       />
       <StyledResetButton disabled={!isFormValid} type="submit">
-        {t('sign-in')}
+        {t('send-email')}
       </StyledResetButton>
       <GreyText>
         {`${t('remember-password')}? `}

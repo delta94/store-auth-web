@@ -104,7 +104,7 @@ const SignUpForm = (props: Props) => {
         </StyledLink>
       </TermsAgree>
       <StyledButton disabled={!isFormValid} type="submit">
-        {t('sign-up')}
+        {t('sign-up-button')}
       </StyledButton>
     </Form>
   );

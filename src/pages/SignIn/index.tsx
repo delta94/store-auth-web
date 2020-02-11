@@ -23,7 +23,7 @@ const SignIn = (props: Props) => {
       <SignInForm />
       <GreyText>
         {`${t('dont-have-account')}? `}
-        <BlueLink to="sign-up">
+        <BlueLink to="/sign-up">
           {t('sign-up')}
         </BlueLink>!
       </GreyText>

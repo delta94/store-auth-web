@@ -14,7 +14,7 @@ import { Loader } from 'components';
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
 const PasswordReset = React.lazy(() => import('pages/PasswordReset'));
-const SocialNew = React.lazy(() => import('pages/SocialNew'));
+const SignInSocialNew = React.lazy(() => import('pages/SignInSocialNew'));
 
 const history = createBrowserHistory();
 
@@ -26,7 +26,7 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/sign-in" component={SignIn} />
             <Route path="/sign-up" component={SignUp} />
-            <Route path="/social-new/:name" component={SocialNew} />
+            <Route path="/social-new/:name" component={SignInSocialNew} />
             <Route path="/password-reset" component={PasswordReset} />
             <Redirect to="/sign-in" />
           </Switch>
