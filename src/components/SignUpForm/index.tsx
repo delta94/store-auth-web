@@ -9,60 +9,35 @@ import {
   StyledFormInput,
   StyledLink,
 } from 'styles/common';
+import { EMAIL, DISPLAY_NAME, PASSWORD } from 'const';
+import useForm from 'hooks/useForm';
 
 interface Props {
   className?: string;
 }
 
 const minPasswordLength = process.env.REACT_APP_MIN_PASSWORD_LENGTH;
+const signUpFields = [EMAIL, DISPLAY_NAME, PASSWORD];
 
 const SignUpForm = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
   // const [loading, setLoading] = useState(false);
   const [agree, setAgree] = useState(false);
-  const [errors, setErrors] = useState({
-    email: {
-      value: '',
-      touched: false,
-    },
-    displayName: {
-      value: '',
-      touched: false,
-    },
-    password: {
-      value: '',
-      touched: false,
-    },
-  });
+  const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(signUpFields);
 
   const handleAgreeChange = () => {
     setAgree(!agree);
   };
 
-  const handleErrorsChange = (field: string, value: string) => {
-    setErrors({
-      ...errors,
-      [field]: {
-        value,
-        touched: true,
-      },
-    });
-  };
-
-  const isFormValid = Object.values(errors).every(({ value, touched }) => !value && touched) && agree;
+  const isSignUpFormValid = isFormValid && agree;
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    const form: any = event.target;
-    const displayName = form.displayName.value;
-    const email = form.email.value;
-    const password = form.password.value;
-
-    console.log({
-      displayName, email, password, agree,
-    });
+    const formData = { agree, ...getFormSubmitData(event) };
+    
+    console.log(formData);
   };
 
   return (
@@ -70,30 +45,30 @@ const SignUpForm = (props: Props) => {
       <StyledFormInput
         type="text"
         label={t('display-name')}
-        name="displayName"
-        error={errors.displayName.value}
+        name={DISPLAY_NAME}
+        error={errors[DISPLAY_NAME].value}
         validate={nameValidate}
         onValidate={handleErrorsChange}
         validationType="debounce"
-        isSuccessed={!errors.displayName.value && errors.displayName.touched}
+        isSuccessed={!errors[DISPLAY_NAME].value && errors[DISPLAY_NAME].touched}
       />
       <StyledFormInput
         type="text"
         label={t('email')}
-        name="email"
-        error={errors.email.value}
+        name={EMAIL}
+        error={errors[EMAIL].value}
         validate={emailValidate}
         onValidate={handleErrorsChange}
-        isSuccessed={!errors.email.value && errors.email.touched}
+        isSuccessed={!errors[EMAIL].value && errors[EMAIL].touched}
       />
       <StyledFormInput
         type="password"
         label={t('password')}
-        name="password"
-        error={errors.password.value}
+        name={PASSWORD}
+        error={errors[PASSWORD].value}
         validate={passwordValidate}
         onValidate={handleErrorsChange}
-        isSuccessed={!errors.password.value && errors.password.touched}
+        isSuccessed={!errors[PASSWORD].value && errors[PASSWORD].touched}
         tooltip={t('password-tooltip', { minPasswordLength })}
       />
       <TermsAgree>
@@ -103,7 +78,7 @@ const SignUpForm = (props: Props) => {
           {t('terms-of-use')}
         </StyledLink>
       </TermsAgree>
-      <StyledButton disabled={!isFormValid} type="submit">
+      <StyledButton disabled={!isSignUpFormValid} type="submit">
         {t('sign-up-button')}
       </StyledButton>
     </Form>
