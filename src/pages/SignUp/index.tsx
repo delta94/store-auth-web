@@ -23,7 +23,7 @@ const SignUp = (props: Props) => {
       <StyledSocialButtons />
       <SignUpForm />
       <GreyText>
-        {`${t('already-have-account', { platform: PLATFORM })}? `}
+        {`${t('already-have-account', { platform: PLATFORM })} `}
         <BlueLink to="sign-in">
           {t('sign-in')}
         </BlueLink>
