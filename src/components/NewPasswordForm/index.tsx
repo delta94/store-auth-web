@@ -1,25 +1,24 @@
 import React, { FormEvent } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { passwordValidate } from 'helpers';
 import { RememberPassword } from 'components';
-import { emailValidate } from 'helpers';
 import { 
   Form,
   StyledFormInput,
   StyledButton,
 } from 'styles/common';
-import { EMAIL } from 'const';
+import { PASSWORD } from 'const';
 import useForm from 'hooks/useForm';
 
 interface Props {
   className?: string;
-  onSubmit?: () => void;
 }
 
-const resetFields = [EMAIL];
+const resetFields = [PASSWORD];
 
-const PasswordResetForm = (props: Props) => {
-  const { onSubmit, className } = props;
+const NewPasswordForm = (props: Props) => {
+  const { className } = props;
   const { t } = useTranslation();
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(resetFields);
 
@@ -29,29 +28,27 @@ const PasswordResetForm = (props: Props) => {
     const formData = getFormSubmitData(event);
 
     console.log(formData);
-
-    if (onSubmit) onSubmit();
   };
 
   return (
     <Form className={className} onSubmit={handlePasswordReset}>
       <StyledFormInput
-        type="text"
-        label={t('email')}
-        name="email"
-        error={errors.email.value}
-        validate={emailValidate}
+        type="password"
+        label={t('new-password')}
+        name={PASSWORD}
+        error={errors[PASSWORD].value}
+        validate={passwordValidate}
         onValidate={handleErrorsChange}
       />
       <StyledResetButton disabled={!isFormValid} type="submit">
-        {t('send-email')}
+        {t('set-password')}
       </StyledResetButton>
       <RememberPassword />
     </Form>
   );
 };
 
-export default React.memo(PasswordResetForm);
+export default React.memo(NewPasswordForm);
 
 const StyledResetButton = styled(StyledButton)`
   margin-top: 16px;
