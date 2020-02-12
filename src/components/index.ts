@@ -13,3 +13,5 @@ export { default as Tab } from './Tab';
 export { default as PasswordResetForm } from './PasswordResetForm';
 export { default as PasswordResetSuccess } from './PasswordResetSuccess';
 export { default as Captcha } from './Captcha';
+export { default as RememberPassword } from './RememberPassword';
+export { default as NewPasswordForm } from './NewPasswordForm';
