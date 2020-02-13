@@ -42,7 +42,7 @@ export default {
     'errors': {
       'email-incorrect': 'Incorrect email',
       'password-incorrect': 'Incorrect password',
-      'displayName-incorrect': 'Already taken',
+      'username-incorrect': 'Already taken',
       'empty-field': 'Empty field',
       'not-exist': 'Account doesn\'t exist',
     },

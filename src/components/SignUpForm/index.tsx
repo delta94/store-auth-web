@@ -9,7 +9,7 @@ import {
   StyledFormInput,
   StyledLink,
 } from 'styles/common';
-import { EMAIL, DISPLAY_NAME, PASSWORD } from 'const';
+import { EMAIL, USERNAME, PASSWORD } from 'const';
 import useForm from 'hooks/useForm';
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const minPasswordLength = process.env.REACT_APP_MIN_PASSWORD_LENGTH;
-const signUpFields = [EMAIL, DISPLAY_NAME, PASSWORD];
+const signUpFields = [EMAIL, USERNAME, PASSWORD];
 
 const SignUpForm = (props: Props) => {
   const { className } = props;
@@ -45,12 +45,12 @@ const SignUpForm = (props: Props) => {
       <StyledFormInput
         type="text"
         label={t('display-name')}
-        name={DISPLAY_NAME}
-        error={errors[DISPLAY_NAME].value}
+        name={USERNAME}
+        error={errors[USERNAME].value}
         validate={nameValidate}
         onValidate={handleErrorsChange}
         validationType="debounce"
-        isSuccessed={!errors[DISPLAY_NAME].value && errors[DISPLAY_NAME].touched}
+        isSuccessed={!errors[USERNAME].value && errors[USERNAME].touched}
       />
       <StyledFormInput
         type="text"

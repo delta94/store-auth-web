@@ -42,7 +42,7 @@ export default {
     'errors': {
       'email-incorrect': 'Недопустимый адрес почты',
       'password-incorrect': 'Недопустимый пароль',
-      'displayName-incorrect': 'Уже занято',
+      'username-incorrect': 'Уже занято',
       'empty-field': 'Поле не может быть пустым',
       'not-exist': 'Учетная запись не существует',
     },
