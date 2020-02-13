@@ -27,6 +27,7 @@ export default {
     'verify': 'verify',
     'password-reset-description': 'Please enter the email that you used to register. You will be sent an email with instructions on how to reset your password',
     'new-password-description': 'Please enter the new password for your {{platform}} account associated with {{email}} that you used to register.',
+    'social-existing-description': 'Your email {{email}} is associated with an existing {{platform}} account. If this is your {{platform}} account,  sign in to connect it to your {{name}} account.',
     'email-sent-title': 'We sent you an email',
     'email-sent-text-start': 'The link to reset your password has been send to your email address. If you don’t receive it within a few minutes, please check that you used the e-mail address for you {{platform}} account and try again or',
     'email-sent-text-end': 'for help',
