@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { FormHeader, Tabs, Tab, SignInForm, SignUpForm, Privacy } from 'components';
+import { FormHeader, Tabs, Tab, SignInForm, SignUpForm, Privacy, DontWantLink } from 'components';
 import { PLATFORM } from 'const';
 import {
   FormWrapper,
   Description,
-  GreyText,
-  BlueLink,
 } from 'styles/common';
 import { useParams } from 'react-router-dom';
 
@@ -15,7 +13,7 @@ interface Props {
   className?: string;
 }
 
-const SocialNew = (props: Props) => {
+const SignInSocialNew = (props: Props) => {
   const { className } = props;
   const { name } = useParams();
   const { t } = useTranslation();
@@ -34,18 +32,13 @@ const SocialNew = (props: Props) => {
           <SignInForm />
         </StyledTab>
       </StyledTabs>
-      <GreyText>
-        {`${t('dont-link')}? `}
-        <BlueLink to="/sign-in">
-          {t('sign-in')}
-        </BlueLink>
-      </GreyText>
+      <DontWantLink />
       <Privacy />
     </FormWrapper>
   );
 };
 
-export default React.memo(SocialNew);
+export default React.memo(SignInSocialNew);
 
 const StyledTabs = styled(Tabs)`
   margin-top: 16px;

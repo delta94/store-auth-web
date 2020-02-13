@@ -23,6 +23,7 @@ const Input = (props: Props) => {
     error,
     onBlur,
     onFocus,
+    disabled,
     type: initType,
     isSuccessed = false,
     ...rest
@@ -61,12 +62,17 @@ const Input = (props: Props) => {
           />
         )}
       </Label>
-      <FieldWrapper error={!!error} active={active}>
+      <FieldWrapper 
+        error={!!error} 
+        active={active}
+        disabled={disabled}
+      >
         <input
           {...rest}
           type={type}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          disabled={disabled}
         />
         <IconWrapper onClick={toggleType}>
           {initType === 'password' && (
@@ -151,7 +157,7 @@ const Label = styled(TinyText)`
   }
 `;
 
-const FieldWrapper = styled.div<{ error: boolean; active: boolean }>`
+const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: boolean }>`
   position: relative;
   overflow: hidden;
   border: 0;
@@ -172,8 +178,12 @@ const FieldWrapper = styled.div<{ error: boolean; active: boolean }>`
     /* Hack for styling autocompleted input in chrome  */
     &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
       -webkit-box-shadow: inset 0 0 0 1000px ${GRAY_800};
-      -webkit-text-fill-color: white;
+      -webkit-text-fill-color: ${({ disabled }) => disabled ? GRAY_TEXT : 'white'};
       -webkit-transition-delay: 99999s;
+    }
+
+    &:disabled {
+      color: ${GRAY_TEXT};
     }
   }
 `;
