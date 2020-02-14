@@ -2,12 +2,8 @@ import React, { FormEvent } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { passwordValidate } from 'helpers';
-import { RememberPassword } from 'components';
-import { 
-  Form,
-  StyledFormInput,
-  StyledButton,
-} from 'styles/common';
+import { RememberPassword, SubmitButton } from 'components';
+import { Form, StyledFormInput } from 'styles/common';
 import { PASSWORD } from 'const';
 import useForm from 'hooks/useForm';
 
@@ -40,9 +36,9 @@ const NewPasswordForm = (props: Props) => {
         validate={passwordValidate}
         onValidate={handleErrorsChange}
       />
-      <StyledResetButton disabled={!isFormValid} type="submit">
+      <StyledSubmitButton disabled={!isFormValid}>
         {t('set-password')}
-      </StyledResetButton>
+      </StyledSubmitButton>
       <RememberPassword />
     </Form>
   );
@@ -50,6 +46,6 @@ const NewPasswordForm = (props: Props) => {
 
 export default React.memo(NewPasswordForm);
 
-const StyledResetButton = styled(StyledButton)`
+const StyledSubmitButton = styled((props: any) => <SubmitButton {...props} />)`
   margin-top: 16px;
 `;

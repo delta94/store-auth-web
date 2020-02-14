@@ -4,13 +4,15 @@ import { passwordValidate, emailValidate, nameValidate } from 'helpers';
 import {
   Form,
   TermsAgree,
-  StyledButton,
   StyledCheckbox,
   StyledFormInput,
   StyledLink,
 } from 'styles/common';
 import { EMAIL, USERNAME, PASSWORD } from 'const';
 import useForm from 'hooks/useForm';
+import { SIGN_UP } from 'api/constants';
+import { request } from 'api';
+import { SubmitButton } from 'components';
 
 interface Props {
   className?: string;
@@ -22,7 +24,7 @@ const signUpFields = [EMAIL, USERNAME, PASSWORD];
 const SignUpForm = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [agree, setAgree] = useState(false);
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(signUpFields);
 
@@ -32,12 +34,18 @@ const SignUpForm = (props: Props) => {
 
   const isSignUpFormValid = isFormValid && agree;
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     const formData = { agree, ...getFormSubmitData(event) };
     
-    console.log(formData);
+    setLoading(true);
+    const responce = await request(SIGN_UP, formData);
+
+    await new Promise(res => setTimeout(() => res(), 2000));
+
+    setLoading(false);
+    console.log(responce);
   };
 
   return (
@@ -78,9 +86,9 @@ const SignUpForm = (props: Props) => {
           {t('terms-of-use')}
         </StyledLink>
       </TermsAgree>
-      <StyledButton disabled={!isSignUpFormValid} type="submit">
+      <SubmitButton disabled={!isSignUpFormValid} loading={loading}>
         {t('sign-up-button')}
-      </StyledButton>
+      </SubmitButton>
     </Form>
   );
 };

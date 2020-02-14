@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { Input } from 'components';
+import { Input, SubmitButton } from 'components';
 import { passwordValidate } from 'helpers';
 import { TinyText } from 'styles/primitives';
 import {
@@ -9,7 +9,6 @@ import {
   WideRow,
   BlueLink,
   Remember,
-  StyledButton,
   StyledCheckbox,
   StyledFormInput,
 } from 'styles/common';
@@ -70,9 +69,9 @@ const SignInForm = (props: Props) => {
           </BlueLink>
         </TinyText>
       </WideRow>
-      <StyledButton disabled={!isFormValid} type="submit">
+      <SubmitButton disabled={!isFormValid}>
         {t('sign-in')}
-      </StyledButton>
+      </SubmitButton>
     </Form>
   );
 };

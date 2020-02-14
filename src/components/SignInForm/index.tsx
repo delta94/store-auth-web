@@ -7,12 +7,14 @@ import {
   WideRow,
   BlueLink,
   Remember,
-  StyledButton,
   StyledCheckbox,
   StyledFormInput,
 } from 'styles/common';
 import { EMAIL, PASSWORD } from 'const';
 import useForm from 'hooks/useForm';
+import { request } from 'api';
+import { SIGN_IN } from 'api/constants';
+import { SubmitButton } from 'components';
 
 interface Props {
   className?: string;
@@ -23,7 +25,7 @@ const signInFields = [EMAIL, PASSWORD];
 const SignInForm = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [remember, setRemember] = useState(false);
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(signInFields);
 
@@ -31,12 +33,18 @@ const SignInForm = (props: Props) => {
     setRemember(!remember);
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     const formData = { remember, ...getFormSubmitData(event) };
 
-    console.log(formData);
+    setLoading(true);
+    const responce = await request(SIGN_IN, formData);
+
+    await new Promise(res => setTimeout(() => res(), 2000));
+
+    setLoading(false);
+    console.log(responce);
   };
 
   return (
@@ -68,9 +76,9 @@ const SignInForm = (props: Props) => {
           </BlueLink>
         </TinyText>
       </WideRow>
-      <StyledButton disabled={!isFormValid} type="submit">
+      <SubmitButton disabled={!isFormValid} loading={loading}>
         {t('sign-in')}
-      </StyledButton>
+      </SubmitButton>
     </Form>
   );
 };

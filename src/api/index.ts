@@ -24,7 +24,7 @@ export const request = async (type: RequestType, props: RequestProps) => {
 
     return json;
   } catch (err) {
-    console.error(err);
+    // console.error(err);
 
     return ({
       error: 'common',

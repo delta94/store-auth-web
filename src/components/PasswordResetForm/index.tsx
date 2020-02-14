@@ -1,13 +1,9 @@
 import React, { FormEvent } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { RememberPassword } from 'components';
+import { RememberPassword, SubmitButton } from 'components';
 import { emailValidate } from 'helpers';
-import { 
-  Form,
-  StyledFormInput,
-  StyledButton,
-} from 'styles/common';
+import { Form, StyledFormInput } from 'styles/common';
 import { EMAIL } from 'const';
 import useForm from 'hooks/useForm';
 
@@ -43,7 +39,7 @@ const PasswordResetForm = (props: Props) => {
         validate={emailValidate}
         onValidate={handleErrorsChange}
       />
-      <StyledResetButton disabled={!isFormValid} type="submit">
+      <StyledResetButton disabled={!isFormValid}>
         {t('send-email')}
       </StyledResetButton>
       <RememberPassword />
@@ -53,6 +49,6 @@ const PasswordResetForm = (props: Props) => {
 
 export default React.memo(PasswordResetForm);
 
-const StyledResetButton = styled(StyledButton)`
+const StyledResetButton = styled((props: any) => <SubmitButton {...props} />)`
   margin-top: 16px;
 `;
