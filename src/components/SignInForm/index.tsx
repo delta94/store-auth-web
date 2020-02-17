@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { passwordValidate, emailValidate } from 'helpers';
+import { passwordValidate, emailValidate, getUrlWithSearch } from 'helpers';
 import { TinyText } from 'styles/primitives';
 import {
   Form,
@@ -9,11 +9,12 @@ import {
   Remember,
   StyledCheckbox,
   StyledFormInput,
+  StyledFormError,
 } from 'styles/common';
 import { EMAIL, PASSWORD } from 'const';
 import useForm from 'hooks/useForm';
 import { request } from 'api';
-import { SIGN_IN } from 'api/constants';
+import { SIGN_IN } from 'api/const';
 import { SubmitButton } from 'components';
 
 interface Props {
@@ -26,6 +27,7 @@ const SignInForm = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
+  const [formError, setFormError] = useState('');
   const [remember, setRemember] = useState(false);
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(signInFields);
 
@@ -35,20 +37,31 @@ const SignInForm = (props: Props) => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-
-    const formData = { remember, ...getFormSubmitData(event) };
-
+    
     setLoading(true);
+    setFormError('');
+    
+    const formData = { remember, ...getFormSubmitData(event) };
     const responce = await request(SIGN_IN, formData);
+    const { error, param, url } = responce;
 
-    await new Promise(res => setTimeout(() => res(), 2000));
+    if (!error) {
+      window.location.href = url;
+      return;
+    }
+
+    if (param && errors[param]) {
+      handleErrorsChange(param, t(error));
+    } else {
+      setFormError(t(error));
+    }
 
     setLoading(false);
-    console.log(responce);
   };
 
   return (
     <Form className={className} onSubmit={handleSubmit}>
+      <StyledFormError message={formError} />
       <StyledFormInput
         type="text"
         label={t('email')}
@@ -71,7 +84,7 @@ const SignInForm = (props: Props) => {
           <TinyText>{t('remember')}</TinyText>
         </Remember>
         <TinyText>
-          <BlueLink to="/password-reset">
+          <BlueLink to={getUrlWithSearch('/password-reset')}>
             {t('forgot-password')}?
           </BlueLink>
         </TinyText>

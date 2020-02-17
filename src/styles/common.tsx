@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FormInput, CheckBox, SocialButtons } from 'components';
+import { FormInput, CheckBox, SocialButtons, FormError } from 'components';
 import { BLUE_700, GRAY_900, GRAY_TEXT } from 'styles/colors';
 import { Row, TinyText } from 'styles/primitives';
 
@@ -39,6 +39,10 @@ export const GreyText = styled(TinyText)`
 
 export const StyledCheckbox = styled((props: any) => <CheckBox {...props} />)`
   margin: 0 6px 0 2px;
+`;
+
+export const StyledFormError = styled((props: any) => <FormError {...props} />)`
+  margin-bottom: 16px;
 `;
 
 export const Remember = styled.span`

@@ -45,6 +45,23 @@ export default {
       'username-incorrect': 'Уже занято',
       'empty-field': 'Поле не может быть пустым',
       'not-exist': 'Учетная запись не существует',
+      one: {
+        protocol: {
+          auth1: {
+            'unknown': 'Unknown error',
+            'email_not_found': 'Account doesn’t exist',
+            'password_does_not_meet_policy': 'Password does not meet policy',
+            'invalid_request': 'Invalid request',
+            'invalid_parameters': 'Invalid parameters',
+            'invalid_challenge': 'Invalid challenge',
+            'invalid_token': 'Invalid token',
+            'invalid_client': 'Invalid client',
+            'invalid_credentials': 'Invalid credentials',
+            'username_already_exists': 'Already taken',
+            'email_already_registered': 'Email already registered',
+          },
+        },
+      },
     },
   },
 };

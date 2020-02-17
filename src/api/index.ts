@@ -1,9 +1,9 @@
 import { getCookie, getUrlParameter } from 'helpers';
 
 import { RequestType, RequestProps } from './types';
-import { XSRF_KEY, BASE_URL, CHALLENGE_KEY } from './constants';
+import { XSRF_KEY, BASE_URL, CHALLENGE_KEY } from './const';
 
-const getXSRFToken = () => getCookie(XSRF_KEY) || 'xDOzh9D0oDmfYHbZIgXR2X5WN84y9uni';
+const getXSRFToken = () => getCookie(XSRF_KEY) || '';
 
 export const request = async (type: RequestType, props: RequestProps) => {
   const url = `${BASE_URL}/${type}`;
@@ -24,11 +24,10 @@ export const request = async (type: RequestType, props: RequestProps) => {
 
     return json;
   } catch (err) {
-    // console.error(err);
-
+    console.error(err);
     return ({
-      error: 'common',
-      message: 'Unknown error',
+      error: 'errors.one.protocol.auth1.unknown',
+      code: 'AU-1000',
     });
   }
 };

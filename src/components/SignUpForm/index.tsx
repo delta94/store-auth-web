@@ -7,10 +7,11 @@ import {
   StyledCheckbox,
   StyledFormInput,
   StyledLink,
+  StyledFormError,
 } from 'styles/common';
 import { EMAIL, USERNAME, PASSWORD } from 'const';
 import useForm from 'hooks/useForm';
-import { SIGN_UP } from 'api/constants';
+import { SIGN_UP } from 'api/const';
 import { request } from 'api';
 import { SubmitButton } from 'components';
 
@@ -25,6 +26,7 @@ const SignUpForm = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
+  const [formError, setFormError] = useState('');
   const [agree, setAgree] = useState(false);
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(signUpFields);
 
@@ -37,19 +39,30 @@ const SignUpForm = (props: Props) => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const formData = { agree, ...getFormSubmitData(event) };
-    
     setLoading(true);
-    const responce = await request(SIGN_UP, formData);
+    setFormError('');
 
-    await new Promise(res => setTimeout(() => res(), 2000));
+    const formData = { agree, ...getFormSubmitData(event) };
+    const responce = await request(SIGN_UP, formData);
+    const { error, param, url } = responce;
+
+    if (!error) {
+      window.location.href = url;
+      return;
+    }
+
+    if (param && errors[param]) {
+      handleErrorsChange(param, t(error));
+    } else {
+      setFormError(t(error));
+    }
 
     setLoading(false);
-    console.log(responce);
   };
 
   return (
     <Form className={className} onSubmit={handleSubmit}>
+      <StyledFormError message={formError} />
       <StyledFormInput
         type="text"
         label={t('display-name')}

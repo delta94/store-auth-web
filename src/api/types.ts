@@ -13,13 +13,3 @@ export interface SignUpProps {
 export type RequestType = 'login' | 'signup';
 
 export type RequestProps = SignInProps | SignUpProps;
-
-export type ResponceError = {
-  error: string;
-  message: string;
-}
-
-export type ResponceSuccess = {
-  url?: string;
-  captcha?: boolean; 
-}

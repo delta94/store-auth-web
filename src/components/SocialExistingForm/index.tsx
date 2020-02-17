@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Input, SubmitButton } from 'components';
-import { passwordValidate } from 'helpers';
+import { passwordValidate, getUrlWithSearch } from 'helpers';
 import { TinyText } from 'styles/primitives';
 import {
   Form,
@@ -64,7 +64,7 @@ const SignInForm = (props: Props) => {
           <TinyText>{t('remember')}</TinyText>
         </Remember>
         <TinyText>
-          <BlueLink to="/password-reset">
+          <BlueLink to={getUrlWithSearch('/password-reset')}>
             {t('forgot-password')}?
           </BlueLink>
         </TinyText>

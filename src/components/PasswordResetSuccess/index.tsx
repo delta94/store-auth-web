@@ -6,6 +6,7 @@ import { EmailSentIcon } from 'assets/icons';
 import { Form, Description } from 'styles/common';
 import { PLATFORM } from 'const';
 import { SubmitButton } from 'components';
+import { getUrlWithSearch } from 'helpers';
 
 interface Props {
   className?: string;
@@ -19,7 +20,7 @@ const PasswordReset = (props: Props) => {
   const goToSignIn = (event: FormEvent) => {
     event.preventDefault();
     
-    history.push('/sign-in');
+    history.push(getUrlWithSearch('/sign-in'));
   };
 
   return (
@@ -28,7 +29,7 @@ const PasswordReset = (props: Props) => {
       <Title>{t('email-sent-title')}</Title>
       <Description>{t('email-sent-text-start', { platform: PLATFORM })}
         {' '}
-        <WhiteLink to="/sign-in">{t('contact-us')}</WhiteLink>
+        <WhiteLink to="/contact-us">{t('contact-us')}</WhiteLink>
         {' '}
         {t('email-sent-text-end')}.
       </Description>

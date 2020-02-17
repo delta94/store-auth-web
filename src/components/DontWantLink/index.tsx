@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GreyText, BlueLink } from 'styles/common';
+import { getUrlWithSearch } from 'helpers';
 
 interface Props {
   className?: string;
@@ -13,7 +14,7 @@ const DontWantLink = (props: Props) => {
   return (
     <GreyText className={className}>
       {`${t('dont-link')}? `}
-      <BlueLink to="/sign-in">
+      <BlueLink to={getUrlWithSearch('/sign-in')}>
         {t('sign-in')}
       </BlueLink>
     </GreyText>

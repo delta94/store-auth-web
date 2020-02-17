@@ -10,6 +10,7 @@ import {
 }from 'react-router-dom';
 import backgroundImage from 'assets/images/background.jpg';
 import { Loader } from 'components';
+import { getUrlWithSearch } from 'helpers';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
@@ -32,7 +33,7 @@ const App: React.FC = () => {
             <Route path="/social-existing/:name" component={SignInSocialExisting} />
             <Route path="/password-reset" component={PasswordReset} />
             <Route path="/new-password" component={NewPassword} />
-            <Redirect to="/sign-in" />
+            <Redirect to={getUrlWithSearch('/sign-in')} />
           </Switch>
         </Suspense>
       </Wrapper>

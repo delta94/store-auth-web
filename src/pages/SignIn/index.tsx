@@ -8,6 +8,7 @@ import {
   BlueLink,
 } from 'styles/common';
 import { PLATFORM } from 'const';
+import { getUrlWithSearch } from 'helpers';
 
 interface Props {
   className?: string;
@@ -24,7 +25,7 @@ const SignIn = (props: Props) => {
       <SignInForm />
       <GreyText>
         {`${t('dont-have-account', { platform: PLATFORM })}? `}
-        <BlueLink to="/sign-up">
+        <BlueLink to={getUrlWithSearch('/sign-up')}>
           {t('sign-up')}
         </BlueLink>!
       </GreyText>

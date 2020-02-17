@@ -18,3 +18,4 @@ export { default as Captcha } from './Captcha';
 export { default as RememberPassword } from './RememberPassword';
 export { default as DontWantLink } from './DontWantLink';
 export { default as SubmitButton } from './SubmitButton';
+export { default as FormError } from './FormError';

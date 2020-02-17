@@ -49,3 +49,9 @@ export const getCookie = (name: string) => {
 export const deleteCookie = (name: string) => {
   setCookie(name, '', new Date(Date.now()));
 };
+
+export const getUrlWithSearch = (url: string) => {
+  const search = window.location.search;
+
+  return `${url}${search}`;
+};
