@@ -8,6 +8,7 @@ import {
   FormWrapper,
 } from 'styles/common';
 import { PLATFORM } from 'const';
+import { getUrlWithSearch } from 'helpers';
 
 interface Props {
   className?: string;
@@ -24,7 +25,7 @@ const SignUp = (props: Props) => {
       <SignUpForm />
       <GreyText>
         {`${t('already-have-account', { platform: PLATFORM })} `}
-        <BlueLink to="sign-in">
+        <BlueLink to={getUrlWithSearch('/sign-in')}>
           {t('sign-in')}
         </BlueLink>
       </GreyText>

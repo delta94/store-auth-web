@@ -4,7 +4,7 @@ export default {
     'facebook': 'Facebook',
     'twitter': 'Twitter',
     'email': 'Почта',
-    'display-name': 'Отображаемое имя',
+    'username': 'Отображаемое имя',
     'password': 'Пароль',
     'sign-in': 'Вход',
     'sign-up': 'Регистрация',
@@ -42,9 +42,26 @@ export default {
     'errors': {
       'email-incorrect': 'Недопустимый адрес почты',
       'password-incorrect': 'Недопустимый пароль',
-      'displayName-incorrect': 'Уже занято',
+      'username-incorrect': 'Уже занято',
       'empty-field': 'Поле не может быть пустым',
       'not-exist': 'Учетная запись не существует',
+      one: {
+        protocol: {
+          auth1: {
+            'unknown': 'Unknown error',
+            'email_not_found': 'Account doesn’t exist',
+            'password_does_not_meet_policy': 'Password does not meet policy',
+            'invalid_request': 'Invalid request',
+            'invalid_parameters': 'Invalid parameters',
+            'invalid_challenge': 'Invalid challenge',
+            'invalid_token': 'Invalid token',
+            'invalid_client': 'Invalid client',
+            'invalid_credentials': 'Invalid credentials',
+            'username_already_exists': 'Already taken',
+            'email_already_registered': 'Email already registered',
+          },
+        },
+      },
     },
   },
 };

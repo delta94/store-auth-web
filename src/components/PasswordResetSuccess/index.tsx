@@ -3,14 +3,10 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom';
 import { EmailSentIcon } from 'assets/icons';
-import { 
-  Form,
-  StyledButton,
-  Description,
-} from 'styles/common';
+import { Form, Description } from 'styles/common';
 import { PLATFORM } from 'const';
-
-type Step = 'enter' | 'captcha' | 'success';
+import { SubmitButton } from 'components';
+import { getUrlWithSearch } from 'helpers';
 
 interface Props {
   className?: string;
@@ -24,7 +20,7 @@ const PasswordReset = (props: Props) => {
   const goToSignIn = (event: FormEvent) => {
     event.preventDefault();
     
-    history.push('/sign-in');
+    history.push(getUrlWithSearch('/sign-in'));
   };
 
   return (
@@ -33,14 +29,14 @@ const PasswordReset = (props: Props) => {
       <Title>{t('email-sent-title')}</Title>
       <Description>{t('email-sent-text-start', { platform: PLATFORM })}
         {' '}
-        <WhiteLink to="/sign-in">{t('contact-us')}</WhiteLink>
+        <WhiteLink to="/contact-us">{t('contact-us')}</WhiteLink>
         {' '}
         {t('email-sent-text-end')}.
       </Description>
       <Form className={className} onSubmit={goToSignIn}>
-        <StyledButton type="submit">
+        <SubmitButton>
           {t('ok')}
-        </StyledButton>
+        </SubmitButton>
       </Form>
     </>
   );

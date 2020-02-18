@@ -4,7 +4,7 @@ export default {
     'facebook': 'Facebook',
     'twitter': 'Twitter',
     'email': 'Email',
-    'display-name': 'Display name',
+    'username': 'Display name',
     'password': 'Password',
     'sign-in': 'Sign In',
     'sign-up': 'Sign Up',
@@ -42,9 +42,26 @@ export default {
     'errors': {
       'email-incorrect': 'Incorrect email',
       'password-incorrect': 'Incorrect password',
-      'displayName-incorrect': 'Already taken',
+      'username-incorrect': 'Already taken',
       'empty-field': 'Empty field',
       'not-exist': 'Account doesn\'t exist',
+      one: {
+        protocol: {
+          auth1: {
+            'unknown': 'Unknown error',
+            'email_not_found': 'Account doesn’t exist',
+            'password_does_not_meet_policy': 'Password does not meet policy',
+            'invalid_request': 'Invalid request',
+            'invalid_parameters': 'Invalid parameters',
+            'invalid_challenge': 'Invalid challenge',
+            'invalid_token': 'Invalid token',
+            'invalid_client': 'Invalid client',
+            'invalid_credentials': 'Invalid credentials',
+            'username_already_exists': 'Already taken',
+            'email_already_registered': 'Email already registered',
+          },
+        },
+      },
     },
   },
 };

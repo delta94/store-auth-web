@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FormInput, CheckBox, SocialButtons } from 'components';
+import { FormInput, CheckBox, SocialButtons, FormError } from 'components';
 import { BLUE_700, GRAY_900, GRAY_TEXT } from 'styles/colors';
-import { Button, Row, TinyText } from 'styles/primitives';
+import { Row, TinyText } from 'styles/primitives';
 
 export const FormWrapper = styled.div`
   display: flex;
@@ -29,12 +29,6 @@ export const StyledSocialButtons = styled((props: any) => <SocialButtons {...pro
   margin: 16px 0;
 `;
 
-export const StyledButton = styled(Button)`
-  margin: 24px 0 16px 0;
-  padding: 14px 24px;
-  text-transform: uppercase;
-`;
-
 export const StyledFormInput = styled((props: any) => <FormInput {...props} />)`
   width: 400px;
 `;
@@ -45,6 +39,10 @@ export const GreyText = styled(TinyText)`
 
 export const StyledCheckbox = styled((props: any) => <CheckBox {...props} />)`
   margin: 0 6px 0 2px;
+`;
+
+export const StyledFormError = styled((props: any) => <FormError {...props} />)`
+  margin-bottom: 16px;
 `;
 
 export const Remember = styled.span`
