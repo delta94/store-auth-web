@@ -163,7 +163,6 @@ const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: bo
   border: 0;
   border-bottom: 2px solid transparent;
   border-bottom-color: ${({ error, active }) => getBorderColor(error, active)};
-  border-radius: 2px;
 
   input {
     min-width: 100%;
