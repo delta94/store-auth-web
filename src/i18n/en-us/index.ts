@@ -4,7 +4,7 @@ export default {
     'facebook': 'Facebook',
     'twitter': 'Twitter',
     'email': 'Email',
-    'display-name': 'Display name',
+    'username': 'Display name',
     'password': 'Password',
     'sign-in': 'Sign In',
     'sign-up': 'Sign Up',

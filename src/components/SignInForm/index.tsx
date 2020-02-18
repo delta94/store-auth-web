@@ -42,8 +42,7 @@ const SignInForm = (props: Props) => {
     setFormError('');
     
     const formData = { remember, ...getFormSubmitData(event) };
-    const responce = await request(SIGN_IN, formData);
-    const { error, param, url } = responce;
+    const { error, param, url } = await request(SIGN_IN, formData);
 
     if (!error) {
       window.location.href = url;

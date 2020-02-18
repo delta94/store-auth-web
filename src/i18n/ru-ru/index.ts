@@ -4,7 +4,7 @@ export default {
     'facebook': 'Facebook',
     'twitter': 'Twitter',
     'email': 'Почта',
-    'display-name': 'Отображаемое имя',
+    'username': 'Отображаемое имя',
     'password': 'Пароль',
     'sign-in': 'Вход',
     'sign-up': 'Регистрация',

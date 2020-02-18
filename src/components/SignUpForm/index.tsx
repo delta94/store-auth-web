@@ -43,8 +43,7 @@ const SignUpForm = (props: Props) => {
     setFormError('');
 
     const formData = { agree, ...getFormSubmitData(event) };
-    const responce = await request(SIGN_UP, formData);
-    const { error, param, url } = responce;
+    const { error, param, url } = await request(SIGN_UP, formData);
 
     if (!error) {
       window.location.href = url;
@@ -65,7 +64,7 @@ const SignUpForm = (props: Props) => {
       <StyledFormError message={formError} />
       <StyledFormInput
         type="text"
-        label={t('display-name')}
+        label={t('username')}
         name={USERNAME}
         error={errors[USERNAME].value}
         validate={nameValidate}
