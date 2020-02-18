@@ -1,3 +1,5 @@
+import { BASE_URL, CHECK_USERNAME_URL } from 'api/const';
+
 const MIN_PASSWORD_LENGTH = Number(process.env.REACT_APP_MIN_PASSWORD_LENGTH);
 const MAX_PASSWORD_LENGTH = Number(process.env.REACT_APP_MAX_PASSWORD_LENGTH);
 
@@ -14,9 +16,24 @@ export const passwordValidate = (pass: string) => (
   /[a-z]/i.test(pass)
 );
 
-export const nameValidate = (name: string) => {
-  // Here will be responce from server
-  return Promise.resolve(name.length > 4);
+export const nameValidate = async (name: string) => {
+  const url = `${BASE_URL}/${CHECK_USERNAME_URL}`;
+
+  try {
+    const responce = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username: name }),
+    });
+
+    const { available } = await responce.json();
+
+    return available;
+  } catch (error) {
+    return false;
+  }
 };
 
 export const getUrlParameter = (name: string) => {
