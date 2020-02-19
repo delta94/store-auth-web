@@ -1,8 +1,15 @@
-import { BASE_URL, CHECK_USERNAME_URL } from 'api/const';
+import { BASE_URL, CHECK_USERNAME_URL, CHALLENGE_KEY } from 'api/const';
 import { PASSWORD, EMAIL, USERNAME } from 'const';
 
 const MIN_PASSWORD_LENGTH = Number(process.env.REACT_APP_MIN_PASSWORD_LENGTH);
 const MAX_PASSWORD_LENGTH = Number(process.env.REACT_APP_MAX_PASSWORD_LENGTH);
+
+export const getUrlParameter = (name: string) => {
+  const search = window.location.search;
+  const regex = new RegExp(`[\\?&]${name}=([^&#]*)`);
+  const results = regex.exec(search);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
 
 export const emailValidate = (str: string) => {
   // eslint-disable-next-line no-useless-escape
@@ -23,8 +30,9 @@ export const passwordValidate = (pass: string) => {
   return { valid, error };
 };
 
-export const nameValidate = async (name: string) => {
+export const nameValidate = async (username: string) => {
   const url = `${BASE_URL}/${CHECK_USERNAME_URL}`;
+  const challenge = getUrlParameter(CHALLENGE_KEY);
 
   try {
     const responce = await fetch(url, {
@@ -32,7 +40,7 @@ export const nameValidate = async (name: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username: name }),
+      body: JSON.stringify({ username, challenge }),
     });
 
     const { available } = await responce.json();
@@ -42,13 +50,6 @@ export const nameValidate = async (name: string) => {
   } catch (error) {
     return { valid: false, error: 'errors.username-check-failed' };
   }
-};
-
-export const getUrlParameter = (name: string) => {
-  const search = window.location.search;
-  const regex = new RegExp(`[\\?&]${name}=([^&#]*)`);
-  const results = regex.exec(search);
-  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
 
 export const setCookie = (
