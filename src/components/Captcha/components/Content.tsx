@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { Loader, SubmitButton } from 'components';
 import { ErrorText } from 'styles/primitives';
-import { Loader } from 'components';
-import { StyledButton, Description } from 'pages/styles/common';
+import { Description } from 'styles/common';
 
 interface Props {
   className?: string;
@@ -22,9 +22,9 @@ const Content = (props: Props) => {
   return (
     <>
       <Description>{t('captcha-description')}.</Description>
-      <StyledButton type="submit">
+      <SubmitButton>
         {t('verify')}
-      </StyledButton>
+      </SubmitButton>
     </>
   );
 };

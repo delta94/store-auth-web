@@ -1,10 +1,11 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FormInput, CheckBox, SocialButtons } from 'components';
+import { FormInput, CheckBox, SocialButtons, FormError } from 'components';
 import { BLUE_700, GRAY_900, GRAY_TEXT } from 'styles/colors';
-import { Button, Row, TinyText } from 'styles/primitives';
+import { Row, TinyText } from 'styles/primitives';
 
-export const Form = styled.form`
+export const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,17 +17,19 @@ export const Form = styled.form`
   border-radius: 8px;
 `;
 
-export const StyledSocialButtons = styled(SocialButtons)`
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const StyledSocialButtons = styled((props: any) => <SocialButtons {...props} />)`
   margin: 16px 0;
 `;
 
-export const StyledButton = styled(Button)`
-  margin: 24px 0 16px 0;
-  padding: 14px 24px;
-  text-transform: uppercase;
-`;
-
-export const StyledFormInput = styled(FormInput)`
+export const StyledFormInput = styled((props: any) => <FormInput {...props} />)`
   width: 400px;
 `;
 
@@ -34,8 +37,12 @@ export const GreyText = styled(TinyText)`
   color: ${GRAY_TEXT};
 `;
 
-export const StyledCheckbox = styled(CheckBox)`
+export const StyledCheckbox = styled((props: any) => <CheckBox {...props} />)`
   margin: 0 6px 0 2px;
+`;
+
+export const StyledFormError = styled((props: any) => <FormError {...props} />)`
+  margin-bottom: 16px;
 `;
 
 export const Remember = styled.span`
@@ -58,10 +65,6 @@ export const BlueLink = styled(Link)`
 export const StyledLink = styled(Link)`
   margin-right: 16px;
   color: ${GRAY_TEXT};
-`;
-
-export const Privacy = styled(Row)`
-  margin-top: 16px;
 `;
 
 export const WideRow = styled(Row)`

@@ -2,7 +2,7 @@ import React, { useState, DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { ErrorText, TinyText, Column } from 'styles/primitives';
 import { Hint } from 'components';
-import { GRAY_TEXT, ORANGE_500, GRAY_800, SUCCESS_FIELD } from 'styles/colors';
+import { GRAY_TEXT, ORANGE_500, GRAY_800, SUCCESS_FIELD, BLUE_500 } from 'styles/colors';
 import { SuccessIcon, EyeLineThroughIcon, EyeIcon } from 'assets/icons';
 
 type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
@@ -21,12 +21,28 @@ const Input = (props: Props) => {
     label,
     tooltip,
     error,
+    onBlur,
+    onFocus,
+    disabled,
     type: initType,
     isSuccessed = false,
     ...rest
   } = props;
 
   const [type, setType] = useState(initType);
+  const [active, setActive] = useState(false);
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    setActive(false);
+
+    if (onBlur) onBlur(event);
+  };
+
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    setActive(true);
+
+    if (onFocus) onFocus(event);
+  };
 
   const toggleType = () => {
     const newType = type === 'password' ? 'text' : 'password';
@@ -46,10 +62,17 @@ const Input = (props: Props) => {
           />
         )}
       </Label>
-      <FieldWrapper error={!!error}>
+      <FieldWrapper 
+        error={!!error} 
+        active={active}
+        disabled={disabled}
+      >
         <input
           {...rest}
           type={type}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          disabled={disabled}
         />
         <IconWrapper onClick={toggleType}>
           {initType === 'password' && (
@@ -71,6 +94,12 @@ const Input = (props: Props) => {
 };
 
 export default React.memo(Input);
+
+const getBorderColor = (error: boolean, active: boolean) => {
+  if (error) return ORANGE_500;
+
+  return active ? BLUE_500 : GRAY_800;
+};
 
 const IconWrapper = styled.div`
   position: absolute;
@@ -114,23 +143,6 @@ const StyledEyeIcon = styled(EyeIcon)`
 
 const Wrapper = styled(Column)`
   justify-content: space-between;
-
-  input {
-    min-width: 100%;
-    padding: 10px 44px 10px 12px;
-    background-color: ${GRAY_800};
-    color: white;
-    font-size: 15px;
-    line-height: 22px;
-    border: 0;
-
-    /* Hack for styling autocompleted input in chrome  */
-    &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
-      -webkit-box-shadow: inset 0 0 0 1000px ${GRAY_800};
-      -webkit-text-fill-color: white;
-      -webkit-transition-delay: 99999s;
-    }
-  }
 `;
 
 const Label = styled(TinyText)`
@@ -145,12 +157,34 @@ const Label = styled(TinyText)`
   }
 `;
 
-const FieldWrapper = styled.div<{ error: boolean }>`
+const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: boolean }>`
   position: relative;
   overflow: hidden;
+  border: 0;
   border-bottom: 2px solid transparent;
-  border-bottom-color: ${({ error }) => error ? ORANGE_500 : GRAY_800};
-  border-radius: 2px;
+  border-bottom-color: ${({ error, active }) => getBorderColor(error, active)};
+
+  input {
+    min-width: 100%;
+    padding: 10px 44px 10px 12px;
+    background-color: ${GRAY_800};
+    color: white;
+    font-size: 15px;
+    line-height: 22px;
+    outline: none;
+    border: 0;
+
+    /* Hack for styling autocompleted input in chrome  */
+    &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
+      -webkit-box-shadow: inset 0 0 0 1000px ${GRAY_800};
+      -webkit-text-fill-color: ${({ disabled }) => disabled ? GRAY_TEXT : 'white'};
+      -webkit-transition-delay: 99999s;
+    }
+
+    &:disabled {
+      color: ${GRAY_TEXT};
+    }
+  }
 `;
 
 const Error = styled.span<{ show: boolean }>`

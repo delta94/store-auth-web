@@ -1,53 +1,20 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { FormHeader } from 'components';
-import Captcha from 'pages/Captcha';
-import { emailValidate } from 'helpers';
-import { EmailSentIcon } from 'assets/icons';
-
-import { Form, StyledFormInput, StyledButton, GreyText, BlueLink, Description } from '../styles/common';
+import { FormHeader, Captcha, PasswordResetForm, PasswordResetSuccess } from 'components';
+import { FormWrapper, Description } from 'styles/common';
 
 type Step = 'enter' | 'captcha' | 'success';
 
-interface Props extends RouteComponentProps {
+interface Props {
   className?: string;
 }
 
 const PasswordReset = (props: Props) => {
   const [step, setStep] = useState<Step>('enter');
-  const { className, history } = props;
+  const { className } = props;
   const { t } = useTranslation();
-  const [errors, setErrors] = useState({
-    email: {
-      value: '',
-      touched: false,
-    },
-  });
-
-  const handleErrorsChange = (field: string, value: string) => {
-    setErrors({
-      ...errors,
-      [field]: {
-        value,
-        touched: true,
-      },
-    });
-  };
-
-  const isFormValid = Object.values(errors).every(({ value, touched }) => !value && touched);
-
-  const handlePasswordReset = (event: FormEvent) => {
-    event.preventDefault();
-
-    const form: any = event.target;
-    const email = form.email.value;
-
-    console.log({ email });
-    setStep('captcha');
-  };
-
+  
   const handleCaptchaFail = () => {
     // show captcha error?
     alert('Captcha check Fail!');
@@ -58,83 +25,48 @@ const PasswordReset = (props: Props) => {
     setStep('success');
   };
 
-  const goToSignIn = (event: FormEvent) => {
-    event.preventDefault();
-    
-    history.push('/sign-in');
+  const showCaptcha = () => {
+    setStep('captcha');
   };
 
-  switch (step) {
-    case 'captcha':
-      return (
-        <Captcha 
-          onFail={handleCaptchaFail}
-          onSuccess={handleCaptchaSuccess}
-        />
-      );
-
-    case 'success':
-      return (
-        <Form className={className} onSubmit={goToSignIn}>
-          <StyledEmailSentIcon />
-          <Title>{t('email-sent-title')}</Title>
-          <Description>{t('email-sent-text-start')}
-            {' '}
-            <WhiteLink to="/sign-in">{t('contact-us')}</WhiteLink>
-            {' '}
-            {t('email-sent-text-end')}.</Description>
-          <StyledButton type="submit">
-            {t('ok')}
-          </StyledButton>
-        </Form>
-      );
-
-    case 'enter':
-    default:
-      return (
-        <Form className={className} onSubmit={handlePasswordReset}>
-          <FormHeader title={t('password-reset')} />
-          <StyledFormInput
-            type="text"
-            label={t('email')}
-            name="email"
-            error={errors.email.value}
-            validate={emailValidate}
-            onValidate={handleErrorsChange}
+  const getContent = () => {
+    switch (step) {
+      case 'captcha':
+        return (
+          <Captcha 
+            onFail={handleCaptchaFail}
+            onSuccess={handleCaptchaSuccess}
           />
-          <StyledResetButton disabled={!isFormValid} type="submit">
-            {t('sign-in')}
-          </StyledResetButton>
-          <GreyText>
-            {`${t('remember-password')}? `}
-            <BlueLink to="sign-in">
-              {t('sign-in')}
-            </BlueLink>
-          </GreyText>
-        </Form>
-      );
-  }
+        );
+
+      case 'success':
+        return (
+          <PasswordResetSuccess />
+        );
+
+      case 'enter':
+      default:
+        return (
+          <>
+            <FormHeader title={t('password-reset')} />
+            <StyledDescription>
+              {t('password-reset-description')}
+            </StyledDescription>
+            <PasswordResetForm onSubmit={showCaptcha} />
+          </>
+        );
+    }
+  };
+
+  return (
+    <FormWrapper className={className}>
+      {getContent()}
+    </FormWrapper>
+  );
 };
 
 export default React.memo(PasswordReset);
 
-const StyledResetButton = styled(StyledButton)`
-  margin-top: 16px;
-`;
-
-const StyledEmailSentIcon = styled(EmailSentIcon)`
-  margin-top: 16px;
-`;
-
-const Title = styled.h2`
-  font-style: normal;
-  font-weight: normal;
-  font-size: 22px;
-  line-height: 30px;
-  text-align: center;
-  color: white;
-`;
-
-const WhiteLink = styled(Link)`
-  color: white;
+const StyledDescription = styled(Description)`
+  margin-bottom: 16px;
 `;

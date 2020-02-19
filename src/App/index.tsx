@@ -10,11 +10,14 @@ import {
 }from 'react-router-dom';
 import backgroundImage from 'assets/images/background.jpg';
 import { Loader } from 'components';
+import { getUrlWithSearch } from 'helpers';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
 const PasswordReset = React.lazy(() => import('pages/PasswordReset'));
-const Captcha = React.lazy(() => import('pages/Captcha'));
+const NewPassword = React.lazy(() => import('pages/NewPassword'));
+const SignInSocialNew = React.lazy(() => import('pages/SignInSocialNew'));
+const SignInSocialExisting = React.lazy(() => import('pages/SignInSocialExisting'));
 
 const history = createBrowserHistory();
 
@@ -26,9 +29,11 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/sign-in" component={SignIn} />
             <Route path="/sign-up" component={SignUp} />
+            <Route path="/social-new/:name" component={SignInSocialNew} />
+            <Route path="/social-existing/:name" component={SignInSocialExisting} />
             <Route path="/password-reset" component={PasswordReset} />
-            <Route path="/captcha" component={Captcha} />
-            <Redirect to="/sign-in" />
+            <Route path="/new-password" component={NewPassword} />
+            <Redirect to={getUrlWithSearch('/sign-in')} />
           </Switch>
         </Suspense>
       </Wrapper>
