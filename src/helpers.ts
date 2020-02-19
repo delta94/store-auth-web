@@ -1,20 +1,27 @@
 import { BASE_URL, CHECK_USERNAME_URL } from 'api/const';
+import { PASSWORD, EMAIL, USERNAME } from 'const';
 
 const MIN_PASSWORD_LENGTH = Number(process.env.REACT_APP_MIN_PASSWORD_LENGTH);
 const MAX_PASSWORD_LENGTH = Number(process.env.REACT_APP_MAX_PASSWORD_LENGTH);
 
 export const emailValidate = (str: string) => {
   // eslint-disable-next-line no-useless-escape
-  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str);
+  const valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str);
+  const error = valid ? '' : `errors.${EMAIL}-incorrect`;
+
+  return { valid, error };
 };
 
-export const passwordValidate = (pass: string) => (
-  pass.length >= MIN_PASSWORD_LENGTH &&
-  pass.length <= MAX_PASSWORD_LENGTH &&
-  !pass.includes(' ') &&
-  /\d/.test(pass) && 
-  /[a-z]/i.test(pass)
-);
+export const passwordValidate = (pass: string) => {
+  const valid = pass.length >= MIN_PASSWORD_LENGTH &&
+    pass.length <= MAX_PASSWORD_LENGTH &&
+    !pass.includes(' ') &&
+    /\d/.test(pass) && 
+    /[a-z]/i.test(pass);
+  const error = valid ? '' : `errors.${PASSWORD}-incorrect`;
+
+  return { valid, error };
+};
 
 export const nameValidate = async (name: string) => {
   const url = `${BASE_URL}/${CHECK_USERNAME_URL}`;
@@ -29,10 +36,11 @@ export const nameValidate = async (name: string) => {
     });
 
     const { available } = await responce.json();
+    const error = available ? '' : `errors.${USERNAME}-incorrect`;
 
-    return available;
+    return { valid: available, error };
   } catch (error) {
-    return false;
+    return { valid: false, error: 'errors.username-check-failed' };
   }
 };
 

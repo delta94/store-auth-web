@@ -5,12 +5,17 @@ import useDebounce from 'hooks/useDebounce';
 
 const debouncingTime = Number(process.env.REACT_APP_VALIDATION_DEBOUNCING_TIME);
 
+type ValidationResult = {
+  valid: boolean;
+  error: string;
+}
+
 interface Props {
   type: string;
   name: string;
   label: string;
   onValidate: (field: string, value: string) => void;
-  validate: (value: string) => boolean | Promise<boolean>;
+  validate: (value: string) => ValidationResult | Promise<ValidationResult>;
   validationType?: 'blur' | 'change' | 'debounce'; 
   className?: string;
   isSuccessed?: boolean;
@@ -50,8 +55,9 @@ const FormInput = (props: Props) => {
 
     if (!validatedValue) {
       newError = t('errors.empty-field');
-    } else if (! await validate(validatedValue)) {
-      newError = t(`errors.${name}-incorrect`);
+    } else {
+      const { valid, error: validateError } = await validate(validatedValue);
+      newError = valid ? '' : t(validateError);
     }
 
     onValidate(name, newError);
