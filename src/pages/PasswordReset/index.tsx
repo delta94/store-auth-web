@@ -12,20 +12,23 @@ interface Props {
 
 const PasswordReset = (props: Props) => {
   const [step, setStep] = useState<Step>('enter');
+  const [email, setEmail] = useState('');
   const { className } = props;
   const { t } = useTranslation();
-  
+
   const handleCaptchaFail = () => {
     // show captcha error?
     alert('Captcha check Fail!');
   };
 
-  const handleCaptchaSuccess = () => {
-    // send email to backend
+  const handleCaptchaSuccess = (token: string) => {
+    // send email and token to backend
+    console.log({ email, token });
     setStep('success');
   };
 
-  const showCaptcha = () => {
+  const handleEmailSubmit = (submitedEmail: string) => {
+    setEmail(submitedEmail);
     setStep('captcha');
   };
 
@@ -52,7 +55,7 @@ const PasswordReset = (props: Props) => {
             <StyledDescription>
               {t('password-reset-description')}
             </StyledDescription>
-            <PasswordResetForm onSubmit={showCaptcha} />
+            <PasswordResetForm onSubmit={handleEmailSubmit} />
           </>
         );
     }

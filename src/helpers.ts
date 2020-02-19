@@ -53,7 +53,6 @@ export const nameValidate = async (username: string) => {
   } catch (error) {
     return { valid: false, error: 'errors.username-check-failed' };
   }
-  
 };
 
 export const setCookie = (

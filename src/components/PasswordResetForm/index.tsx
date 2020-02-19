@@ -9,7 +9,7 @@ import useForm from 'hooks/useForm';
 
 interface Props {
   className?: string;
-  onSubmit?: () => void;
+  onSubmit?: (email: string) => void;
 }
 
 const resetFields = [EMAIL];
@@ -22,11 +22,9 @@ const PasswordResetForm = (props: Props) => {
   const handlePasswordReset = (event: FormEvent) => {
     event.preventDefault();
 
-    const formData = getFormSubmitData(event);
+    const { email } = getFormSubmitData(event);
 
-    console.log(formData);
-
-    if (onSubmit) onSubmit();
+    if (onSubmit) onSubmit(email);
   };
 
   return (
