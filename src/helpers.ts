@@ -35,7 +35,7 @@ export const nameValidate = async (username: string) => {
   const challenge = getUrlParameter(CHALLENGE_KEY);
 
   try {
-    const responce = await fetch(url, {
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +43,10 @@ export const nameValidate = async (username: string) => {
       body: JSON.stringify({ username, challenge }),
     });
 
-    const { available } = await responce.json();
+    const { available, error: responseError } = await response.json();
+
+    if (responseError) throw new Error(responseError);
+
     const error = available ? '' : `errors.${USERNAME}-incorrect`;
 
     return { valid: available, error };
