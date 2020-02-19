@@ -43,6 +43,7 @@ export default {
       'email-incorrect': 'Недопустимый адрес почты',
       'password-incorrect': 'Недопустимый пароль',
       'username-incorrect': 'Уже занято',
+      'username-check-failed': 'Проверка не удалась',
       'empty-field': 'Поле не может быть пустым',
       'not-exist': 'Учетная запись не существует',
       one: {

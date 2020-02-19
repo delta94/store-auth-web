@@ -43,6 +43,7 @@ export default {
       'email-incorrect': 'Incorrect email',
       'password-incorrect': 'Incorrect password',
       'username-incorrect': 'Already taken',
+      'username-check-failed': 'Check failed',
       'empty-field': 'Empty field',
       'not-exist': 'Account doesn\'t exist',
       one: {
