@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { FormHeader, Captcha, PasswordResetForm, PasswordResetSuccess } from 'components';
 import { FormWrapper, Description } from 'styles/common';
+import useCaptcha from 'hooks/useCaptcha';
 
 type Step = 'enter' | 'captcha' | 'success';
 
@@ -13,6 +14,7 @@ interface Props {
 const PasswordReset = (props: Props) => {
   const [step, setStep] = useState<Step>('enter');
   const [email, setEmail] = useState('');
+  const captcha = useCaptcha();
   const { className } = props;
   const { t } = useTranslation();
 
@@ -36,7 +38,8 @@ const PasswordReset = (props: Props) => {
     switch (step) {
       case 'captcha':
         return (
-          <Captcha 
+          <Captcha
+            {...captcha}
             onFail={handleCaptchaFail}
             onSuccess={handleCaptchaSuccess}
           />

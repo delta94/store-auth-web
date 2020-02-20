@@ -1,12 +1,27 @@
 import { getCookie, getUrlParameter } from 'helpers';
 
-import { RequestType, RequestProps } from './types';
-import { XSRF_KEY, BASE_URL, CHALLENGE_KEY } from './const';
+import {
+  XSRF_KEY,
+  BASE_URL,
+  CHALLENGE_KEY,
+  SIGN_IN_URL,
+  SIGN_UP_URL,
+  PASSWORD_RESET_URL,
+  CHECK_RESET_TOKEN_URL,
+} from './const';
 
 const getXSRFToken = () => getCookie(XSRF_KEY) || '';
 
-export const request = async (type: RequestType, props: RequestProps) => {
-  const url = `${BASE_URL}/${type}`;
+const handleRequestError = (err: Error) => {
+  console.error(err);
+  return ({
+    error: 'errors.one.protocol.auth1.unknown',
+    code: 'AU-1000',
+  });
+};
+
+const getPOSTrequest = (requestUrl: string) => async (data: any) => {
+  const url = `${BASE_URL}/${requestUrl}`;
   const challenge = getUrlParameter(CHALLENGE_KEY);
 
   try {
@@ -17,17 +32,36 @@ export const request = async (type: RequestType, props: RequestProps) => {
         'x-xsrf-token': getXSRFToken(),
       },
       credentials: 'include',
-      body: JSON.stringify({ challenge, ...props }),
+      body: JSON.stringify({ challenge, ...data }),
     });
 
     const json = await responce.json();
 
     return json;
   } catch (err) {
-    console.error(err);
-    return ({
-      error: 'errors.one.protocol.auth1.unknown',
-      code: 'AU-1000',
-    });
+    return handleRequestError(err);
   }
+};
+
+const getGETrequest = (requestUrl: string) => async () => {
+  const url = `${BASE_URL}/${requestUrl}`;
+
+  try {
+    const responce = await fetch(url);
+    const json = await responce.json();
+
+    return json;
+  } catch (err) {
+    return handleRequestError(err);
+  }
+};
+
+export const signInRequest = getPOSTrequest(SIGN_IN_URL);
+export const signUpRequest = getPOSTrequest(SIGN_UP_URL);
+export const passwordResetRequest = getPOSTrequest(PASSWORD_RESET_URL);
+
+export const checkResetTokenRequest = (token: string) => {
+  const url = `${CHECK_RESET_TOKEN_URL}${token}`;
+
+  return getGETrequest(url);
 };

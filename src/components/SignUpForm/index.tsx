@@ -11,8 +11,7 @@ import {
 } from 'styles/common';
 import { EMAIL, USERNAME, PASSWORD } from 'const';
 import useForm from 'hooks/useForm';
-import { SIGN_UP } from 'api/const';
-import { request } from 'api';
+import { signUpRequest } from 'api';
 import { SubmitButton } from 'components';
 
 interface Props {
@@ -43,7 +42,7 @@ const SignUpForm = (props: Props) => {
     setFormError('');
 
     const formData = { agree, ...getFormSubmitData(event) };
-    const { error, param, url } = await request(SIGN_UP, formData);
+    const { error, param, url } = await signUpRequest(formData);
 
     if (!error) {
       window.location.href = url;

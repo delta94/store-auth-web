@@ -1,35 +1,51 @@
 import { useState, useEffect } from 'react';
+import { BASE_URL, GET_CAPTCHA_KEY_V3_URL } from 'api/const';
 
-// This is Google Recaptcha V3 hook
-export default (captchaKey: string) => {
+const CAPTCHA_BASE_URL = 'https://www.google.com/recaptcha/api.js?render=';
+const action = 'homepage';
+
+export default () => {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState('');
   const [error, setError] = useState<Error | null>(null);
-  const captchaURL = `https://www.google.com/recaptcha/api.js?render=${captchaKey}`;
 
-  const initCaptcha = () => {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = captchaURL;
-    document.body.append(script);
+  const handleError = (err: Error) => {
+    setLoading(false);
+    setError(err);
+  };
+
+  const initCaptcha = async () => {
+    try {
+      const getKeyUrl = `${BASE_URL}/${GET_CAPTCHA_KEY_V3_URL}`;
+      const response = await fetch(getKeyUrl);
+      const { key } = await response.json();
+      const captchaURL = `${CAPTCHA_BASE_URL}${key}`;
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = captchaURL;
+      document.body.append(script);
+      
+      script.onload = () => {
+        const grecaptcha = (window as any).grecaptcha;
+
+        grecaptcha.ready(() => {
+          grecaptcha.execute(key, { action })
+            .then((token: string) => {
+              setLoading(false);
+              setToken(token);
+            });
+        });
+      };
+
+      script.onerror = () => {
+        const err = new Error('Captcha script load error');
+        handleError(err);
+      };
+    } catch (err) {
+      handleError(err);
+    }
     
-    script.onload = () => {
-      const grecaptcha = (window as any).grecaptcha;
-
-      grecaptcha.ready(() => {
-        grecaptcha.execute(captchaKey, { action: 'homepage' })
-          .then((token: string) => {
-            setLoading(false);
-            setToken(token);
-          });
-      });
-    };
-
-    script.onerror = () => {
-      const err = new Error('Captcha script load error');
-      setLoading(false);
-      setError(err);
-    };
   };
 
   useEffect(() => {
@@ -37,5 +53,5 @@ export default (captchaKey: string) => {
     // eslint-disable-next-line 
   }, []);
 
-  return { token, loading, error };
+  return { token, action, loading, error };
 };

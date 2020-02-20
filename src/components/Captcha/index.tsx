@@ -1,23 +1,23 @@
 import React, { FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FormHeader } from 'components';
-import useCaptcha from 'hooks/useCaptcha';
 import { Form } from 'styles/common';
 
 import Content from './components/Content';
 
-const CAPTCHA_KEY = process.env.REACT_APP_CAPTCHA_KEY || '';
-
 interface Props {
+  token: string;
+  action: string;
+  loading: boolean;
+  error: Error | null;
   className?: string;
   onFail: () => void;
   onSuccess: (token: string) => void;
 }
 
 const Captcha = (props: Props) => {
-  const { className, onSuccess, onFail } = props;
+  const { className, onSuccess, onFail, token, loading, error } = props;
   const { t } = useTranslation();
-  const { token, loading, error } = useCaptcha(CAPTCHA_KEY);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
