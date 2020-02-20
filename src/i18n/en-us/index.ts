@@ -14,7 +14,7 @@ export default {
     'new-password': 'New password',
     'remember': 'Remember me',
     'forgot-password': 'Forgot your password',
-    'remember-password':'Remember your password',
+    'remember-password': 'Remember your password',
     'set-password': 'set password',
     'dont-have-account': 'Don\'t have an {{platform}} account',
     'already-have-account': 'If you already have an {{platform}} account, please',
@@ -39,6 +39,8 @@ export default {
     'social-new-description': 'We were not able to find a linked {{name}} with your {{platform}} account. Would you like to create new and link?',
     'dont-link': 'Don’t want to link this account',
     'ok': 'Ok',
+    'or': 'or',
+    'sign-in-later': 'Sign In Later',
     'errors': {
       'email-incorrect': 'Incorrect email',
       'password-incorrect': 'Incorrect password',

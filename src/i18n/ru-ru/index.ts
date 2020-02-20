@@ -14,7 +14,7 @@ export default {
     'new-password': 'Новый пароль',
     'remember': 'Запомнить меня',
     'forgot-password': 'Забыли пароль',
-    'remember-password':'Вспомнили пароль',
+    'remember-password': 'Вспомнили пароль',
     'set-password': 'Установить пароль',
     'dont-have-account': 'Нет учетной записи {{platform}}',
     'already-have-account': 'Уже есть учётная запись {{platform}}',
@@ -39,6 +39,8 @@ export default {
     'social-new-description': 'Мы не смогли найти связанный {{name}} с вашей учетной записью {{platform}}. Вы хотите создать новый и связать',
     'dont-link': 'Не хотите привязывать аккаунт',
     'ok': 'Ok',
+    'or': 'или',
+    'sign-in-later': 'Войти Позже',
     'errors': {
       'email-incorrect': 'Недопустимый адрес почты',
       'password-incorrect': 'Недопустимый пароль',

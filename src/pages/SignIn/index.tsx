@@ -6,9 +6,10 @@ import {
   StyledSocialButtons,
   FormWrapper,
   BlueLink,
+  StyledAuthSkip,
 } from 'styles/common';
 import { PLATFORM } from 'const';
-import { getUrlWithSearch } from 'helpers';
+import { getUrlWithSearch, isElectron, windowAlias } from 'helpers';
 
 interface Props {
   className?: string;
@@ -17,6 +18,12 @@ interface Props {
 const SignIn = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
+
+  const handleSkipAuth = () => {
+    if (windowAlias.interop) {
+      windowAlias.interop.skipAuth();
+    }
+  };
 
   return (
     <FormWrapper className={className}>
@@ -27,7 +34,13 @@ const SignIn = (props: Props) => {
         {`${t('dont-have-account', { platform: PLATFORM })}? `}
         <BlueLink to={getUrlWithSearch('/sign-up')}>
           {t('sign-up')}
-        </BlueLink>!
+        </BlueLink>
+        {isElectron && (
+          <>
+            {` ${t('or')} `}
+            <StyledAuthSkip onClick={handleSkipAuth}>{t('sign-in-later')}</StyledAuthSkip>
+          </>
+        )}
       </GreyText>
       <Privacy />
     </FormWrapper>

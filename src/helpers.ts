@@ -5,6 +5,7 @@ const MIN_PASSWORD_LENGTH = Number(process.env.REACT_APP_MIN_PASSWORD_LENGTH);
 const MAX_PASSWORD_LENGTH = Number(process.env.REACT_APP_MAX_PASSWORD_LENGTH);
 
 const CAPTCHA_REQUIRED_ERROR = 'errors.one.protocol.auth1.captcha_required';
+export const windowAlias = window as any;
 
 export const getUrlParameter = (name: string) => {
   const search = window.location.search;
@@ -25,7 +26,7 @@ export const passwordValidate = (pass: string) => {
   const valid = pass.length >= MIN_PASSWORD_LENGTH &&
     pass.length <= MAX_PASSWORD_LENGTH &&
     !pass.includes(' ') &&
-    /\d/.test(pass) && 
+    /\d/.test(pass) &&
     /[a-z]/i.test(pass);
   const error = valid ? '' : `errors.${PASSWORD}-incorrect`;
 
@@ -88,3 +89,4 @@ export const getUrlWithSearch = (url: string) => {
 };
 
 export const checkCaptchaRequired = (error: string) => error === CAPTCHA_REQUIRED_ERROR;
+export const isElectron = navigator.userAgent.toLowerCase().indexOf(' electron/') > -1;
