@@ -5,6 +5,7 @@ import {
   BlueLink,
   GreyText,
   StyledSocialButtons,
+  FormWrapper,
 } from 'styles/common';
 import { PLATFORM } from 'const';
 import { getUrlWithSearch } from 'helpers';
@@ -32,10 +33,12 @@ const SignUp = () => {
   );
 
   return (
-    <SignUpForm
-      header={formHeader}
-      footer={formFooter}
-    />
+    <FormWrapper>
+      <SignUpForm
+        header={formHeader}
+        footer={formFooter}
+      />
+    </FormWrapper>
   );
 };
 

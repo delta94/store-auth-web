@@ -8,7 +8,7 @@ import {
   StyledFormInput,
   StyledLink,
   StyledFormError,
-  FormWrapper,
+  HideableWrapper,
 } from 'styles/common';
 import { EMAIL, USERNAME, PASSWORD } from 'const';
 import { useForm, useCaptcha } from 'hooks';
@@ -78,14 +78,14 @@ const SignUpForm = (props: Props) => {
 
   return (
     <>
-      <FormWrapper hide={!showCaptcha}>
+      <HideableWrapper hide={!showCaptcha}>
         <Captcha
           error={captcha.error}
           loading={loading || captcha.loading}
           onSubmit={handleSubmit}
         />
-      </FormWrapper>
-      <FormWrapper hide={showCaptcha}>
+      </HideableWrapper>
+      <HideableWrapper hide={showCaptcha}>
         {header}
         <Form className={className} onSubmit={handleSubmit}>
           <StyledFormError message={formError} />
@@ -130,7 +130,7 @@ const SignUpForm = (props: Props) => {
           </SubmitButton>
         </Form>
         {footer}
-      </FormWrapper>
+      </HideableWrapper>
     </>
   );
 };
