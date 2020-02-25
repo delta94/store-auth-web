@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { FormWrapper, Description } from 'styles/common';
 import { FormHeader, NewPasswordForm, Loader } from 'components';
-import { PLATFORM } from 'const';
+import { PLATFORM, TOKEN } from 'const';
 import { getUrlParameter } from 'helpers';
 import { checkResetTokenRequest } from 'api';
 import { useHistory } from 'react-router-dom';
@@ -12,7 +12,6 @@ interface Props {
   className?: string;
 }
 
-const TOKEN = 'token';
 const token = getUrlParameter(TOKEN) || '';
 
 const NewPassword = (props: Props) => {

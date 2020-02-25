@@ -1,13 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ExpiredLinkIcon } from 'assets/icons';
+import { ComplainIcon } from 'assets/icons';
 import { ErrorWrapper, Container, ErrorTitle, ErrorDescription, ErrorIconWrapper } from 'styles/common';
 
 interface Props {
   className?: string;
 }
 
-const ExpiredLink = (props: Props) => {
+const Error = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
 
@@ -15,13 +15,13 @@ const ExpiredLink = (props: Props) => {
     <ErrorWrapper className={className}>
       <Container>
         <ErrorIconWrapper>
-          <ExpiredLinkIcon />
+          <ComplainIcon />
         </ErrorIconWrapper>
         <ErrorTitle>
-          {t('expired-link-title')}
+          {t('error-page-title')}
         </ErrorTitle>
         <ErrorDescription>
-          {t('expired-link-description')}
+          {t('error-page-description')}
         </ErrorDescription>
       </Container>
     </ErrorWrapper>
@@ -30,4 +30,4 @@ const ExpiredLink = (props: Props) => {
 
 const areEqual = (prev: Props, next: Props) => prev === next;
 
-export default React.memo(ExpiredLink, areEqual);
+export default React.memo(Error, areEqual);

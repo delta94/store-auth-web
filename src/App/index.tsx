@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import 'i18n';
 import { createBrowserHistory } from 'history';
@@ -11,6 +11,7 @@ import {
 import backgroundImage from 'assets/images/background.jpg';
 import { Loader } from 'components';
 import { getUrlWithSearch } from 'helpers';
+import { getSocialProvidersRequest } from 'api';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
@@ -20,27 +21,67 @@ const NewPassword = React.lazy(() => import('pages/NewPassword'));
 const SignInSocialNew = React.lazy(() => import('pages/SignInSocialNew'));
 const SignInSocialExisting = React.lazy(() => import('pages/SignInSocialExisting'));
 const ExpiredLink = React.lazy(() => import('pages/ExpiredLink'));
+const Error = React.lazy(() => import('pages/Error'));
 
 const history = createBrowserHistory();
 
+const defaultSocial = {
+  providers: [],
+  loading: false,
+};
+
+export const SocialContext = React.createContext(defaultSocial);
+
 const App: React.FC = () => {
+  const [social, setSocial] = useState(defaultSocial);
+
+  const getProviders = async () => {
+    setSocial({
+      ...social,
+      loading: true,
+    });
+
+    const response = await getSocialProvidersRequest();
+
+    if (!response || response.error) {
+      setSocial({
+        providers: [],
+        loading: false,
+      });
+      return;
+    }
+
+    setSocial({
+      providers: response,
+      loading: false,
+    });
+  };
+
+  useEffect(() => {
+    getProviders();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <Router history={history}>
-      <Wrapper>
-        <Suspense fallback={<Loader color="white" size={14} />}>
-          <Switch>
-            <Route path="/sign-in" component={SignIn} />
-            <Route path="/sign-up" component={SignUp} />
-            <Route path="/social-new/:name" component={SignInSocialNew} />
-            <Route path="/social-existing/:name" component={SignInSocialExisting} />
-            <Route path="/password-reset" component={PasswordReset} />
-            <Route path="/password-reset-success" component={PasswordResetSuccess} />
-            <Route path="/change-password" component={NewPassword} />
-            <Route path="/expired-link" component={ExpiredLink} />
-            <Redirect to={getUrlWithSearch('/sign-in')} />
-          </Switch>
-        </Suspense>
-      </Wrapper>
+      <SocialContext.Provider value={social}>
+        <Wrapper>
+          <Suspense fallback={<Loader color="white" size={14} />}>
+            <Switch>
+              <Route path="/sign-in" component={SignIn} />
+              <Route path="/sign-up" component={SignUp} />
+              <Route path="/social-new/:name" component={SignInSocialNew} />
+              <Route path="/social-existing/:name" component={SignInSocialExisting} />
+              <Route path="/password-reset" component={PasswordReset} />
+              <Route path="/password-reset-success" component={PasswordResetSuccess} />
+              <Route path="/change-password" component={NewPassword} />
+              <Route path="/expired-link" component={ExpiredLink} />
+              <Route path="/error" component={Error} />
+              <Redirect to={getUrlWithSearch('/sign-in')} />
+            </Switch>
+          </Suspense>
+        </Wrapper>
+      </SocialContext.Provider>
       <GlobalStyle />
     </Router>
   );

@@ -4,8 +4,8 @@ import { BASE_URL, GET_CAPTCHA_KEY_V3_URL } from 'api/const';
 const CAPTCHA_BASE_URL = 'https://www.google.com/recaptcha/api.js?render=';
 const captchaAction = 'homepage';
 
-export default () => {
-  const [loading, setLoading] = useState(true);
+export default (disabled = false) => {
+  const [loading, setLoading] = useState(false);
   const [captchaToken, setToken] = useState('');
   const [error, setError] = useState<Error | null>(null);
 
@@ -27,6 +27,7 @@ export default () => {
   };
 
   const initCaptcha = async () => {
+    setLoading(true);
     try {
       const getKeyUrl = `${BASE_URL}/${GET_CAPTCHA_KEY_V3_URL}`;
       const response = await fetch(getKeyUrl);
@@ -56,7 +57,7 @@ export default () => {
   };
 
   useEffect(() => {
-    initCaptcha();
+    if (!disabled) initCaptcha();
     // eslint-disable-next-line 
   }, []);
 

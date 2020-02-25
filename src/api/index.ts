@@ -1,4 +1,4 @@
-import { getCookie, getUrlParameter } from 'helpers';
+import { getCookie, getUrlParameter, getUrlWithSearch } from 'helpers';
 
 import {
   XSRF_KEY,
@@ -10,6 +10,7 @@ import {
   CHECK_RESET_TOKEN_URL,
   UNKNOWN_ERROR,
   SET_PASSWORD_URL,
+  SOCIAL_URL,
 } from './const';
 
 const getXSRFToken = () => getCookie(XSRF_KEY) || '';
@@ -55,3 +56,21 @@ export const signUpRequest = getPOSTrequest(SIGN_UP_URL);
 export const passwordResetRequest = getPOSTrequest(PASSWORD_RESET_URL);
 export const setPasswordRequest = getPOSTrequest(SET_PASSWORD_URL);
 export const checkResetTokenRequest = getPOSTrequest(CHECK_RESET_TOKEN_URL);
+
+export const getSocialProvidersRequest = getGETrequest(getUrlWithSearch(SOCIAL_URL));
+
+export const getSocialProfileRequest = (name: string, token: string) => {
+  const url = `${SOCIAL_URL}/${name}/profile?token=${token}`;
+  const request = getGETrequest(url);
+  return request();
+};
+
+export const createSignUpSocialRequest = (name: string) => {
+  const url = `${SOCIAL_URL}/${name}/signup`;
+  return getPOSTrequest(url);
+};
+
+export const createLinkSocialRequest = (name: string) => {
+  const url = `${SOCIAL_URL}/${name}/link`;
+  return getPOSTrequest(url);
+};

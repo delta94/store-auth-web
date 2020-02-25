@@ -87,3 +87,9 @@ export const getUrlWithSearch = (url: string) => {
 export const checkCaptchaRequired = (error: string) => error === CAPTCHA_REQUIRED_ERROR;
 
 export const isLauncher = navigator.userAgent.toLowerCase().indexOf(' electron/') > -1;
+
+export const capitalize = (word: string) => {
+  if (!word.length) return word;
+
+  return word[0].toUpperCase() + word.slice(1);
+};

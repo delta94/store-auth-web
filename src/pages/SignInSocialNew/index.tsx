@@ -2,34 +2,38 @@ import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { FormHeader, Tabs, Tab, SignInForm, SignUpForm, Privacy, DontWantLink } from 'components';
-import { PLATFORM } from 'const';
-import {
-  FormWrapper,
-  Description,
-} from 'styles/common';
+import { PLATFORM, TOKEN } from 'const';
+import { FormWrapper, Description } from 'styles/common';
 import { useParams } from 'react-router-dom';
+import { capitalize, getUrlParameter } from 'helpers';
+import { useSocialProfile } from 'hooks';
 
 interface Props {
   className?: string;
 }
 
+const token = getUrlParameter(TOKEN);
+
 const SignInSocialNew = (props: Props) => {
   const { className } = props;
-  const { name } = useParams();
+  const { name = '' } = useParams();
+  const capitalizedName = capitalize(name);
+  const { error, loading, profile } = useSocialProfile(name, token);
   const { t } = useTranslation();
+  console.log({ error, loading, profile });
   
   return (
     <FormWrapper className={className}>
-      <FormHeader title={`${t('social-new')} ${name}`} />
+      <FormHeader title={`${t('social-new')} ${capitalizedName}`} />
       <Description>
-        {t('social-new-description', { name, platform: PLATFORM })}
+        {t('social-new-description', { name: capitalizedName, platform: PLATFORM })}
       </Description>
       <StyledTabs>
         <StyledTab label={t('tab-new')}>
-          <SignUpForm />
+          <SignUpForm social={name} token={token} />
         </StyledTab>
         <StyledTab label={t('tab-existing')}>
-          <SignInForm />
+          <SignInForm social={name} token={token} />
         </StyledTab>
       </StyledTabs>
       <DontWantLink />
