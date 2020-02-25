@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { FormHeader, Captcha, PasswordResetForm, PasswordResetSuccess } from 'components';
 import { FormWrapper, Description } from 'styles/common';
-import useCaptcha from 'hooks/useCaptcha';
+import { useCaptcha } from 'hooks';
 
 type Step = 'enter' | 'captcha' | 'success';
 
@@ -18,18 +18,8 @@ const PasswordReset = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
 
-  const handleCaptchaFail = () => {
-    // show captcha error?
-    alert('Captcha check Fail!');
-  };
-
-  const handleCaptchaSuccess = (token: string) => {
-    // send email and token to backend
-    console.log({ email, token });
-    setStep('success');
-  };
-
   const handleEmailSubmit = (submitedEmail: string) => {
+    console.log(email);
     setEmail(submitedEmail);
     setStep('captcha');
   };
@@ -40,8 +30,7 @@ const PasswordReset = (props: Props) => {
         return (
           <Captcha
             {...captcha}
-            onFail={handleCaptchaFail}
-            onSuccess={handleCaptchaSuccess}
+            onSubmit={() => { /* */ }}
           />
         );
 

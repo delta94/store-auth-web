@@ -5,8 +5,8 @@ import { FormInput, CheckBox, SocialButtons, FormError } from 'components';
 import { BLUE_700, GRAY_900, GRAY_TEXT } from 'styles/colors';
 import { Row, TinyText } from 'styles/primitives';
 
-export const FormWrapper = styled.div`
-  display: flex;
+export const FormWrapper = styled.div<{ hide?: boolean }>`
+  display: ${({ hide }) => hide ? 'none' : 'flex'};
   flex-direction: column;
   align-items: center;
   justify-content: space-between;

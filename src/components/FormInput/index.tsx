@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Input } from 'components';
-import useDebounce from 'hooks/useDebounce';
+import { useDebounce } from 'hooks';
 
 const debouncingTime = Number(process.env.REACT_APP_VALIDATION_DEBOUNCING_TIME);
 

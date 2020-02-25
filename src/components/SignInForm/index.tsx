@@ -12,7 +12,7 @@ import {
   StyledFormError,
 } from 'styles/common';
 import { EMAIL, PASSWORD } from 'const';
-import useForm from 'hooks/useForm';
+import { useForm } from 'hooks';
 import { signInRequest } from 'api';
 import { SubmitButton } from 'components';
 

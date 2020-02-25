@@ -5,24 +5,22 @@ import {
   BlueLink,
   GreyText,
   StyledSocialButtons,
-  FormWrapper,
 } from 'styles/common';
 import { PLATFORM } from 'const';
 import { getUrlWithSearch } from 'helpers';
 
-interface Props {
-  className?: string;
-}
-
-const SignUp = (props: Props) => {
-  const { className } = props;
+const SignUp = () => {
   const { t } = useTranslation();
 
-  return (
-    <FormWrapper className={className}>
+  const formHeader = (
+    <>
       <FormHeader title={t('sign-up')} />
       <StyledSocialButtons />
-      <SignUpForm />
+    </>
+  );
+
+  const formFooter = (
+    <>
       <GreyText>
         {`${t('already-have-account', { platform: PLATFORM })} `}
         <BlueLink to={getUrlWithSearch('/sign-in')}>
@@ -30,7 +28,14 @@ const SignUp = (props: Props) => {
         </BlueLink>
       </GreyText>
       <Privacy />
-    </FormWrapper>
+    </>
+  );
+
+  return (
+    <SignUpForm
+      header={formHeader}
+      footer={formFooter}
+    />
   );
 };
 

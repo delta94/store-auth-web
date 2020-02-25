@@ -1,7 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { Loader, SubmitButton } from 'components';
+import { SubmitButton } from 'components';
 import { ErrorText } from 'styles/primitives';
 import { Description } from 'styles/common';
 
@@ -17,12 +16,10 @@ const Content = (props: Props) => {
 
   if (error) return <ErrorText>{error.message}</ErrorText>;
 
-  if (loading) return <StyledLoader size={14} color="white" title="Loading..." />;
-
   return (
     <>
       <Description>{t('captcha-description')}.</Description>
-      <SubmitButton>
+      <SubmitButton loading={loading}>
         {t('verify')}
       </SubmitButton>
     </>
@@ -35,7 +32,3 @@ const areEqual = (prev: Props, next: Props) => (
 );
 
 export default React.memo(Content, areEqual);
-
-const StyledLoader = styled(Loader)`
-  margin-bottom: 70px;
-`;
