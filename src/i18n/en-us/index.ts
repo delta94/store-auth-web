@@ -41,6 +41,8 @@ export default {
     'ok': 'Ok',
     'or': 'or',
     'sign-in-later': 'Sign In Later',
+    'expired-link-title': 'The link has been expired',
+    'expired-link-description': 'Aliqua incididunt deserunt do duis incididunt id. Adipisicing incididunt aute pariatur laboris consequat minim proident culpa irure ad dolore consequat dolore',
     'errors': {
       'email-incorrect': 'Incorrect email',
       'password-incorrect': 'Incorrect password',

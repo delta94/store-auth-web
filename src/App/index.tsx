@@ -15,9 +15,11 @@ import { getUrlWithSearch } from 'helpers';
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
 const PasswordReset = React.lazy(() => import('pages/PasswordReset'));
+const PasswordResetSuccess = React.lazy(() => import('pages/PasswordResetSuccess'));
 const NewPassword = React.lazy(() => import('pages/NewPassword'));
 const SignInSocialNew = React.lazy(() => import('pages/SignInSocialNew'));
 const SignInSocialExisting = React.lazy(() => import('pages/SignInSocialExisting'));
+const ExpiredLink = React.lazy(() => import('pages/ExpiredLink'));
 
 const history = createBrowserHistory();
 
@@ -32,7 +34,9 @@ const App: React.FC = () => {
             <Route path="/social-new/:name" component={SignInSocialNew} />
             <Route path="/social-existing/:name" component={SignInSocialExisting} />
             <Route path="/password-reset" component={PasswordReset} />
-            <Route path="/new-password" component={NewPassword} />
+            <Route path="/password-reset-success" component={PasswordResetSuccess} />
+            <Route path="/change-password" component={NewPassword} />
+            <Route path="/expired-link" component={ExpiredLink} />
             <Redirect to={getUrlWithSearch('/sign-in')} />
           </Switch>
         </Suspense>
