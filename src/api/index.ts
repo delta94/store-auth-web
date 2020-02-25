@@ -8,17 +8,10 @@ import {
   SIGN_UP_URL,
   PASSWORD_RESET_URL,
   CHECK_RESET_TOKEN_URL,
+  UNKNOWN_ERROR,
 } from './const';
 
 const getXSRFToken = () => getCookie(XSRF_KEY) || '';
-
-const handleRequestError = (err: Error) => {
-  console.error(err);
-  return ({
-    error: 'errors.one.protocol.auth1.unknown',
-    code: 'AU-1000',
-  });
-};
 
 const getPOSTrequest = (requestUrl: string) => async (data: any) => {
   const url = `${BASE_URL}/${requestUrl}`;
@@ -39,7 +32,7 @@ const getPOSTrequest = (requestUrl: string) => async (data: any) => {
 
     return json;
   } catch (err) {
-    return handleRequestError(err);
+    return UNKNOWN_ERROR;
   }
 };
 
@@ -52,7 +45,7 @@ const getGETrequest = (requestUrl: string) => async () => {
 
     return json;
   } catch (err) {
-    return handleRequestError(err);
+    return UNKNOWN_ERROR;
   }
 };
 

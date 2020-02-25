@@ -8,3 +8,8 @@ export const GET_CAPTCHA_KEY_V3_URL = 'api/captcha/key?type=re3';
 export const XSRF_KEY = '_csrf';
 export const BASE_URL = process.env.REACT_APP_API_URL;
 export const CHALLENGE_KEY = 'login_challenge';
+
+export const UNKNOWN_ERROR = {
+  error: 'errors.one.protocol.auth1.unknown',
+  code: 'AU-1000',
+};
