@@ -5,11 +5,11 @@ import { RememberPassword, SubmitButton } from 'components';
 import { emailValidate } from 'helpers';
 import { Form, StyledFormInput } from 'styles/common';
 import { EMAIL } from 'const';
-import useForm from 'hooks/useForm';
+import { useForm } from 'hooks';
 
 interface Props {
   className?: string;
-  onSubmit?: () => void;
+  onSubmit?: (email: string) => void;
 }
 
 const resetFields = [EMAIL];
@@ -22,11 +22,9 @@ const PasswordResetForm = (props: Props) => {
   const handlePasswordReset = (event: FormEvent) => {
     event.preventDefault();
 
-    const formData = getFormSubmitData(event);
+    const { email } = getFormSubmitData(event);
 
-    console.log(formData);
-
-    if (onSubmit) onSubmit();
+    if (onSubmit) onSubmit(email);
   };
 
   return (

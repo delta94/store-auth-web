@@ -12,9 +12,8 @@ import {
   StyledFormError,
 } from 'styles/common';
 import { EMAIL, PASSWORD } from 'const';
-import useForm from 'hooks/useForm';
-import { request } from 'api';
-import { SIGN_IN } from 'api/const';
+import { useForm } from 'hooks';
+import { signInRequest } from 'api';
 import { SubmitButton } from 'components';
 
 interface Props {
@@ -42,7 +41,7 @@ const SignInForm = (props: Props) => {
     setFormError('');
     
     const formData = { remember, ...getFormSubmitData(event) };
-    const { error, param, url } = await request(SIGN_IN, formData);
+    const { error, param, url } = await signInRequest(formData);
 
     if (!error) {
       window.location.href = url;

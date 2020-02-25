@@ -9,7 +9,3 @@ export interface SignUpProps {
   password: string;
   username: string;
 }
-
-export type RequestType = 'login' | 'signup';
-
-export type RequestProps = SignInProps | SignUpProps;

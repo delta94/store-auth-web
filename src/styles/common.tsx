@@ -17,6 +17,13 @@ export const FormWrapper = styled.div`
   border-radius: 8px;
 `;
 
+export const HideableWrapper = styled.div<{ hide?: boolean }>`
+  display: ${({ hide }) => hide ? 'none' : 'flex'};
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const Form = styled.form`
   display: flex;
   flex-direction: column;

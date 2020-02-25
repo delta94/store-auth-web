@@ -4,6 +4,8 @@ import { PASSWORD, EMAIL, USERNAME } from 'const';
 const MIN_PASSWORD_LENGTH = Number(process.env.REACT_APP_MIN_PASSWORD_LENGTH);
 const MAX_PASSWORD_LENGTH = Number(process.env.REACT_APP_MAX_PASSWORD_LENGTH);
 
+const CAPTCHA_REQUIRED_ERROR = 'errors.one.protocol.auth1.captcha_required';
+
 export const getUrlParameter = (name: string) => {
   const search = window.location.search;
   const regex = new RegExp(`[\\?&]${name}=([^&#]*)`);
@@ -84,3 +86,5 @@ export const getUrlWithSearch = (url: string) => {
 
   return `${url}${search}`;
 };
+
+export const checkCaptchaRequired = (error: string) => error === CAPTCHA_REQUIRED_ERROR;

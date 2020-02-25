@@ -13,7 +13,7 @@ import {
   StyledFormInput,
 } from 'styles/common';
 import { PASSWORD } from 'const';
-import useForm from 'hooks/useForm';
+import { useForm } from 'hooks';
 
 interface Props {
   className?: string;
