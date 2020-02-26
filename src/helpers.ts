@@ -15,7 +15,7 @@ export const getUrlParameter = (name: string) => {
 
 export const emailValidate = (str: string) => {
   // eslint-disable-next-line no-useless-escape
-  const valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str);
+  const valid = /^\w+([\.+-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str);
   const error = valid ? '' : `errors.${EMAIL}-incorrect`;
 
   return { valid, error };
