@@ -41,6 +41,8 @@ export default {
     'ok': 'Ok',
     'or': 'или',
     'sign-in-later': 'Войти Позже',
+    'expired-link-title': 'The link has been expired',
+    'expired-link-description': 'Aliqua incididunt deserunt do duis incididunt id. Adipisicing incididunt aute pariatur laboris consequat minim proident culpa irure ad dolore consequat dolore',
     'errors': {
       'email-incorrect': 'Недопустимый адрес почты',
       'password-incorrect': 'Недопустимый пароль',

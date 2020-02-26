@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { passwordValidate } from 'helpers';
@@ -6,28 +6,43 @@ import { RememberPassword, SubmitButton } from 'components';
 import { Form, StyledFormInput } from 'styles/common';
 import { PASSWORD } from 'const';
 import { useForm } from 'hooks';
+import { setPasswordRequest } from 'api';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   className?: string;
+  token: string;
 }
 
 const resetFields = [PASSWORD];
 
 const NewPasswordForm = (props: Props) => {
-  const { className } = props;
+  const { className, token } = props;
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
   const { t } = useTranslation();
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(resetFields);
 
-  const handlePasswordReset = (event: FormEvent) => {
+  const handleSetPassword = async (event: FormEvent) => {
     event.preventDefault();
 
-    const formData = getFormSubmitData(event);
+    setLoading(true);
 
-    console.log(formData);
+    const data = { token, ...getFormSubmitData(event) };
+    const { error, url } = await setPasswordRequest(data);
+
+    setLoading(false);
+
+    if (!error) {
+      window.location.href = url;
+      return;
+    }
+
+    history.replace('/expired-link');
   };
 
   return (
-    <Form className={className} onSubmit={handlePasswordReset}>
+    <Form className={className} onSubmit={handleSetPassword}>
       <StyledFormInput
         type="password"
         label={t('new-password')}
@@ -36,7 +51,7 @@ const NewPasswordForm = (props: Props) => {
         validate={passwordValidate}
         onValidate={handleErrorsChange}
       />
-      <StyledSubmitButton disabled={!isFormValid}>
+      <StyledSubmitButton disabled={!isFormValid} loading={loading}>
         {t('set-password')}
       </StyledSubmitButton>
       <RememberPassword />
