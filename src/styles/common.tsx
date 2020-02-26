@@ -69,7 +69,7 @@ export const BlueLink = styled(Link)`
   text-decoration: none;
 `;
 
-export const StyledAuthSkip = styled.span`
+export const AuthSkip = styled.span`
   color: ${BLUE_700};
   cursor: pointer;
 `;

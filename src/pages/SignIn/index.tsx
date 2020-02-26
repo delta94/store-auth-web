@@ -6,10 +6,10 @@ import {
   StyledSocialButtons,
   FormWrapper,
   BlueLink,
-  StyledAuthSkip,
+  AuthSkip,
 } from 'styles/common';
 import { PLATFORM } from 'const';
-import { getUrlWithSearch, isElectron, windowAlias } from 'helpers';
+import { getUrlWithSearch, isLauncher, windowAlias } from 'helpers';
 
 interface Props {
   className?: string;
@@ -35,10 +35,10 @@ const SignIn = (props: Props) => {
         <BlueLink to={getUrlWithSearch('/sign-up')}>
           {t('sign-up')}
         </BlueLink>
-        {isElectron && (
+        {isLauncher && (
           <>
             {` ${t('or')} `}
-            <StyledAuthSkip onClick={handleSkipAuth}>{t('sign-in-later')}</StyledAuthSkip>
+            <AuthSkip onClick={handleSkipAuth}>{t('sign-in-later')}</AuthSkip>
           </>
         )}
       </GreyText>

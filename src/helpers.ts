@@ -1,10 +1,6 @@
 import { BASE_URL, CHECK_USERNAME_URL, CHALLENGE_KEY } from 'api/const';
-import { PASSWORD, EMAIL, USERNAME } from 'const';
+import { PASSWORD, EMAIL, USERNAME, CAPTCHA_REQUIRED_ERROR, MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH } from 'const';
 
-const MIN_PASSWORD_LENGTH = Number(process.env.REACT_APP_MIN_PASSWORD_LENGTH);
-const MAX_PASSWORD_LENGTH = Number(process.env.REACT_APP_MAX_PASSWORD_LENGTH);
-
-const CAPTCHA_REQUIRED_ERROR = 'errors.one.protocol.auth1.captcha_required';
 export const windowAlias = window as any;
 
 export const getUrlParameter = (name: string) => {
@@ -89,4 +85,5 @@ export const getUrlWithSearch = (url: string) => {
 };
 
 export const checkCaptchaRequired = (error: string) => error === CAPTCHA_REQUIRED_ERROR;
-export const isElectron = navigator.userAgent.toLowerCase().indexOf(' electron/') > -1;
+
+export const isLauncher = navigator.userAgent.toLowerCase().indexOf(' electron/') > -1;
