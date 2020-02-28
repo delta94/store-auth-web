@@ -3,7 +3,7 @@ export const SIGN_UP_URL = 'oauth2/signup';
 export const CHECK_USERNAME_URL = 'oauth2/checkUsername';
 export const PASSWORD_RESET_URL ='api/password/reset';
 export const SET_PASSWORD_URL ='api/password/reset/set';
-export const CHECK_RESET_TOKEN_URL = 'api/password/reset?token=';
+export const CHECK_RESET_TOKEN_URL = 'api/password/reset/link';
 export const GET_CAPTCHA_KEY_V3_URL = 'api/captcha/key?type=re3';
 
 export const XSRF_KEY = '_csrf';

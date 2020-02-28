@@ -54,10 +54,4 @@ export const signInRequest = getPOSTrequest(SIGN_IN_URL);
 export const signUpRequest = getPOSTrequest(SIGN_UP_URL);
 export const passwordResetRequest = getPOSTrequest(PASSWORD_RESET_URL);
 export const setPasswordRequest = getPOSTrequest(SET_PASSWORD_URL);
-
-export const checkResetTokenRequest = (token: string) => {
-  const url = `${CHECK_RESET_TOKEN_URL}${token}`;
-
-  const request = getGETrequest(url);
-  return request();
-};
+export const checkResetTokenRequest = getPOSTrequest(CHECK_RESET_TOKEN_URL);

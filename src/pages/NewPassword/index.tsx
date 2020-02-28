@@ -15,51 +15,40 @@ interface Props {
 const TOKEN = 'token';
 const token = getUrlParameter(TOKEN) || '';
 
-const mockEmail = 'john@example.com';
-
 const NewPassword = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
   const history = useHistory();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
 
   const checkResetToken = async () => {
-    setLoading(true);
-
-    const { email, error } = await checkResetTokenRequest(token);
-
-    if (error) {
-      // with check token API
-      // history.replace('/expired-link');
-      // return;
-
-      // without check token API
-      setEmail(mockEmail);
-    } else {
-      setEmail(email);
-    }
+    const { email, error } = await checkResetTokenRequest({ token });
 
     setLoading(false);
+
+    if (error) {
+      history.replace('/expired-link');
+      return;
+    } 
+
+    setEmail(email);
   };
 
   useEffect(() => {
     checkResetToken();
+    // eslint-disable-next-line
   }, []);
+
+  if (loading) return <Loader size={14} color="white" />;
 
   return (
     <FormWrapper className={className}>
       <FormHeader title={t('new-password')} />
-      {loading
-        ? <StyledLoader title="Loading..." />
-        : (
-          <>
-            <StyledDescription>
-              {t('new-password-description', { platform: PLATFORM, email })}
-            </StyledDescription>
-            <NewPasswordForm token={token} />
-          </>  
-        )}
+      <StyledDescription>
+        {t('new-password-description', { platform: PLATFORM, email })}
+      </StyledDescription>
+      <NewPasswordForm token={token} />
     </FormWrapper>
   );
 };
@@ -68,9 +57,4 @@ export default React.memo(NewPassword);
 
 const StyledDescription = styled(Description)`
   margin-bottom: 16px;
-`;
-
-const StyledLoader = styled((props: any) => <Loader {...props} />).attrs({ size: 14, color: 'white' })`
-  flex-grow: 1;
-  justify-self: center;
 `;
