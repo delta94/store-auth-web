@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import 'i18n';
 import { createBrowserHistory } from 'history';
@@ -11,7 +11,7 @@ import {
 import backgroundImage from 'assets/images/background.jpg';
 import { Loader } from 'components';
 import { getUrlWithSearch } from 'helpers';
-import { getSocialProvidersRequest } from 'api';
+import useSocialProviders from 'hooks/useSocialProviders';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
@@ -25,42 +25,10 @@ const Error = React.lazy(() => import('pages/Error'));
 
 const history = createBrowserHistory();
 
-const defaultSocial = {
-  providers: [],
-  loading: false,
-};
-
-export const SocialContext = React.createContext(defaultSocial);
+export const SocialContext = React.createContext({});
 
 const App: React.FC = () => {
-  const [social, setSocial] = useState(defaultSocial);
-
-  const getProviders = async () => {
-    setSocial({
-      ...social,
-      loading: true,
-    });
-
-    const response = await getSocialProvidersRequest();
-
-    if (!response || response.error) {
-      setSocial({
-        providers: [],
-        loading: false,
-      });
-      return;
-    }
-
-    setSocial({
-      providers: response,
-      loading: false,
-    });
-  };
-
-  useEffect(() => {
-    getProviders();
-    // eslint-disable-next-line
-  }, []);
+  const social = useSocialProviders();
 
   return (
     <Router history={history}>
