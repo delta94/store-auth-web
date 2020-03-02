@@ -7,3 +7,4 @@ export { ReactComponent as LogoIcon } from './logo.svg';
 export { ReactComponent as HintIcon } from './hint.svg';
 export { ReactComponent as EmailSentIcon } from './email-sent.svg';
 export { ReactComponent as ErrorIcon } from './error-icon.svg';
+export { ReactComponent as ExpiredLinkIcon } from './expired-link.svg';

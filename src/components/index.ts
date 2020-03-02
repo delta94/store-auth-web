@@ -13,7 +13,6 @@ export { default as NewPasswordForm } from './NewPasswordForm';
 export { default as SocialExistingForm } from './SocialExistingForm';
 export { default as Tabs } from './Tabs';
 export { default as Tab } from './Tab';
-export { default as PasswordResetSuccess } from './PasswordResetSuccess';
 export { default as Captcha } from './Captcha';
 export { default as RememberPassword } from './RememberPassword';
 export { default as DontWantLink } from './DontWantLink';

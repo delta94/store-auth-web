@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom';
 import { EmailSentIcon } from 'assets/icons';
-import { Form, Description } from 'styles/common';
+import { Form, Description, FormWrapper } from 'styles/common';
 import { PLATFORM } from 'const';
 import { SubmitButton } from 'components';
 import { getUrlWithSearch } from 'helpers';
@@ -12,7 +12,7 @@ interface Props {
   className?: string;
 }
 
-const PasswordReset = (props: Props) => {
+const PasswordResetSuccess = (props: Props) => {
   const { className } = props;
   const history = useHistory();
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ const PasswordReset = (props: Props) => {
   };
 
   return (
-    <>
+    <FormWrapper>
       <StyledEmailSentIcon />
       <Title>{t('email-sent-title')}</Title>
       <Description>{t('email-sent-text-start', { platform: PLATFORM })}
@@ -38,11 +38,11 @@ const PasswordReset = (props: Props) => {
           {t('ok')}
         </SubmitButton>
       </Form>
-    </>
+    </FormWrapper>
   );
 };
 
-export default React.memo(PasswordReset);
+export default React.memo(PasswordResetSuccess);
 
 const StyledEmailSentIcon = styled(EmailSentIcon)`
   margin-top: 16px;

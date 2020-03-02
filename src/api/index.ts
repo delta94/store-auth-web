@@ -9,6 +9,7 @@ import {
   PASSWORD_RESET_URL,
   CHECK_RESET_TOKEN_URL,
   UNKNOWN_ERROR,
+  SET_PASSWORD_URL,
 } from './const';
 
 const getXSRFToken = () => getCookie(XSRF_KEY) || '';
@@ -52,9 +53,5 @@ const getGETrequest = (requestUrl: string) => async () => {
 export const signInRequest = getPOSTrequest(SIGN_IN_URL);
 export const signUpRequest = getPOSTrequest(SIGN_UP_URL);
 export const passwordResetRequest = getPOSTrequest(PASSWORD_RESET_URL);
-
-export const checkResetTokenRequest = (token: string) => {
-  const url = `${CHECK_RESET_TOKEN_URL}${token}`;
-
-  return getGETrequest(url);
-};
+export const setPasswordRequest = getPOSTrequest(SET_PASSWORD_URL);
+export const checkResetTokenRequest = getPOSTrequest(CHECK_RESET_TOKEN_URL);

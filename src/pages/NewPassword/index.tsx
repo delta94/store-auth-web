@@ -1,27 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { FormWrapper, Description } from 'styles/common';
-import { FormHeader, NewPasswordForm } from 'components';
+import { FormHeader, NewPasswordForm, Loader } from 'components';
 import { PLATFORM } from 'const';
+import { getUrlParameter } from 'helpers';
+import { checkResetTokenRequest } from 'api';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   className?: string;
 }
 
-const mockEmail = 'john@example.com';
+const TOKEN = 'token';
+const token = getUrlParameter(TOKEN) || '';
 
 const NewPassword = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
+  const history = useHistory();
+  const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState('');
+
+  const checkResetToken = async () => {
+    const { email, error } = await checkResetTokenRequest({ token });
+
+    setLoading(false);
+
+    if (error) {
+      history.replace('/expired-link');
+      return;
+    } 
+
+    setEmail(email);
+  };
+
+  useEffect(() => {
+    checkResetToken();
+    // eslint-disable-next-line
+  }, []);
+
+  if (loading) return <Loader size={14} color="white" />;
 
   return (
     <FormWrapper className={className}>
       <FormHeader title={t('new-password')} />
       <StyledDescription>
-        {t('new-password-description', { platform: PLATFORM, email: mockEmail })}
+        {t('new-password-description', { platform: PLATFORM, email })}
       </StyledDescription>
-      <NewPasswordForm />
+      <NewPasswordForm token={token} />
     </FormWrapper>
   );
 };

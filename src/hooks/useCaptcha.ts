@@ -14,11 +14,29 @@ export default () => {
     setError(err);
   };
 
+  const executeCaptcha = (key: string) => {
+    const grecaptcha = (window as any).grecaptcha;
+
+    grecaptcha.ready(() => {
+      grecaptcha.execute(key, { action: captchaAction })
+        .then((token: string) => {
+          setLoading(false);
+          setToken(token);
+        });
+    });
+  };
+
   const initCaptcha = async () => {
     try {
       const getKeyUrl = `${BASE_URL}/${GET_CAPTCHA_KEY_V3_URL}`;
       const response = await fetch(getKeyUrl);
       const { key } = await response.json();
+
+      if ((window as any).grecaptcha) {
+        executeCaptcha(key);
+        return;
+      }
+
       const captchaURL = `${CAPTCHA_BASE_URL}${key}`;
 
       const script = document.createElement('script');
@@ -26,17 +44,7 @@ export default () => {
       script.src = captchaURL;
       document.body.append(script);
       
-      script.onload = () => {
-        const grecaptcha = (window as any).grecaptcha;
-
-        grecaptcha.ready(() => {
-          grecaptcha.execute(key, { action: captchaAction })
-            .then((token: string) => {
-              setLoading(false);
-              setToken(token);
-            });
-        });
-      };
+      script.onload = () => executeCaptcha(key);
 
       script.onerror = () => {
         const err = new Error('Captcha script load error');
@@ -45,7 +53,6 @@ export default () => {
     } catch (err) {
       handleError(err);
     }
-    
   };
 
   useEffect(() => {
