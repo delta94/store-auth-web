@@ -14,7 +14,7 @@ const SubmitButton = (props: Props) => {
   const { className, loading, disabled, children } = props;
 
   return (
-    <Wrapper className={className} disabled={loading || disabled}>
+    <Wrapper tabIndex={1} className={className} disabled={loading || disabled}>
       {loading
         ? <Loader size={14} color="white" />
         : children

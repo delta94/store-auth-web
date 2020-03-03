@@ -8,3 +8,7 @@ export const CAPTCHA_REQUIRED_ERROR = 'errors.one.protocol.auth1.captcha_require
 
 export const MIN_PASSWORD_LENGTH = Number(process.env.REACT_APP_MIN_PASSWORD_LENGTH);
 export const MAX_PASSWORD_LENGTH = Number(process.env.REACT_APP_MAX_PASSWORD_LENGTH);
+export const FACEBOOK = 'facebook';
+export const TWITTER = 'twitter';
+
+export const TOKEN = 'token';

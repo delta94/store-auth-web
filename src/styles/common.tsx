@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FormInput, CheckBox, SocialButtons, FormError } from 'components';
-import { BLUE_700, GRAY_900, GRAY_TEXT } from 'styles/colors';
-import { Row, TinyText } from 'styles/primitives';
+import { BLUE_700, GRAY_900, GRAY_TEXT, BLACK } from 'styles/colors';
+import { Row, TinyText, Column } from 'styles/primitives';
 
 export const FormWrapper = styled.div`
   display: flex;
@@ -88,4 +88,41 @@ export const Description = styled(GreyText)`
   margin-top: 8px;
   padding: 0 16px;
   text-align: center;
+`;
+
+export const ErrorWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: ${BLACK};
+`;
+
+export const Container = styled(Column)`
+  align-items: center;
+  max-width: 480px;
+`;
+
+export const ErrorIconWrapper = styled.div`
+  max-height: 40px;
+  margin: 0 auto 20px auto;
+`;
+
+export const ErrorTitle = styled.h1`
+  margin:  0 0 12px 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  color: white;
+`;
+
+export const ErrorDescription = styled.h4`
+  margin:  0;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center;
+  color: ${GRAY_TEXT};
 `;

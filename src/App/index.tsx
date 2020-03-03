@@ -11,6 +11,7 @@ import {
 import backgroundImage from 'assets/images/background.jpg';
 import { Loader } from 'components';
 import { getUrlWithSearch } from 'helpers';
+import useSocialProviders, { defaultSocial } from 'hooks/useSocialProviders';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
@@ -20,27 +21,35 @@ const NewPassword = React.lazy(() => import('pages/NewPassword'));
 const SignInSocialNew = React.lazy(() => import('pages/SignInSocialNew'));
 const SignInSocialExisting = React.lazy(() => import('pages/SignInSocialExisting'));
 const ExpiredLink = React.lazy(() => import('pages/ExpiredLink'));
+const Error = React.lazy(() => import('pages/Error'));
 
 const history = createBrowserHistory();
 
+export const SocialContext = React.createContext(defaultSocial);
+
 const App: React.FC = () => {
+  const social = useSocialProviders();
+
   return (
     <Router history={history}>
-      <Wrapper>
-        <Suspense fallback={<Loader color="white" size={14} />}>
-          <Switch>
-            <Route path="/sign-in" component={SignIn} />
-            <Route path="/sign-up" component={SignUp} />
-            <Route path="/social-new/:name" component={SignInSocialNew} />
-            <Route path="/social-existing/:name" component={SignInSocialExisting} />
-            <Route path="/password-reset" component={PasswordReset} />
-            <Route path="/password-reset-success" component={PasswordResetSuccess} />
-            <Route path="/change-password" component={NewPassword} />
-            <Route path="/expired-link" component={ExpiredLink} />
-            <Redirect to={getUrlWithSearch('/sign-in')} />
-          </Switch>
-        </Suspense>
-      </Wrapper>
+      <SocialContext.Provider value={social}>
+        <Wrapper>
+          <Suspense fallback={<Loader color="white" size={14} />}>
+            <Switch>
+              <Route path="/sign-in" component={SignIn} />
+              <Route path="/sign-up" component={SignUp} />
+              <Route path="/social-new/:name" component={SignInSocialNew} />
+              <Route path="/social-existing/:name" component={SignInSocialExisting} />
+              <Route path="/password-reset" component={PasswordReset} />
+              <Route path="/password-reset-success" component={PasswordResetSuccess} />
+              <Route path="/change-password" component={NewPassword} />
+              <Route path="/expired-link" component={ExpiredLink} />
+              <Route path="/error" component={Error} />
+              <Redirect to={getUrlWithSearch('/sign-in')} />
+            </Switch>
+          </Suspense>
+        </Wrapper>
+      </SocialContext.Provider>
       <GlobalStyle />
     </Router>
   );

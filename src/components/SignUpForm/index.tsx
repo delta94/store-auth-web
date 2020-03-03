@@ -12,21 +12,24 @@ import {
 } from 'styles/common';
 import { EMAIL, USERNAME, PASSWORD } from 'const';
 import { useForm, useCaptcha } from 'hooks';
-import { signUpRequest } from 'api';
+import { signUpRequest, createSignUpSocialRequest } from 'api';
 import { SubmitButton, Captcha } from 'components';
 
 interface Props {
   className?: string;
   header?: ReactNode;
   footer?: ReactNode;
+  social?: string;
+  token?: string;
 }
 
 const minPasswordLength = process.env.REACT_APP_MIN_PASSWORD_LENGTH;
 const signUpFields = [EMAIL, USERNAME, PASSWORD];
 
 const SignUpForm = (props: Props) => {
-  const { className, header, footer } = props;
-  const captcha = useCaptcha();
+  const { className, header, footer, token, social } = props;
+  const isCaptchaDisabled = !!social;
+  const captcha = useCaptcha(isCaptchaDisabled);
   const [showCaptcha, setShowCaptcha] = useState(false);
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
@@ -41,25 +44,35 @@ const SignUpForm = (props: Props) => {
 
   const isSignUpFormValid = isFormValid && agree;
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
+  const getSubmitRequestData = (event: FormEvent) => {
+    if (social) return { agree, social: token, ...getFormSubmitData(event) };
+
     const { captchaAction, captchaToken } = captcha;
 
+    return showCaptcha 
+    ? { captchaAction, captchaToken, ...formData }
+    : { agree, ...getFormSubmitData(event) };
+  };
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    
     setLoading(true);
     setFormError('');
 
-    const data: Record<string, any> = showCaptcha 
-      ? { captchaAction, captchaToken, ...formData }
-      : { agree, ...getFormSubmitData(event) };
+    const data: Record<string, any> = getSubmitRequestData(event);
+    const request = social
+      ? createSignUpSocialRequest(social)
+      : signUpRequest;
 
-    const { error, param, url } = await signUpRequest(data);
+    const { error, param, url } = await request(data);
 
     if (!error) {
       window.location.href = url;
       return;
     }
 
-    if (checkCaptchaRequired(error)) {
+    if (checkCaptchaRequired(error) && !isCaptchaDisabled) {
       setLoading(false);
       setShowCaptcha(true);
       setFormData(data);

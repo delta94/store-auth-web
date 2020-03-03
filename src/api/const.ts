@@ -5,6 +5,7 @@ export const PASSWORD_RESET_URL ='api/password/reset';
 export const SET_PASSWORD_URL ='api/password/reset/set';
 export const CHECK_RESET_TOKEN_URL = 'api/password/reset/link';
 export const GET_CAPTCHA_KEY_V3_URL = 'api/captcha/key?type=re3';
+export const SOCIAL_URL = 'api/providers';
 
 export const XSRF_KEY = '_csrf';
 export const BASE_URL = process.env.REACT_APP_API_URL;

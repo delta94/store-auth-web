@@ -43,6 +43,8 @@ export default {
     'sign-in-later': 'Sign In Later',
     'expired-link-title': 'The link has been expired',
     'expired-link-description': 'Aliqua incididunt deserunt do duis incididunt id. Adipisicing incididunt aute pariatur laboris consequat minim proident culpa irure ad dolore consequat dolore',
+    'error-page-title': 'Oops something went wrong',
+    'error-page-description': 'Sorry, we can’t get that information right now. Please try to refresh the page or try again later',
     'errors': {
       'email-incorrect': 'Incorrect email',
       'password-incorrect': 'Incorrect password',
@@ -64,6 +66,7 @@ export default {
             'invalid_credentials': 'Invalid credentials',
             'username_already_exists': 'Already taken',
             'email_already_registered': 'Email already registered',
+            'not_found': 'Not found',
           },
         },
       },

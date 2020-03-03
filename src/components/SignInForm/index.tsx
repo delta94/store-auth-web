@@ -13,17 +13,19 @@ import {
 } from 'styles/common';
 import { EMAIL, PASSWORD } from 'const';
 import { useForm } from 'hooks';
-import { signInRequest } from 'api';
+import { signInRequest, createLinkSocialRequest } from 'api';
 import { SubmitButton } from 'components';
 
 interface Props {
   className?: string;
+  social?: string;
+  token?: string;
 }
 
 const signInFields = [EMAIL, PASSWORD];
 
 const SignInForm = (props: Props) => {
-  const { className } = props;
+  const { className, token, social } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState('');
@@ -40,8 +42,15 @@ const SignInForm = (props: Props) => {
     setLoading(true);
     setFormError('');
     
-    const formData = { remember, ...getFormSubmitData(event) };
-    const { error, param, url } = await signInRequest(formData);
+    const formData = social
+      ? { remember, social: token, ...getFormSubmitData(event) }
+      : { remember, ...getFormSubmitData(event) };
+
+    const request = social
+      ? createLinkSocialRequest(social)
+      : signInRequest;
+
+    const { error, param, url } = await request(formData);
 
     if (!error) {
       window.location.href = url;

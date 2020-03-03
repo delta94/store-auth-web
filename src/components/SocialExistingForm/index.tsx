@@ -11,38 +11,58 @@ import {
   Remember,
   StyledCheckbox,
   StyledFormInput,
+  StyledFormError,
 } from 'styles/common';
 import { PASSWORD } from 'const';
 import { useForm } from 'hooks';
+import { createLinkSocialRequest } from 'api';
 
 interface Props {
   className?: string;
   email: string;
+  social?: string;
+  token?: string;
 }
 
 const signInFields = [PASSWORD];
 
 const SignInForm = (props: Props) => {
-  const { className, email } = props;
+  const { className, email, social = '', token } = props;
   const { t } = useTranslation();
-  // const [loading, setLoading] = useState(false);
   const [remember, setRemember] = useState(false);
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(signInFields);
-
+  const [loading, setLoading] = useState(false);
+  const [formError, setFormError] = useState('');
   const handleRememberChange = () => {
     setRemember(!remember);
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const formData = { remember, email, ...getFormSubmitData(event) };
+    setLoading(true);
+    setFormError('');
 
-    console.log(formData);
+    const data = { remember, email, social: token, ...getFormSubmitData(event) };
+    const { error, param, url } = await createLinkSocialRequest(social)(data);
+
+    setLoading(false);
+
+    if (!error) {
+      window.location.href = url;
+      return;
+    }
+
+    if (param && errors[param]) {
+      handleErrorsChange(param, t(error));
+    } else {
+      setFormError(t(error));
+    }
   };
 
   return (
     <Form className={className} onSubmit={handleSubmit}>
+      <StyledFormError message={formError} />
       <StyledInput
         type="text"
         label={t('email')}
@@ -69,7 +89,7 @@ const SignInForm = (props: Props) => {
           </BlueLink>
         </TinyText>
       </WideRow>
-      <SubmitButton disabled={!isFormValid}>
+      <SubmitButton disabled={!isFormValid} loading={loading}>
         {t('sign-in')}
       </SubmitButton>
     </Form>
