@@ -27,7 +27,8 @@ const SocialButton = (props: Props) => {
   };
 
   return (
-    <Wrapper 
+    <Wrapper
+      tabIndex={1}
       className={className}
       color={color}
       onClick={handleClick}  

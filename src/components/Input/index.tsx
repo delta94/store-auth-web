@@ -69,6 +69,7 @@ const Input = (props: Props) => {
       >
         <input
           {...rest}
+          tabIndex={1}
           type={type}
           onFocus={handleFocus}
           onBlur={handleBlur}
