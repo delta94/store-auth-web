@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getSocialProvidersRequest } from 'api';
 
-const defaultSocial = {
+export const defaultSocial = {
   providers: [],
   loading: false,
 };

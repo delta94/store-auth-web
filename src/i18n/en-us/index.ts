@@ -66,6 +66,7 @@ export default {
             'invalid_credentials': 'Invalid credentials',
             'username_already_exists': 'Already taken',
             'email_already_registered': 'Email already registered',
+            'not_found': 'Not found',
           },
         },
       },

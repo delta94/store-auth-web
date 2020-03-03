@@ -11,7 +11,7 @@ import {
 import backgroundImage from 'assets/images/background.jpg';
 import { Loader } from 'components';
 import { getUrlWithSearch } from 'helpers';
-import useSocialProviders from 'hooks/useSocialProviders';
+import useSocialProviders, { defaultSocial } from 'hooks/useSocialProviders';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
@@ -25,7 +25,7 @@ const Error = React.lazy(() => import('pages/Error'));
 
 const history = createBrowserHistory();
 
-export const SocialContext = React.createContext({});
+export const SocialContext = React.createContext(defaultSocial);
 
 const App: React.FC = () => {
   const social = useSocialProviders();
