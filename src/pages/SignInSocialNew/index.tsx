@@ -6,7 +6,6 @@ import { PLATFORM, TOKEN } from 'const';
 import { FormWrapper, Description } from 'styles/common';
 import { useParams } from 'react-router-dom';
 import { capitalize, getUrlParameter } from 'helpers';
-import { useSocialProfile } from 'hooks';
 
 interface Props {
   className?: string;
@@ -18,9 +17,7 @@ const SignInSocialNew = (props: Props) => {
   const { className } = props;
   const { name = '' } = useParams();
   const capitalizedName = capitalize(name);
-  const { error, loading, profile } = useSocialProfile(name, token);
   const { t } = useTranslation();
-  console.log({ error, loading, profile });
   
   return (
     <FormWrapper className={className}>

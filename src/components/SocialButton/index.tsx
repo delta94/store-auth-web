@@ -5,7 +5,6 @@ import { Button } from 'styles/primitives';
 import { getUrlWithSearch } from 'helpers';
 import { SOCIAL_URL, BASE_URL } from 'api/const';
 import { getSocialButtonParams } from 'helpers/social';
-import { isLauncher } from 'helpers';
 
 interface Props {
   className?: string;
@@ -24,15 +23,7 @@ const SocialButton = (props: Props) => {
   const handleClick = async () => {
     const href = `${BASE_URL}${SOCIAL_URL}/${name}/forward`;
 
-    if (!isLauncher) {
-      window.location.href = getUrlWithSearch(href);
-      return;
-    }
-
-    const electron = await import('electron');
-    const { shell } = electron;
-
-    shell.openExternal(href);
+    window.location.href = getUrlWithSearch(href);
   };
 
   return (
