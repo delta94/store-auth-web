@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { BASE_URL, GET_CAPTCHA_KEY_V3_URL } from 'api/const';
+import { windowAlias } from 'helpers';
 
 const CAPTCHA_BASE_URL = 'https://www.google.com/recaptcha/api.js?render=';
 const captchaAction = 'homepage';
 
 export default (disabled = false) => {
   const [loading, setLoading] = useState(false);
-  const [captchaToken, setToken] = useState('');
+  const keyRef = useRef('');
   const [error, setError] = useState<Error | null>(null);
 
   const handleError = (err: Error) => {
@@ -14,17 +15,13 @@ export default (disabled = false) => {
     setError(err);
   };
 
-  const executeCaptcha = (key: string) => {
-    const grecaptcha = (window as any).grecaptcha;
+  const getToken = async () => {
+    const grecaptcha = windowAlias.grecaptcha;
 
-    grecaptcha.ready(() => {
-      grecaptcha.execute(key, { action: captchaAction })
-        .then((token: string) => {
-          setLoading(false);
-          setToken(token);
-        });
-    });
+    return grecaptcha.execute(keyRef.current, { action: captchaAction });
   };
+
+  const handleReady = () => setLoading(false);
 
   const initCaptcha = async () => {
     setLoading(true);
@@ -32,9 +29,10 @@ export default (disabled = false) => {
       const getKeyUrl = `${BASE_URL}/${GET_CAPTCHA_KEY_V3_URL}`;
       const response = await fetch(getKeyUrl);
       const { key } = await response.json();
+      keyRef.current = key;
 
-      if ((window as any).grecaptcha) {
-        executeCaptcha(key);
+      if (windowAlias.grecaptcha) {
+        windowAlias.grecaptcha.ready(handleReady);
         return;
       }
 
@@ -45,7 +43,9 @@ export default (disabled = false) => {
       script.src = captchaURL;
       document.body.append(script);
       
-      script.onload = () => executeCaptcha(key);
+      script.onload = () => {
+        windowAlias.grecaptcha.ready(handleReady);
+      };
 
       script.onerror = () => {
         const err = new Error('Captcha script load error');
@@ -61,5 +61,5 @@ export default (disabled = false) => {
     // eslint-disable-next-line 
   }, []);
 
-  return { captchaToken, captchaAction, loading, error };
+  return { getToken, captchaAction, loading, error };
 };
