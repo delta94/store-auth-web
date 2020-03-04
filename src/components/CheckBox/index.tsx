@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { BLUE_500, ORANGE_500, GRAY_900 } from 'styles/colors';
 import { SuccessIcon } from 'assets/icons';

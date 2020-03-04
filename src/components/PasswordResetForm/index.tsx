@@ -37,11 +37,12 @@ const PasswordResetForm = (props: Props) => {
       return;
     }
 
-    const { captchaAction, captchaToken } = captcha;
+    const { captchaAction, getToken } = captcha;
 
     setLoading(true);
     setFormError('');
 
+    const captchaToken = await getToken();
     const data: Record<string, any> = { captchaAction, captchaToken, ...formData };
 
     const { error, param } = await passwordResetRequest(data);

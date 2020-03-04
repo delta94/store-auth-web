@@ -44,14 +44,15 @@ const SignUpForm = (props: Props) => {
 
   const isSignUpFormValid = isFormValid && agree;
 
-  const getSubmitRequestData = (event: FormEvent) => {
+  const getSubmitRequestData = async (event: FormEvent) => {
     if (social) return { agree, social: token, ...getFormSubmitData(event) };
 
-    const { captchaAction, captchaToken } = captcha;
+    if (!showCaptcha) return { agree, ...getFormSubmitData(event) };
 
-    return showCaptcha 
-    ? { captchaAction, captchaToken, ...formData }
-    : { agree, ...getFormSubmitData(event) };
+    const { captchaAction, getToken } = captcha;
+    const captchaToken = await getToken();
+
+    return { ...formData, captchaAction, captchaToken };
   };
 
   const handleSubmit = async (event: FormEvent) => {
@@ -60,7 +61,7 @@ const SignUpForm = (props: Props) => {
     setLoading(true);
     setFormError('');
 
-    const data: Record<string, any> = getSubmitRequestData(event);
+    const data: Record<string, any> = await getSubmitRequestData(event);
     const request = social
       ? createSignUpSocialRequest(social)
       : signUpRequest;
