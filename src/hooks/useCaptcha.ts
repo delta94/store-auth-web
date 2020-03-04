@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { BASE_URL, GET_CAPTCHA_KEY_V3_URL } from 'api/const';
+import { windowAlias } from 'helpers';
 
 const CAPTCHA_BASE_URL = 'https://www.google.com/recaptcha/api.js?render=';
 const captchaAction = 'homepage';
@@ -15,7 +16,7 @@ export default (disabled = false) => {
   };
 
   const getToken = async () => {
-    const grecaptcha = (window as any).grecaptcha;
+    const grecaptcha = windowAlias.grecaptcha;
 
     return grecaptcha.execute(keyRef.current, { action: captchaAction });
   };
@@ -30,8 +31,8 @@ export default (disabled = false) => {
       const { key } = await response.json();
       keyRef.current = key;
 
-      if ((window as any).grecaptcha) {
-        (window as any).grecaptcha.ready(handleReady);
+      if (windowAlias.grecaptcha) {
+        windowAlias.grecaptcha.ready(handleReady);
         return;
       }
 
@@ -43,7 +44,7 @@ export default (disabled = false) => {
       document.body.append(script);
       
       script.onload = () => {
-        (window as any).grecaptcha.ready(handleReady);
+        windowAlias.grecaptcha.ready(handleReady);
       };
 
       script.onerror = () => {
