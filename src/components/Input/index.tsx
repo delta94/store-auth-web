@@ -162,8 +162,6 @@ const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: bo
   position: relative;
   overflow: hidden;
   border: 0;
-  border-bottom: 2px solid transparent;
-  border-bottom-color: ${({ error, active }) => getBorderColor(error, active)};
 
   input {
     min-width: 100%;
@@ -174,6 +172,7 @@ const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: bo
     line-height: 22px;
     outline: none;
     border: 0;
+    border-bottom: 2px solid ${({ error, active }) => getBorderColor(error, active)};
 
     /* Hack for styling autocompleted input in chrome  */
     &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
