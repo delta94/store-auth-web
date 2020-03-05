@@ -24,6 +24,7 @@ const CheckBox = (props: Props) => {
       checked={checked}
       error={error}
       className={className}
+      aria-label={`${name} checkbox`}
     >
       <StyledSuccessIcon checked={checked}/>
       <HiddenCheckbox onChange={doNothing} checked={checked} name={name} />
