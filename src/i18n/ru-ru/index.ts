@@ -45,6 +45,7 @@ export default {
     'expired-link-description': 'Aliqua incididunt deserunt do duis incididunt id. Adipisicing incididunt aute pariatur laboris consequat minim proident culpa irure ad dolore consequat dolore',
     'error-page-title': 'Упс! Что-то пошло не так',
     'error-page-description': 'Извините, мы не можем получить эту информацию прямо сейчас. Пожалуйста, попробуйте обновить страницу или повторите попытку позже',
+    'offline': 'Нет подключения к Интернету',
     'errors': {
       'email-incorrect': 'Недопустимый адрес почты',
       'password-incorrect': 'Недопустимый пароль',

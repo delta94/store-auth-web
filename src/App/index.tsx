@@ -8,8 +8,9 @@ import {
   Route,
   Redirect,
 }from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import backgroundImage from 'assets/images/background.jpg';
-import { Loader } from 'components';
+import { Loader, FormError } from 'components';
 import { getUrlWithSearch } from 'helpers';
 import useSocialProviders, { defaultSocial } from 'hooks/useSocialProviders';
 
@@ -29,11 +30,13 @@ export const SocialContext = React.createContext(defaultSocial);
 
 const App: React.FC = () => {
   const social = useSocialProviders();
+  const { t } = useTranslation();
 
   return (
     <Router history={history}>
       <SocialContext.Provider value={social}>
         <Wrapper>
+          <OfflineMessage message={t('offline')} hide={navigator.onLine} />
           <Suspense fallback={<Loader color="white" size={14} />}>
             <Switch>
               <Route path="/sign-in" component={SignIn} />
@@ -84,4 +87,10 @@ const Wrapper = styled.div`
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${backgroundImage});
   background-size: cover;
   background-position: center;
+`;
+
+const OfflineMessage = styled((props: any) => <FormError {...props} />)<{ hide: boolean }>`
+  opacity: ${({ hide }) => hide ? 0 : 1};
+  position: absolute;
+  top: 0;
 `;
