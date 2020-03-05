@@ -21,7 +21,9 @@ const SignIn = (props: Props) => {
 
   const handleSkipAuth = () => {
     if (windowAlias.interop) {
-      windowAlias.interop.skipAuth();
+      const { ipcRenderer, IPCConstants } = windowAlias.interop;
+
+      ipcRenderer.send(IPCConstants.AUTH_GUEST);
     }
   };
 
