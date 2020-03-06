@@ -31,6 +31,7 @@ const Input = (props: Props) => {
 
   const [type, setType] = useState(initType);
   const [active, setActive] = useState(false);
+  const inputId = `${label}Input`;
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     setActive(false);
@@ -51,7 +52,7 @@ const Input = (props: Props) => {
 
   return (
     <Wrapper className={className}>
-      <Label>
+      <Label htmlFor={inputId}>
         <TinyText>
           {`${label}*`}
         </TinyText>
@@ -69,6 +70,7 @@ const Input = (props: Props) => {
       >
         <input
           {...rest}
+          id={inputId}
           tabIndex={1}
           type={type}
           onFocus={handleFocus}
@@ -146,12 +148,16 @@ const Wrapper = styled(Column)`
   justify-content: space-between;
 `;
 
-const Label = styled(TinyText)`
+const Label = styled.label`
   display: inline-flex;
   align-items: center;
   padding: 0 12px;
   margin-bottom: 2px;
   color: ${GRAY_TEXT};
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: 0.01em;
 
   & >:first-child {
     margin-right: 2px;

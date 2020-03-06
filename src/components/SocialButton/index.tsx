@@ -31,7 +31,8 @@ const SocialButton = (props: Props) => {
       tabIndex={1}
       className={className}
       color={color}
-      onClick={handleClick}  
+      onClick={handleClick}
+      aria-label="Social button"
     >
       <Icon />
       {t(name)}
