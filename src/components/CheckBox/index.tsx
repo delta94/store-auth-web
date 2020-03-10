@@ -44,6 +44,7 @@ const StyledSuccessIcon = styled(SuccessIcon)<{ checked: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
+  width: 14px;
   fill: none;
   stroke: white;
   display: ${({ checked }) => checked ? 'block' : 'none'};
