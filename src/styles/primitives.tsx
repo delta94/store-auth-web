@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { BLUE_500, GRAY_800, ORANGE_500 } from './colors';
+import { BLUE_400, GRAY_800, ORANGE_500 } from './colors';
 
 export const Row = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ export const ErrorText = styled.span`
 
 export const Button = styled.button<{ color?: string }>`
   width: 100%;
-  background: ${({ disabled, color = BLUE_500 }) => disabled ? GRAY_800 : color};
+  background: ${({ disabled, color = BLUE_400 }) => disabled ? GRAY_800 : color};
   color: white;
   border: 0;
   border-radius: 2px;

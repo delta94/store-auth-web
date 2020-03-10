@@ -9,3 +9,4 @@ export { ReactComponent as EmailSentIcon } from './email-sent.svg';
 export { ReactComponent as ErrorIcon } from './error-icon.svg';
 export { ReactComponent as ExpiredLinkIcon } from './expired-link.svg';
 export { ReactComponent as ComplainIcon } from './complain-icon.svg';
+export { ReactComponent as AnonymousIcon } from './anonymous-icon.svg';

@@ -46,6 +46,7 @@ export default {
     'error-page-title': 'Oops something went wrong',
     'error-page-description': 'Sorry, we can’t get that information right now. Please try to refresh the page or try again later',
     'offline': 'You are OFFLINE',
+    'change-account': 'Change account',
     'errors': {
       'email-incorrect': 'Incorrect email',
       'password-incorrect': 'Incorrect password',
