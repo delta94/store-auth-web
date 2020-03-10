@@ -15,25 +15,36 @@ import { EMAIL, PASSWORD } from 'const';
 import { useForm } from 'hooks';
 import { signInRequest, createLinkSocialRequest } from 'api';
 import { SubmitButton } from 'components';
+import PinnedUser from 'components/PinnedUser';
+import styled from 'styled-components';
 
 interface Props {
   className?: string;
   social?: string;
   token?: string;
+  user?: {
+    url: string;
+    email: string;
+  };
 }
 
 const signInFields = [EMAIL, PASSWORD];
 
 const SignInForm = (props: Props) => {
-  const { className, token, social } = props;
+  const { className, token, social, user } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState('');
   const [remember, setRemember] = useState(false);
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(signInFields);
+  const [pinnedUser, setPinnedUser] = useState(!!user);
 
   const handleRememberChange = () => {
     setRemember(!remember);
+  };
+
+  const handleUnsetPinnedUser = () => {
+    setPinnedUser(false);
   };
 
   const handleSubmit = async (event: FormEvent) => {
@@ -69,14 +80,18 @@ const SignInForm = (props: Props) => {
   return (
     <Form className={className} onSubmit={handleSubmit}>
       <StyledFormError message={formError} />
-      <StyledFormInput
-        type="text"
-        label={t('email')}
-        name="email"
-        error={errors.email.value}
-        validate={emailValidate}
-        onValidate={handleErrorsChange}
-      />
+      {pinnedUser
+        ? <StyledPinnedUser user={user} onChangeAccount={handleUnsetPinnedUser} />
+        : (
+            <StyledFormInput
+            type="text"
+            label={t('email')}
+            name="email"
+            error={errors.email.value}
+            validate={emailValidate}
+            onValidate={handleErrorsChange}
+          />
+        )}
       <StyledFormInput
         type="password"
         label={t('password')}
@@ -104,3 +119,8 @@ const SignInForm = (props: Props) => {
 };
 
 export default React.memo(SignInForm);
+
+const StyledPinnedUser = styled((props: any) => <PinnedUser {...props} />)`
+  width: 100%;
+  margin: 8px 0 12px 0;
+`;

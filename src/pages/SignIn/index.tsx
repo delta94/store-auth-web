@@ -15,6 +15,11 @@ interface Props {
   className?: string;
 }
 
+const mockUser = {
+  url: 'https://i.pravatar.cc/40',
+  email: 'john@ya.com',
+};
+
 const SignIn = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
@@ -31,7 +36,7 @@ const SignIn = (props: Props) => {
     <FormWrapper className={className}>
       <FormHeader title={t('sign-in')} />
       <StyledSocialButtons />
-      <SignInForm />
+      <SignInForm user={mockUser} />
       <GreyText>
         {`${t('dont-have-account', { platform: PLATFORM })}? `}
         <BlueLink to={getUrlWithSearch('/sign-up')}>
