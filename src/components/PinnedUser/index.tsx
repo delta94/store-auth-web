@@ -4,14 +4,12 @@ import { Row } from 'styles/primitives';
 import Avatar from './components/Avatar';
 import { useTranslation } from 'react-i18next';
 import { BLUE_400 } from 'styles/colors';
+import { User } from 'types';
 
 interface Props {
   className?: string;
   onChangeAccount: () => void;
-  user: {
-    url: string;
-    email: string;
-  };
+  user: User;
 }
 
 const PinnedUser = (props: Props) => {

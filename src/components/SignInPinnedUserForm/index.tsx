@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { passwordValidate, emailValidate, getUrlWithSearch } from 'helpers';
+import { passwordValidate, getUrlWithSearch } from 'helpers';
 import { TinyText } from 'styles/primitives';
 import {
   Form,
@@ -11,21 +11,24 @@ import {
   StyledFormInput,
   StyledFormError,
 } from 'styles/common';
-import { EMAIL, PASSWORD } from 'const';
+import { PASSWORD } from 'const';
 import { useForm } from 'hooks';
-import { signInRequest, createLinkSocialRequest } from 'api';
+import { signInRequest } from 'api';
 import { SubmitButton } from 'components';
+import PinnedUser from 'components/PinnedUser';
+import styled from 'styled-components';
+import { User } from 'types';
 
 interface Props {
   className?: string;
-  social?: string;
-  token?: string;
+  onChangeAccount: () => void;
+  user: User;
 }
 
-const signInFields = [EMAIL, PASSWORD];
+const signInFields = [PASSWORD];
 
-const SignInForm = (props: Props) => {
-  const { className, token, social } = props;
+const SignInPinnedUserForm = (props: Props) => {
+  const { className, user, onChangeAccount } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState('');
@@ -42,15 +45,10 @@ const SignInForm = (props: Props) => {
     setLoading(true);
     setFormError('');
     
-    const formData = social
-      ? { remember, social: token, ...getFormSubmitData(event) }
-      : { remember, ...getFormSubmitData(event) };
+    const { email } = user; 
+    const formData = { remember, email, ...getFormSubmitData(event) };
 
-    const request = social
-      ? createLinkSocialRequest(social)
-      : signInRequest;
-
-    const { error, param, url } = await request(formData);
+    const { error, param, url } = await signInRequest(formData);
 
     if (!error) {
       window.location.href = url;
@@ -69,13 +67,9 @@ const SignInForm = (props: Props) => {
   return (
     <Form className={className} onSubmit={handleSubmit}>
       <StyledFormError message={formError} />
-      <StyledFormInput
-        type="text"
-        label={t('email')}
-        name="email"
-        error={errors.email.value}
-        validate={emailValidate}
-        onValidate={handleErrorsChange}
+      <StyledPinnedUser 
+        user={user}
+        onChangeAccount={onChangeAccount}
       />
       <StyledFormInput
         type="password"
@@ -103,4 +97,9 @@ const SignInForm = (props: Props) => {
   );
 };
 
-export default React.memo(SignInForm);
+export default React.memo(SignInPinnedUserForm);
+
+const StyledPinnedUser = styled((props: any) => <PinnedUser {...props} />)`
+  width: 100%;
+  margin: 8px 0 12px 0;
+`;
