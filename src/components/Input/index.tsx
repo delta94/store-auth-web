@@ -67,6 +67,7 @@ const Input = (props: Props) => {
         error={!!error} 
         active={active}
         disabled={disabled}
+        isSuccessed={isSuccessed}
       >
         <input
           {...rest}
@@ -164,13 +165,17 @@ const Label = styled.label`
   }
 `;
 
-const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: boolean }>`
+const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: boolean; isSuccessed?: boolean }>`
   position: relative;
   overflow: hidden;
   border: 0;
+  /* dont move border to input! */
+  border-bottom: 2px solid ${({ error, active }) => getBorderColor(error, active)};
+
 
   input {
     min-width: 100%;
+    margin: 0;
     padding: 10px 44px 10px 12px;
     background-color: ${GRAY_800};
     color: white;
@@ -178,7 +183,6 @@ const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: bo
     line-height: 22px;
     outline: none;
     border: 0;
-    border-bottom: 2px solid ${({ error, active }) => getBorderColor(error, active)};
 
     /* Hack for styling autocompleted input in chrome  */
     &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
@@ -190,6 +194,11 @@ const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: bo
     &:disabled {
       color: ${GRAY_TEXT};
     }
+  }
+
+  /* Hack for moving left safari key icon */
+  input::-webkit-credentials-auto-fill-button {
+    ${({ isSuccessed }) => isSuccessed ? 'margin-right: 24px;' : ''}
   }
 `;
 
