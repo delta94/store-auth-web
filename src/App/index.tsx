@@ -26,6 +26,10 @@ const SignInSocialExisting = React.lazy(() => import('pages/SignInSocialExisting
 const ExpiredLink = React.lazy(() => import('pages/ExpiredLink'));
 const Error = React.lazy(() => import('pages/Error'));
 const AuthSuccess = React.lazy(() => import('pages/AuthSuccess'));
+const SignInSocialBrowser = React.lazy(() => import('pages/SignInSocialBrowser'));
+const SignInSocialExpired = React.lazy(() => import('pages/SignInSocialExpired'));
+const SignInSocialConfirm = React.lazy(() => import('pages/SignInSocialConfirm'));
+const SignInSocialSuccess = React.lazy(() => import('pages/SignInSocialSuccess'));
 
 const history = createBrowserHistory();
 
@@ -71,6 +75,10 @@ const App: React.FC = () => {
               <Route path="/expired-link" component={ExpiredLink} />
               <Route path="/error" component={Error} />
               <Route path="/auth-success" component={AuthSuccess} />
+              <Route path="/social-sign-in-browser" component={SignInSocialBrowser} />
+              <Route path="/social-sign-in-expired" component={SignInSocialExpired} />
+              <Route path="/social-sign-in-confirm" component={SignInSocialConfirm} />
+              <Route path="/social-sign-in-success" component={SignInSocialSuccess} />
               <Redirect to={getUrlWithSearch('/sign-in')} />
             </Switch>
           </Suspense>

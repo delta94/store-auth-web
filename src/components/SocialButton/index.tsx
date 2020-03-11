@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'styles/primitives';
-import { getUrlWithSearch } from 'helpers';
+import { getUrlWithSearch, isLauncher, windowAlias } from 'helpers';
 import { SOCIAL_URL, BASE_URL } from 'api/const';
 import { getSocialButtonParams } from 'helpers/social';
 import { AppContext } from 'App';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   className?: string;
@@ -16,6 +17,7 @@ const SocialButton = (props: Props) => {
   const { className, name } = props;
   const { loading, setLoading } = useContext(AppContext);
   const { t } = useTranslation();
+  const history = useHistory();
   const params = getSocialButtonParams(name);
 
   if (!params) return null;
@@ -25,6 +27,14 @@ const SocialButton = (props: Props) => {
   const handleClick = () => {
     setLoading(true);
     const href = `${BASE_URL}${SOCIAL_URL}/${name}/forward`;
+
+    if (isLauncher && windowAlias.interop) {
+      const { ipcRenderer, IPCConstants } = windowAlias.interop;
+
+      history.push('/social-sign-in-browser');
+      ipcRenderer.send(IPCConstants.OPEN_LINK, href);
+      return;
+    }
 
     window.location.href = getUrlWithSearch(href);
   };
