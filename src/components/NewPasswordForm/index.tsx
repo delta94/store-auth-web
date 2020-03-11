@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useContext } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { passwordValidate } from 'helpers';
@@ -8,6 +8,7 @@ import { PASSWORD } from 'const';
 import { useForm } from 'hooks';
 import { setPasswordRequest } from 'api';
 import { useHistory } from 'react-router-dom';
+import { AppContext } from 'App';
 
 interface Props {
   className?: string;
@@ -18,7 +19,7 @@ const resetFields = [PASSWORD];
 
 const NewPasswordForm = (props: Props) => {
   const { className, token } = props;
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useContext(AppContext);
   const history = useHistory();
   const { t } = useTranslation();
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(resetFields);

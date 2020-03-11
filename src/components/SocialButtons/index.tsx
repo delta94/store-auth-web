@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { SocialButton, Loader } from 'components';
-import { SocialContext } from 'App';
+import { AppContext } from 'App';
 
 type Provider = {
   name: string;
@@ -13,11 +13,11 @@ interface Props {
 
 const SocialButtons = (props: Props) => {
   const { className } = props;
-  const { loading, providers } = useContext(SocialContext);
+  const { loading, providers } = useContext(AppContext);
 
   return (
     <Wrapper className={className}>
-      {loading
+      {loading && !providers.length
         ? <Loader size={14} color="white" title="Loading..." />
         : providers.map(({ name }) => <SocialButton key={name} name={name} />)
       }

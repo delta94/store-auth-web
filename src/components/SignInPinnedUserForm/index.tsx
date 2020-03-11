@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { passwordValidate, getUrlWithSearch } from 'helpers';
 import { TinyText } from 'styles/primitives';
@@ -18,6 +18,7 @@ import { SubmitButton } from 'components';
 import PinnedUser from 'components/PinnedUser';
 import styled from 'styled-components';
 import { User } from 'types';
+import { AppContext } from 'App';
 
 interface Props {
   className?: string;
@@ -30,7 +31,7 @@ const signInFields = [PASSWORD];
 const SignInPinnedUserForm = (props: Props) => {
   const { className, user, onChangeAccount } = props;
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useContext(AppContext);
   const [formError, setFormError] = useState('');
   const [remember, setRemember] = useState(false);
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(signInFields);

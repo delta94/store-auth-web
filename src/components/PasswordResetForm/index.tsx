@@ -1,4 +1,4 @@
-import React, { FormEvent, ReactNode, useState } from 'react';
+import React, { FormEvent, ReactNode, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import {  SubmitButton, Captcha } from 'components';
@@ -8,6 +8,7 @@ import { EMAIL } from 'const';
 import { useForm, useCaptcha } from 'hooks';
 import { passwordResetRequest } from 'api';
 import { useHistory } from 'react-router-dom';
+import { AppContext } from 'App';
 
 interface Props {
   className?: string;
@@ -20,7 +21,7 @@ const resetFields = [EMAIL];
 const PasswordResetForm = (props: Props) => {
   const { header, footer, className } = props;
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useContext(AppContext);
   const [formError, setFormError] = useState('');
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [showCaptcha, setShowCaptcha] = useState(false);

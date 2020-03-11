@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { passwordValidate, emailValidate, getUrlWithSearch } from 'helpers';
 import { TinyText } from 'styles/primitives';
@@ -15,6 +15,7 @@ import { EMAIL, PASSWORD } from 'const';
 import { useForm } from 'hooks';
 import { signInRequest, createLinkSocialRequest } from 'api';
 import { SubmitButton } from 'components';
+import { AppContext } from 'App';
 
 interface Props {
   className?: string;
@@ -27,7 +28,7 @@ const signInFields = [EMAIL, PASSWORD];
 const SignInForm = (props: Props) => {
   const { className, token, social } = props;
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useContext(AppContext);
   const [formError, setFormError] = useState('');
   const [remember, setRemember] = useState(false);
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(signInFields);
