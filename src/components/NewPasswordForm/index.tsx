@@ -1,7 +1,7 @@
 import React, { FormEvent, useContext } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { passwordValidate } from 'helpers';
+import { passwordValidate, getUrlWithSearch } from 'helpers';
 import { RememberPassword, SubmitButton } from 'components';
 import { Form, StyledFormInput } from 'styles/common';
 import { PASSWORD } from 'const';
@@ -30,16 +30,16 @@ const NewPasswordForm = (props: Props) => {
     setLoading(true);
 
     const data = { token, ...getFormSubmitData(event) };
-    const { error, url } = await setPasswordRequest(data);
+    const { error } = await setPasswordRequest(data);
 
     setLoading(false);
 
     if (!error) {
-      window.location.href = url;
+      history.push(getUrlWithSearch('/sign-in'));
       return;
     }
 
-    history.replace('/expired-link');
+    history.replace(getUrlWithSearch('/expired-link'));
   };
 
   return (
