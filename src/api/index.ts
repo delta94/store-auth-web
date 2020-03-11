@@ -15,9 +15,11 @@ import {
 
 const getXSRFToken = () => getCookie(XSRF_KEY) || '';
 
+export const getChallenge = () => getUrlParameter(CHALLENGE_KEY);
+
 const getPOSTrequest = (requestUrl: string) => async (data: any) => {
   const url = `${BASE_URL}/${requestUrl}`;
-  const challenge = getUrlParameter(CHALLENGE_KEY);
+  const challenge = getChallenge();
 
   try {
     const responce = await fetch(url, {

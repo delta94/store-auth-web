@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import 'i18n';
 import { createBrowserHistory } from 'history';
@@ -13,6 +13,7 @@ import backgroundImage from 'assets/images/background.jpg';
 import { Loader, FormError } from 'components';
 import { getUrlWithSearch } from 'helpers';
 import useSocialProviders, { defaultSocial } from 'hooks/useSocialProviders';
+import { getChallenge } from 'api';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
@@ -31,6 +32,14 @@ export const SocialContext = React.createContext(defaultSocial);
 const App: React.FC = () => {
   const social = useSocialProviders();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const challenge = getChallenge();
+
+    if (!challenge) {
+      window.location.href = process.env.REACT_APP_STORE_URL || '';
+    }
+  }, []);
 
   return (
     <Router history={history}>
