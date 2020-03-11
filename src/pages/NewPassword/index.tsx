@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { FormWrapper, Description } from 'styles/common';
 import { FormHeader, NewPasswordForm, Loader } from 'components';
 import { PLATFORM, TOKEN } from 'const';
-import { getUrlParameter } from 'helpers';
+import { getUrlParameter, getUrlWithSearch } from 'helpers';
 import { checkResetTokenRequest } from 'api';
 import { useHistory } from 'react-router-dom';
 
@@ -27,7 +27,7 @@ const NewPassword = (props: Props) => {
     setLoading(false);
 
     if (error) {
-      history.replace('/expired-link');
+      history.replace(getUrlWithSearch('/expired-link'));
       return;
     } 
 
