@@ -1,34 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getSocialProvidersRequest } from 'api';
-
-export const defaultSocial = {
-  providers: [],
-  loading: false,
-};
+import { SocialProvider } from 'types';
+import { AppContext } from 'App';
 
 export default () => {
-  const [social, setSocial] = useState(defaultSocial);
-
+  const { setLoading } = useContext(AppContext);
+  const [providers, setProviders] = useState<SocialProvider[]>([]);
+  
   const getProviders = async () => {
-    setSocial({
-      ...social,
-      loading: true,
-    });
+    setLoading(true);
 
     const response = await getSocialProvidersRequest();
 
     if (!response || response.error) {
-      setSocial({
-        providers: [],
-        loading: false,
-      });
+      setProviders([]);
+      setLoading(false);
       return;
     }
 
-    setSocial({
-      providers: response,
-      loading: false,
-    });
+    setProviders(response);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -36,5 +27,5 @@ export default () => {
     // eslint-disable-next-line
   }, []);
 
-  return social;
+  return providers;
 };

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'styles/primitives';
 import { getUrlWithSearch } from 'helpers';
 import { SOCIAL_URL, BASE_URL } from 'api/const';
 import { getSocialButtonParams } from 'helpers/social';
+import { AppContext } from 'App';
 
 interface Props {
   className?: string;
@@ -13,6 +14,7 @@ interface Props {
 
 const SocialButton = (props: Props) => {
   const { className, name } = props;
+  const { loading, setLoading } = useContext(AppContext);
   const { t } = useTranslation();
   const params = getSocialButtonParams(name);
 
@@ -20,7 +22,8 @@ const SocialButton = (props: Props) => {
 
   const { Icon, color } = params;
 
-  const handleClick = async () => {
+  const handleClick = () => {
+    setLoading(true);
     const href = `${BASE_URL}${SOCIAL_URL}/${name}/forward`;
 
     window.location.href = getUrlWithSearch(href);
@@ -33,6 +36,7 @@ const SocialButton = (props: Props) => {
       color={color}
       onClick={handleClick}
       aria-label="Social button"
+      disabled={loading}
     >
       <Icon />
       {t(name)}

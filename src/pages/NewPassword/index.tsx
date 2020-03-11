@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { FormWrapper, Description } from 'styles/common';
@@ -7,6 +7,7 @@ import { PLATFORM, TOKEN } from 'const';
 import { getUrlParameter } from 'helpers';
 import { checkResetTokenRequest } from 'api';
 import { useHistory } from 'react-router-dom';
+import { AppContext } from 'App';
 
 interface Props {
   className?: string;
@@ -18,7 +19,7 @@ const NewPassword = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
   const history = useHistory();
-  const [loading, setLoading] = useState(true);
+  const { loading, setLoading } = useContext(AppContext);
   const [email, setEmail] = useState('');
 
   const checkResetToken = async () => {

@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Input, SubmitButton } from 'components';
@@ -16,6 +16,7 @@ import {
 import { PASSWORD } from 'const';
 import { useForm } from 'hooks';
 import { createLinkSocialRequest } from 'api';
+import { AppContext } from 'App';
 
 interface Props {
   className?: string;
@@ -31,7 +32,7 @@ const SignInForm = (props: Props) => {
   const { t } = useTranslation();
   const [remember, setRemember] = useState(false);
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(signInFields);
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useContext(AppContext);
   const [formError, setFormError] = useState('');
   const handleRememberChange = () => {
     setRemember(!remember);

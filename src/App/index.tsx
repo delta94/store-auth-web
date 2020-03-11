@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import 'i18n';
 import { createBrowserHistory } from 'history';
@@ -12,8 +12,9 @@ import { useTranslation } from 'react-i18next';
 import backgroundImage from 'assets/images/background.jpg';
 import { Loader, FormError } from 'components';
 import { getUrlWithSearch } from 'helpers';
-import useSocialProviders, { defaultSocial } from 'hooks/useSocialProviders';
+import useSocialProviders from 'hooks/useSocialProviders';
 import { getChallenge } from 'api';
+import { AppContextType } from 'types';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
@@ -27,11 +28,18 @@ const Error = React.lazy(() => import('pages/Error'));
 
 const history = createBrowserHistory();
 
-export const SocialContext = React.createContext(defaultSocial);
+export const AppContext = React.createContext<AppContextType>({
+  providers: [],
+  loading: false,
+  // eslint-disable-next-line
+  setLoading: (newLoading: boolean) => {},
+});
 
 const App: React.FC = () => {
-  const social = useSocialProviders();
+  const providers = useSocialProviders();
+  const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
+  const appContextValue = { providers, loading, setLoading };
 
   useEffect(() => {
     const challenge = getChallenge();
@@ -46,7 +54,7 @@ const App: React.FC = () => {
 
   return (
     <Router history={history}>
-      <SocialContext.Provider value={social}>
+      <AppContext.Provider value={appContextValue}>
         <Wrapper>
           <OfflineMessage message={t('offline')} hide={navigator.onLine} />
           <Suspense fallback={<Loader color="white" size={14} />}>
@@ -64,7 +72,7 @@ const App: React.FC = () => {
             </Switch>
           </Suspense>
         </Wrapper>
-      </SocialContext.Provider>
+      </AppContext.Provider>
       <GlobalStyle />
     </Router>
   );

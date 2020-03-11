@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, ReactNode } from 'react';
+import React, { FormEvent, useState, ReactNode, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { passwordValidate, emailValidate, nameValidate, checkCaptchaRequired } from 'helpers';
 import {
@@ -14,6 +14,7 @@ import { EMAIL, USERNAME, PASSWORD } from 'const';
 import { useForm, useCaptcha } from 'hooks';
 import { signUpRequest, createSignUpSocialRequest } from 'api';
 import { SubmitButton, Captcha } from 'components';
+import { AppContext } from 'App';
 
 interface Props {
   className?: string;
@@ -32,7 +33,7 @@ const SignUpForm = (props: Props) => {
   const captcha = useCaptcha(isCaptchaDisabled);
   const [showCaptcha, setShowCaptcha] = useState(false);
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useContext(AppContext);
   const [formError, setFormError] = useState('');
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [agree, setAgree] = useState(false);
