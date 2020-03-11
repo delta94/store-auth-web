@@ -42,7 +42,7 @@ export default {
     'or': 'или',
     'sign-in-later': 'Войти Позже',
     'expired-link-title': 'Срок действия ссылки истек',
-    'expired-link-description': 'Aliqua incididunt deserunt do duis incididunt id. Adipisicing incididunt aute pariatur laboris consequat minim proident culpa irure ad dolore consequat dolore',
+    'expired-link-description': 'Срок действия ссылки для сброса пароля истекает через 15 минут, и ее можно использовать только один раз. Если вам все еще нужно сбросить пароль, сделайте новый запрос на сброс',
     'error-page-title': 'Упс! Что-то пошло не так',
     'error-page-description': 'Извините, мы не можем получить эту информацию прямо сейчас. Пожалуйста, попробуйте обновить страницу или повторите попытку позже',
     'offline': 'Нет подключения к Интернету',
