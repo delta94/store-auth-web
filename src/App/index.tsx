@@ -35,8 +35,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const challenge = getChallenge();
+    const isErrorPage = window.location.pathname.startsWith('/error');
+    const isUrlHasChallenge = !!challenge;
+    const isUrlValid = isUrlHasChallenge || isErrorPage;
 
-    if (!challenge) {
+    if (!isUrlValid) {
       window.location.href = process.env.REACT_APP_STORE_URL || '';
     }
   }, []);
