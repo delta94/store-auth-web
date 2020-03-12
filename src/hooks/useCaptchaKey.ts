@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { BASE_URL, GET_CAPTCHA_KEY_V3_URL } from 'api/const';
+import { AppContext } from 'App';
 
 export default () => {
-  const [loading, setLoading] = useState(false);
+  const { setLoading } = useContext(AppContext);
   const [sitekey, setSitekey] = useState('');
   const [error, setError] = useState<Error | null>(null);
 
@@ -26,5 +27,5 @@ export default () => {
     // eslint-disable-next-line 
   }, []);
 
-  return { sitekey, loading, error };
+  return { sitekey, error };
 };

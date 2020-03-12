@@ -45,7 +45,9 @@ const PasswordResetForm = (props: Props) => {
     const { error, param } = await passwordResetRequest(data);
 
     if (!error) {
+      setLoading(false);
       history.push(getUrlWithSearch('/password-reset-success'));
+      return;
     }
 
     if (checkCaptchaRequired(error)) {

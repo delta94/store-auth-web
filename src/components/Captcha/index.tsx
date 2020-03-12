@@ -14,15 +14,15 @@ interface Props {
 
 const Captcha = (props: Props) => {
   const { className, onSubmit, captchaRef } = props;
-  const { sitekey, loading } = useCaptchaKey();
   const { t } = useTranslation();
+  const { sitekey } = useCaptchaKey();
 
   return (
     <>
       <FormHeader title={t('captcha')} />
       <Form className={className}>
         <Description>{t('captcha-description')}.</Description>
-        {loading || !sitekey
+        {!sitekey
           ? <Loader color="white" size={14} />
           : (
             <CaptchaWrapper>
