@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {  SubmitButton, Captcha } from 'components';
 import { emailValidate, getUrlWithSearch, checkCaptchaRequired } from 'helpers';
 import { Form, StyledFormInput, HideableWrapper, StyledFormError } from 'styles/common';
-import { EMAIL, captchaAction } from 'const';
+import { EMAIL } from 'const';
 import { useForm } from 'hooks';
 import { passwordResetRequest } from 'api';
 import { useHistory } from 'react-router-dom';
@@ -40,7 +40,7 @@ const PasswordResetForm = (props: Props) => {
     setLoading(true);
     setFormError('');
 
-    const data: Record<string, any> = { captchaAction, captchaToken, ...formData };
+    const data: Record<string, any> = { captchaToken, ...formData };
 
     const { error, param } = await passwordResetRequest(data);
 

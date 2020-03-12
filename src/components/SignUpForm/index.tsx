@@ -10,7 +10,7 @@ import {
   StyledFormError,
   HideableWrapper,
 } from 'styles/common';
-import { EMAIL, USERNAME, PASSWORD, captchaAction } from 'const';
+import { EMAIL, USERNAME, PASSWORD } from 'const';
 import { useForm } from 'hooks';
 import { signUpRequest, createSignUpSocialRequest } from 'api';
 import { SubmitButton, Captcha } from 'components';
@@ -43,16 +43,6 @@ const SignUpForm = (props: Props) => {
   };
 
   const isSignUpFormValid = isFormValid && agree;
-
-  // const getSubmitRequestData = async (event: FormEvent) => {
-  //   if (social) return { agree, social: token, ...getFormSubmitData(event) };
-
-  //   if (!showCaptcha) return { agree, ...getFormSubmitData(event) };
-
-  //   const { captchaAction, captchaToken } = captcha;
-
-  //   return { ...formData, captchaAction, captchaToken };
-  // };
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -96,7 +86,7 @@ const SignUpForm = (props: Props) => {
     setLoading(true);
     setFormError('');
 
-    const data = { ...formData, captchaAction, captchaToken };
+    const data = { ...formData, captchaToken };
   
     const request = social
       ? createSignUpSocialRequest(social)

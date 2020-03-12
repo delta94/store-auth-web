@@ -12,5 +12,3 @@ export const FACEBOOK = 'facebook';
 export const TWITTER = 'twitter';
 
 export const TOKEN = 'token';
-
-export const captchaAction = 'homepage';
