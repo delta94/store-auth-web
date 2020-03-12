@@ -1,29 +1,43 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormHeader } from 'components';
-import { Form } from 'styles/common';
-
-import Content from './components/Content';
+import styled from 'styled-components';
+import { FormHeader, Loader } from 'components';
+import { Form, Description } from 'styles/common';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useCaptchaKey } from 'hooks';
 
 interface Props {
-  loading: boolean;
-  error: Error | null;
   className?: string;
-  onSubmit: (event: FormEvent) => void;
+  onSubmit: (token: string | null) => void;
+  captchaRef?: any;
 }
 
 const Captcha = (props: Props) => {
-  const { className, onSubmit, loading, error } = props;
+  const { className, onSubmit, captchaRef } = props;
+  const { sitekey, loading } = useCaptchaKey();
   const { t } = useTranslation();
 
+  console.log(sitekey);
   return (
     <>
       <FormHeader title={t('captcha')} />
-      <Form className={className} onSubmit={onSubmit}>
-        <Content loading={loading} error={error} />
+      <Form className={className}>
+        <Description>{t('captcha-description')}.</Description>
+        {loading
+          ? <Loader color="white" size={14} />
+          : (
+            <CaptchaWrapper>
+              <ReCAPTCHA sitekey={sitekey} onChange={onSubmit} ref={captchaRef} />
+            </CaptchaWrapper>
+          )
+        }
       </Form>
     </>
   );
 };
 
 export default React.memo(Captcha);
+
+const CaptchaWrapper = styled.div`
+  margin: 24px 0 16px 0;
+`;
