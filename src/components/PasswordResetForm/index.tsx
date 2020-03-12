@@ -1,11 +1,11 @@
-import React, { FormEvent, ReactNode, useState, useContext } from 'react';
+import React, { FormEvent, ReactNode, useState, useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import {  SubmitButton, Captcha } from 'components';
-import { emailValidate, getUrlWithSearch } from 'helpers';
+import { emailValidate, getUrlWithSearch, checkCaptchaRequired } from 'helpers';
 import { Form, StyledFormInput, HideableWrapper, StyledFormError } from 'styles/common';
 import { EMAIL } from 'const';
-import { useForm, useCaptcha } from 'hooks';
+import { useForm } from 'hooks';
 import { passwordResetRequest } from 'api';
 import { useHistory } from 'react-router-dom';
 import { AppContext } from 'App';
@@ -25,31 +25,36 @@ const PasswordResetForm = (props: Props) => {
   const [formError, setFormError] = useState('');
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [showCaptcha, setShowCaptcha] = useState(false);
-  const captcha = useCaptcha();
   const history = useHistory();
   const { errors, handleErrorsChange, isFormValid, getFormSubmitData } = useForm(resetFields);
+  const captchaRef = useRef(null);
 
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (!showCaptcha) {
-      setFormData(getFormSubmitData(event));
-      setShowCaptcha(true);
-      return;
-    }
+    setFormData(getFormSubmitData(event));
+    setShowCaptcha(true);
+  };
 
-    const { captchaAction, getToken } = captcha;
-
+  const handleCaptchaSuccess = async (captchaToken: string | null) => {
     setLoading(true);
     setFormError('');
 
-    const captchaToken = await getToken();
-    const data: Record<string, any> = { captchaAction, captchaToken, ...formData };
+    const data: Record<string, any> = { captchaToken, ...formData };
 
     const { error, param } = await passwordResetRequest(data);
 
     if (!error) {
+      setLoading(false);
       history.push(getUrlWithSearch('/password-reset-success'));
+      return;
+    }
+
+    if (checkCaptchaRequired(error)) {
+      setLoading(false);
+      const ref: any = captchaRef.current;
+      if (ref && ref.reset) ref.reset();
+      return;
     }
 
     if (param && errors[param]) {
@@ -66,9 +71,8 @@ const PasswordResetForm = (props: Props) => {
     <>
       <HideableWrapper hide={!showCaptcha}>
         <Captcha 
-          error={captcha.error}
-          loading={loading || captcha.loading}
-          onSubmit={handleSubmit}
+          onSubmit={handleCaptchaSuccess}
+          captchaRef={captchaRef}
         />
       </HideableWrapper>
       <HideableWrapper hide={showCaptcha}>
@@ -83,7 +87,7 @@ const PasswordResetForm = (props: Props) => {
             validate={emailValidate}
             onValidate={handleErrorsChange}
           />
-          <StyledResetButton disabled={!isFormValid}>
+          <StyledResetButton disabled={!isFormValid} loading={loading}>
             {t('send-email')}
           </StyledResetButton>
         </Form>

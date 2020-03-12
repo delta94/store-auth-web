@@ -11,7 +11,7 @@ import {
   HideableWrapper,
 } from 'styles/common';
 import { EMAIL, USERNAME, PASSWORD } from 'const';
-import { useForm, useCaptcha } from 'hooks';
+import { useForm } from 'hooks';
 import { signUpRequest, createSignUpSocialRequest } from 'api';
 import { SubmitButton, Captcha } from 'components';
 import { AppContext } from 'App';
@@ -30,7 +30,6 @@ const signUpFields = [EMAIL, USERNAME, PASSWORD];
 const SignUpForm = (props: Props) => {
   const { className, header, footer, token, social } = props;
   const isCaptchaDisabled = !!social;
-  const captcha = useCaptcha(isCaptchaDisabled);
   const [showCaptcha, setShowCaptcha] = useState(false);
   const { t } = useTranslation();
   const { loading, setLoading } = useContext(AppContext);
@@ -45,24 +44,50 @@ const SignUpForm = (props: Props) => {
 
   const isSignUpFormValid = isFormValid && agree;
 
-  const getSubmitRequestData = async (event: FormEvent) => {
-    if (social) return { agree, social: token, ...getFormSubmitData(event) };
-
-    if (!showCaptcha) return { agree, ...getFormSubmitData(event) };
-
-    const { captchaAction, getToken } = captcha;
-    const captchaToken = await getToken();
-
-    return { ...formData, captchaAction, captchaToken };
-  };
-
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     
     setLoading(true);
     setFormError('');
 
-    const data: Record<string, any> = await getSubmitRequestData(event);
+    const data = social
+      ? { agree, social: token, ...getFormSubmitData(event) }
+      : { agree, ...getFormSubmitData(event) };
+
+    const request = social
+      ? createSignUpSocialRequest(social)
+      : signUpRequest;
+
+    const { error, param, url } = await request(data);
+
+    if (!error) {
+      window.location.href = url;
+      return;
+    }
+
+    if (checkCaptchaRequired(error) && !isCaptchaDisabled) {
+      setLoading(false);
+      setShowCaptcha(true);
+      setFormData(data);
+      return;
+    }
+
+    if (param && errors[param]) {
+      handleErrorsChange(param, t(error));
+    } else {
+      setFormError(t(error));
+    }
+
+    setLoading(false);
+    setShowCaptcha(false);
+  };
+
+  const handleCaptchaSuccess = async (captchaToken: string | null) => {
+    setLoading(true);
+    setFormError('');
+
+    const data = { ...formData, captchaToken };
+  
     const request = social
       ? createSignUpSocialRequest(social)
       : signUpRequest;
@@ -93,13 +118,13 @@ const SignUpForm = (props: Props) => {
 
   return (
     <>
-      <HideableWrapper hide={!showCaptcha}>
-        <Captcha
-          error={captcha.error}
-          loading={loading || captcha.loading}
-          onSubmit={handleSubmit}
-        />
-      </HideableWrapper>
+      {!social &&(
+        <HideableWrapper hide={!showCaptcha}>
+          <Captcha
+            onSubmit={handleCaptchaSuccess}
+          />
+        </HideableWrapper>
+      )}
       <HideableWrapper hide={showCaptcha}>
         {header}
         <Form className={className} onSubmit={handleSubmit}>
