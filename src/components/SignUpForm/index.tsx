@@ -128,11 +128,13 @@ const SignUpForm = (props: Props) => {
 
   return (
     <>
-      <HideableWrapper hide={!showCaptcha}>
-        <Captcha
-          onSubmit={handleCaptchaSuccess}
-        />
-      </HideableWrapper>
+      {!social &&(
+        <HideableWrapper hide={!showCaptcha}>
+          <Captcha
+            onSubmit={handleCaptchaSuccess}
+          />
+        </HideableWrapper>
+      )}
       <HideableWrapper hide={showCaptcha}>
         {header}
         <Form className={className} onSubmit={handleSubmit}>

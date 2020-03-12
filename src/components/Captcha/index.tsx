@@ -17,13 +17,12 @@ const Captcha = (props: Props) => {
   const { sitekey, loading } = useCaptchaKey();
   const { t } = useTranslation();
 
-  console.log(sitekey);
   return (
     <>
       <FormHeader title={t('captcha')} />
       <Form className={className}>
         <Description>{t('captcha-description')}.</Description>
-        {loading
+        {loading || !sitekey
           ? <Loader color="white" size={14} />
           : (
             <CaptchaWrapper>
