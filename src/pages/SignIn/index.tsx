@@ -23,11 +23,7 @@ const SignIn = (props: Props) => {
   const [pinnedUser, setPinnedUser] = useState<User | null>(null);
 
   const handleSkipAuth = () => {
-    if (windowAlias.interop) {
-      const { ipcRenderer, IPCConstants } = windowAlias.interop;
-
-      ipcRenderer.send(IPCConstants.AUTH_GUEST);
-    }
+    windowAlias.top.postMessage('AUTH_GUEST', '*');
   };
 
   const handleUnsetPinnedUser = () => {
@@ -39,7 +35,7 @@ const SignIn = (props: Props) => {
       <FormHeader title={t('sign-in')} />
       <StyledSocialButtons />
       {pinnedUser
-        ? <SignInPinnedUserForm user={pinnedUser} onChangeAccount={handleUnsetPinnedUser} /> 
+        ? <SignInPinnedUserForm user={pinnedUser} onChangeAccount={handleUnsetPinnedUser} />
         : <SignInForm />
       }
       <GreyText>
