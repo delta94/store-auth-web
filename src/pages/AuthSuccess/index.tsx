@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
+import { windowAlias } from 'helpers';
 
 const AuthSuccess = () => {
   useEffect(() => {
-    window.top.postMessage('AUTH_SUCCESS', '*');
+    windowAlias.ipc?.send('AUTH_LOGIN');
   }, []);
 
   return null;

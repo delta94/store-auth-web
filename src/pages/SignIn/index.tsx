@@ -23,7 +23,7 @@ const SignIn = (props: Props) => {
   const [pinnedUser, setPinnedUser] = useState<User | null>(null);
 
   const handleSkipAuth = () => {
-    windowAlias.top.postMessage('AUTH_GUEST', '*');
+    windowAlias.ipc?.send('AUTH_GUEST');
   };
 
   const handleUnsetPinnedUser = () => {
