@@ -12,3 +12,6 @@ export const FACEBOOK = 'facebook';
 export const TWITTER = 'twitter';
 
 export const TOKEN = 'token';
+
+export const AUTH_CALLBACK = 'AUTH_CALLBACK';
+export const WEBVIEW_LOADING = 'WEBVIEW_LOADING';

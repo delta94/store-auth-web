@@ -10,7 +10,7 @@ import {
   StyledFormError,
   HideableWrapper,
 } from 'styles/common';
-import { EMAIL, USERNAME, PASSWORD } from 'const';
+import { EMAIL, USERNAME, PASSWORD, WEBVIEW_LOADING } from 'const';
 import { useForm } from 'hooks';
 import { signUpRequest, createSignUpSocialRequest } from 'api';
 import { SubmitButton, Captcha } from 'components';
@@ -61,7 +61,7 @@ const SignUpForm = (props: Props) => {
     const { error, param, url } = await request(data);
 
     if (!error) {
-      windowAlias.ipc?.send('WEBVIEW_LOADING', true);
+      windowAlias.ipc?.send(WEBVIEW_LOADING, true);
       window.location.href = url;
       return;
     }

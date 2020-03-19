@@ -11,7 +11,7 @@ import {
   StyledFormInput,
   StyledFormError,
 } from 'styles/common';
-import { EMAIL, PASSWORD } from 'const';
+import { EMAIL, PASSWORD, WEBVIEW_LOADING } from 'const';
 import { useForm } from 'hooks';
 import { signInRequest, createLinkSocialRequest } from 'api';
 import { SubmitButton } from 'components';
@@ -54,7 +54,7 @@ const SignInForm = (props: Props) => {
     const { error, param, url } = await request(formData);
 
     if (!error) {
-      windowAlias.ipc?.send('WEBVIEW_LOADING', true);
+      windowAlias.ipc?.send(WEBVIEW_LOADING, true);
       window.location.href = url;
       return;
     }
