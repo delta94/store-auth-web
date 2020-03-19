@@ -50,7 +50,7 @@ const App: React.FC = () => {
     const isUrlValid = isUrlHasChallenge || isErrorPage || isAuthSuccessPage;
 
     if (windowAlias.ipc) {
-      windowAlias.ipc.send('WEBVIEW_LOADED');
+      windowAlias.ipc.send('WEBVIEW_LOADING', false);
     }
 
     if (!isUrlValid) {
