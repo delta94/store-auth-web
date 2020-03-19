@@ -82,7 +82,9 @@
     "lint": "eslint './**/*.{ts,tsx}'"
   },
   "resolutions": {
-    "serialize-javascript": "^2.1.1"
+    "serialize-javascript": "^2.1.1",
+    "acorn": "^5.7.4",
+    "minimist": "^1.2.2"
   },
   "husky": {
     "hooks": {
