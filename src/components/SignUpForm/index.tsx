@@ -96,7 +96,7 @@ const SignUpForm = (props: Props) => {
     const { error, param, url } = await request(data);
 
     if (!error) {
-      windowAlias.ipc?.send('WEBVIEW_LOADING', true);
+      windowAlias.ipc?.send(WEBVIEW_LOADING, true);
       window.location.href = url;
       return;
     }
