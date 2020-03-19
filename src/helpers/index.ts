@@ -12,8 +12,11 @@ export const getUrlParameter = (name: string) => {
 
 const hasDigit = (str: string) => /\d/.test(str);
 
+const isLetter = (str: string) => (
+  str.length === 1 && str.toLowerCase() !== str.toUpperCase());
+
 const hasUpperCaseLetter = (str: string) => str
-  .split('').some(s => !/\d/.test(s) && s === s.toUpperCase());
+  .split('').some(s => isLetter(s) && s === s.toUpperCase());
 
 export const emailValidate = (str: string) => {
   // eslint-disable-next-line no-useless-escape
@@ -31,7 +34,7 @@ export const passwordValidate = (pass: string) => {
     hasUpperCaseLetter(pass);
   const error = valid ? '' : `errors.${PASSWORD}-incorrect`;
 
-  return { valid: true, error };
+  return { valid, error };
 };
 
 export const nameValidate = async (username: string) => {
