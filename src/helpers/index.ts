@@ -10,6 +10,14 @@ export const getUrlParameter = (name: string) => {
   return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
 
+const hasDigit = (str: string) => /\d/.test(str);
+
+const isLetter = (str: string) => (
+  str.length === 1 && str.toLowerCase() !== str.toUpperCase());
+
+const hasUpperCaseLetter = (str: string) => str
+  .split('').some(s => isLetter(s) && s === s.toUpperCase());
+
 export const emailValidate = (str: string) => {
   // eslint-disable-next-line no-useless-escape
   const valid = /^\w+([\.+-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str);
@@ -19,11 +27,11 @@ export const emailValidate = (str: string) => {
 };
 
 export const passwordValidate = (pass: string) => {
-  const valid = pass.length >= MIN_PASSWORD_LENGTH &&
+  const valid =
+    pass.length >= MIN_PASSWORD_LENGTH &&
     pass.length <= MAX_PASSWORD_LENGTH &&
-    !pass.includes(' ') &&
-    /\d/.test(pass) &&
-    /[a-z]/i.test(pass);
+    hasDigit(pass) &&
+    hasUpperCaseLetter(pass);
   const error = valid ? '' : `errors.${PASSWORD}-incorrect`;
 
   return { valid, error };
