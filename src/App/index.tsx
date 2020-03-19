@@ -49,9 +49,7 @@ const App: React.FC = () => {
     const isUrlHasChallenge = !!challenge;
     const isUrlValid = isUrlHasChallenge || isErrorPage || isAuthSuccessPage;
 
-    if (windowAlias.ipc) {
-      windowAlias.ipc.send('WEBVIEW_LOADING', false);
-    }
+    windowAlias.ipc?.send('WEBVIEW_LOADING', false);
 
     if (!isUrlValid) {
       window.location.href = process.env.REACT_APP_STORE_URL || '';

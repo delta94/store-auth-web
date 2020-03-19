@@ -54,9 +54,7 @@ const SignInForm = (props: Props) => {
     const { error, param, url } = await request(formData);
 
     if (!error) {
-      if (windowAlias.ipc) {
-        windowAlias.ipc.send('WEBVIEW_LOADING', true);
-      }
+      windowAlias.ipc?.send('WEBVIEW_LOADING', true);
       window.location.href = url;
       return;
     }

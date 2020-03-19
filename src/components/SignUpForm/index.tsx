@@ -1,6 +1,6 @@
 import React, { FormEvent, useState, ReactNode, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { passwordValidate, emailValidate, nameValidate, checkCaptchaRequired } from 'helpers';
+import { passwordValidate, emailValidate, nameValidate, checkCaptchaRequired, windowAlias } from 'helpers';
 import {
   Form,
   TermsAgree,
@@ -46,7 +46,7 @@ const SignUpForm = (props: Props) => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    
+
     setLoading(true);
     setFormError('');
 
@@ -61,6 +61,7 @@ const SignUpForm = (props: Props) => {
     const { error, param, url } = await request(data);
 
     if (!error) {
+      windowAlias.ipc?.send('WEBVIEW_LOADING', true);
       window.location.href = url;
       return;
     }
@@ -87,7 +88,7 @@ const SignUpForm = (props: Props) => {
     setFormError('');
 
     const data = { ...formData, captchaToken };
-  
+
     const request = social
       ? createSignUpSocialRequest(social)
       : signUpRequest;
@@ -95,6 +96,7 @@ const SignUpForm = (props: Props) => {
     const { error, param, url } = await request(data);
 
     if (!error) {
+      windowAlias.ipc?.send('WEBVIEW_LOADING', true);
       window.location.href = url;
       return;
     }
@@ -118,7 +120,7 @@ const SignUpForm = (props: Props) => {
 
   return (
     <>
-      {!social &&(
+      {!social && (
         <HideableWrapper hide={!showCaptcha}>
           <Captcha
             onSubmit={handleCaptchaSuccess}
