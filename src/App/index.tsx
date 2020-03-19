@@ -11,7 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import backgroundImage from 'assets/images/background.jpg';
 import { Loader, FormError } from 'components';
-import { getUrlWithSearch } from 'helpers';
+import { getUrlWithSearch, windowAlias } from 'helpers';
 import useSocialProviders from 'hooks/useSocialProviders';
 import { getChallenge } from 'api';
 import { AppContextType } from 'types';
@@ -48,6 +48,10 @@ const App: React.FC = () => {
     const isAuthSuccessPage = window.location.pathname.startsWith('/auth-success');
     const isUrlHasChallenge = !!challenge;
     const isUrlValid = isUrlHasChallenge || isErrorPage || isAuthSuccessPage;
+
+    if (windowAlias.ipc) {
+      windowAlias.ipc.send('WEBVIEW_LOADED');
+    }
 
     if (!isUrlValid) {
       window.location.href = process.env.REACT_APP_STORE_URL || '';
