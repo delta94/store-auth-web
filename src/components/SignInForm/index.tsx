@@ -1,6 +1,6 @@
 import React, { FormEvent, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { passwordValidate, emailValidate, getUrlWithSearch } from 'helpers';
+import { passwordValidate, emailValidate, getUrlWithSearch, windowAlias } from 'helpers';
 import { TinyText } from 'styles/primitives';
 import {
   Form,
@@ -11,7 +11,7 @@ import {
   StyledFormInput,
   StyledFormError,
 } from 'styles/common';
-import { EMAIL, PASSWORD } from 'const';
+import { EMAIL, PASSWORD, WEBVIEW_LOADING } from 'const';
 import { useForm } from 'hooks';
 import { signInRequest, createLinkSocialRequest } from 'api';
 import { SubmitButton } from 'components';
@@ -39,10 +39,10 @@ const SignInForm = (props: Props) => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    
+
     setLoading(true);
     setFormError('');
-    
+
     const formData = social
       ? { remember, social: token, ...getFormSubmitData(event) }
       : { remember, ...getFormSubmitData(event) };
@@ -54,6 +54,7 @@ const SignInForm = (props: Props) => {
     const { error, param, url } = await request(formData);
 
     if (!error) {
+      windowAlias.ipc?.send(WEBVIEW_LOADING, true);
       window.location.href = url;
       return;
     }

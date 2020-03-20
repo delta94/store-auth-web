@@ -7,14 +7,15 @@ import {
   Switch,
   Route,
   Redirect,
-}from 'react-router-dom';
+} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import backgroundImage from 'assets/images/background.jpg';
 import { Loader, FormError } from 'components';
-import { getUrlWithSearch } from 'helpers';
+import { getUrlWithSearch, windowAlias } from 'helpers';
 import useSocialProviders from 'hooks/useSocialProviders';
 import { getChallenge } from 'api';
 import { AppContextType } from 'types';
+import { WEBVIEW_LOADING } from 'const';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
@@ -25,6 +26,7 @@ const SignInSocialNew = React.lazy(() => import('pages/SignInSocialNew'));
 const SignInSocialExisting = React.lazy(() => import('pages/SignInSocialExisting'));
 const ExpiredLink = React.lazy(() => import('pages/ExpiredLink'));
 const Error = React.lazy(() => import('pages/Error'));
+const AuthSuccess = React.lazy(() => import('pages/AuthSuccess'));
 
 const history = createBrowserHistory();
 
@@ -32,7 +34,7 @@ export const AppContext = React.createContext<AppContextType>({
   providers: [],
   loading: false,
   // eslint-disable-next-line
-  setLoading: (newLoading: boolean) => {},
+  setLoading: (newLoading: boolean) => { },
 });
 
 const App: React.FC = () => {
@@ -44,8 +46,11 @@ const App: React.FC = () => {
   useEffect(() => {
     const challenge = getChallenge();
     const isErrorPage = window.location.pathname.startsWith('/error');
+    const isAuthSuccessPage = window.location.pathname.startsWith('/auth-success');
     const isUrlHasChallenge = !!challenge;
-    const isUrlValid = isUrlHasChallenge || isErrorPage;
+    const isUrlValid = isUrlHasChallenge || isErrorPage || isAuthSuccessPage;
+
+    windowAlias.ipc?.send(WEBVIEW_LOADING, false);
 
     if (!isUrlValid) {
       window.location.href = process.env.REACT_APP_STORE_URL || '';
@@ -68,6 +73,7 @@ const App: React.FC = () => {
               <Route path="/change-password" component={NewPassword} />
               <Route path="/expired-link" component={ExpiredLink} />
               <Route path="/error" component={Error} />
+              <Route path="/auth-success" component={AuthSuccess} />
               <Redirect to={getUrlWithSearch('/sign-in')} />
             </Switch>
           </Suspense>
