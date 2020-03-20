@@ -184,7 +184,7 @@ module.exports = function (webpackEnv) {
             .replace(/\\/g, '/')
         : isEnvDevelopment &&
         (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
-      // Prevents conflicts when multiple Webpack runtimes (from different apps)
+      // Prevents conflicts when multiple webpack runtimes (from different apps)
       // are used on the same page.
       jsonpFunction: `webpackJsonp${appPackageJson.name}`,
       // this defaults to 'window', but by setting it to 'this' then
@@ -609,7 +609,7 @@ module.exports = function (webpackEnv) {
         clientsClaim: true,
         exclude: [/\.map$/, /asset-manifest\.json$/],
         importWorkboxFrom: 'cdn',
-        navigateFallback: publicUrl + '/index.html',
+        navigateFallback: paths.publicUrlOrPath + 'index.html',
         navigateFallbackBlacklist: [
           // Exclude URLs starting with /_, as they're likely an API call
           new RegExp('^/_'),
