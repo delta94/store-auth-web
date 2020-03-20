@@ -17,15 +17,10 @@ interface Props {
   className?: string;
 }
 
-const mockUser = {
-  url: 'https://i.pravatar.cc/40',
-  email: 'john@ya.com',
-};
-
 const SignIn = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
-  const [pinnedUser, setPinnedUser] = useState<User | null>(mockUser);
+  const [pinnedUser, setPinnedUser] = useState<User | null>(null);
 
   const handleSkipAuth = () => {
     if (windowAlias.interop) {
