@@ -5,7 +5,7 @@ import { FormHeader } from 'components';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { GRAY_TEXT } from 'styles/colors';
-import { useHistory, useLocation, Redirect } from 'react-router-dom';
+import { useHistory, Redirect, useParams } from 'react-router-dom';
 import { getLauncherSocialLoginCheckRequest } from 'api';
 import { getUrlWithSearch, windowAlias, capitalize } from 'helpers';
 import { WEBVIEW_LOADING } from 'const';
@@ -13,8 +13,7 @@ import { WEBVIEW_LOADING } from 'const';
 const SignInBrowser = () => {
   const { t } = useTranslation();
   const history = useHistory();
-  const location = useLocation();
-  const name = (location.state as any)?.name;
+  const { name = '' } = useParams();
   let requestIntervalID: number;
 
   useEffect(() => {
@@ -33,10 +32,6 @@ const SignInBrowser = () => {
       }
 
     }, 2000);
-
-    return () => {
-      clearInterval(requestIntervalID);
-    };
   }, []);
 
   const handleCancel = () => {

@@ -76,7 +76,7 @@ const App: React.FC = () => {
               <Route path="/expired-link" component={ExpiredLink} />
               <Route path="/error" component={Error} />
               <Route path="/auth-success" component={AuthSuccess} />
-              <Route path="/social-sign-in-browser" component={SignInSocialBrowser} />
+              <Route path="/social-sign-in-browser/:name" component={SignInSocialBrowser} />
               <Route path="/social-sign-in-expired" component={SignInSocialExpired} />
               <Route path="/social-sign-in-confirm" component={SignInSocialConfirm} />
               <Route path="/social-sign-in-success" component={SignInSocialSuccess} />

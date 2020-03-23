@@ -30,8 +30,9 @@ const SocialButton = (props: Props) => {
     const href = `${BASE_URL}/${SOCIAL_URL}/${name}/forward`;
 
     if (isLauncher) {
+      setLoading(false);
       const loginChallenge = getUrlParameter('login_challenge');
-      history.push({ pathname: getUrlWithSearch('/social-sign-in-browser'), state: { name } });
+      history.push(getUrlWithSearch(`/social-sign-in-browser/${name}`));
       windowAlias.ipc?.send(OPEN_LINK, `${href}?login_challenge=${loginChallenge}&launcher=true`);
       return;
     }
