@@ -50,8 +50,9 @@ const App: React.FC = () => {
     const challenge = getChallenge();
     const isErrorPage = window.location.pathname.startsWith('/error');
     const isAuthSuccessPage = window.location.pathname.startsWith('/auth-success');
+    const isSocialSignInPage = window.location.pathname.startsWith('/social-sign-in');
     const isUrlHasChallenge = !!challenge;
-    const isUrlValid = isUrlHasChallenge || isErrorPage || isAuthSuccessPage;
+    const isUrlValid = isUrlHasChallenge || isErrorPage || isAuthSuccessPage || isSocialSignInPage;
 
     if (!isUrlValid) {
       window.location.href = process.env.REACT_APP_STORE_URL || '';
