@@ -6,13 +6,14 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { GRAY_TEXT } from 'styles/colors';
 import { useHistory } from 'react-router-dom';
+import { getUrlWithSearch } from 'helpers';
 
 const SignInBrowser = () => {
   const { t } = useTranslation();
   const history = useHistory();
 
   const handleTryAgain = () => {
-    history.push('/sign-in');
+    history.push(getUrlWithSearch('/sign-in'));
   };
 
   return (

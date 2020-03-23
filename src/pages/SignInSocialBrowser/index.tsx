@@ -5,23 +5,31 @@ import { FormHeader } from 'components';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { GRAY_TEXT } from 'styles/colors';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { getLauncherSocialLoginCheckRequest } from 'api';
-import { getUrlWithSearch } from 'helpers';
+import { getUrlWithSearch, windowAlias, capitalize } from 'helpers';
+import { WEBVIEW_LOADING } from 'const';
 
 const SignInBrowser = () => {
   const { t } = useTranslation();
   const history = useHistory();
+  const location = useLocation();
+  const name = (location.state as any)?.name;
   let requestIntervalID: number;
 
   useEffect(() => {
+    if (!name) {
+      history.push(getUrlWithSearch('/sign-in'));
+      return;
+    }
+
     requestIntervalID = setInterval(async () => {
-      const { status, url } = await getLauncherSocialLoginCheckRequest('facebook');
+      const { status, url } = await getLauncherSocialLoginCheckRequest(name);
 
       if (status === 'success') {
-        console.log('get SUCCESS');
+        windowAlias.ipc?.send(WEBVIEW_LOADING, true);
         clearInterval(requestIntervalID);
-        window.location.href = url;
+        windowAlias.location.href = url;
       }
 
       if (status === 'expired') {
@@ -39,7 +47,7 @@ const SignInBrowser = () => {
 
   return (
     <FormWrapper>
-      <FormHeader title={t('sign-in-with', { platform: 'Facebook' })} />
+      <FormHeader title={t('sign-in-with', { platform: capitalize(name) })} />
       <StyledDescription>{t('sign-in-browser')}</StyledDescription>
       <StyledButton color="transparent" onClick={handleCancel}>{t('cancel')}</StyledButton>
     </FormWrapper>
