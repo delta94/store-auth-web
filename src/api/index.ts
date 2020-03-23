@@ -61,6 +61,18 @@ export const checkResetTokenRequest = getPOSTrequest(CHECK_RESET_TOKEN_URL);
 
 export const getSocialProvidersRequest = getGETrequest(getUrlWithSearch(SOCIAL_URL));
 
+export const getLauncherSocialLoginCheckRequest = (name: string) => {
+  const url = `${SOCIAL_URL}/${name}/check`;
+  const request = getGETrequest(getUrlWithSearch(url));
+  return request();
+};
+
+export const getLuancherSocialLoginConfirmRequest = (name: string) => {
+  const url = `${SOCIAL_URL}/${name}/confirm`;
+  const request = getGETrequest(getUrlWithSearch(url));
+  return request();
+};
+
 export const getSocialProfileRequest = (name: string, token: string) => {
   const url = `${SOCIAL_URL}/${name}/profile?token=${token}`;
   const request = getGETrequest(url);

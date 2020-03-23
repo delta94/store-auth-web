@@ -4,12 +4,17 @@ import { Button } from 'styles/primitives';
 import { FormHeader } from 'components';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import { getLuancherSocialLoginConfirmRequest } from 'api';
+import { getUrlParameter } from 'helpers';
+import { useHistory } from 'react-router-dom';
 
 const SignInConfirm = () => {
   const { t } = useTranslation();
+  const history = useHistory();
 
-  const handleContinue = () => {
-    console.log('handle continue');
+  const handleContinue = async () => {
+    await getLuancherSocialLoginConfirmRequest(getUrlParameter('name'));
+    history.push('/social-sign-in-success');
   };
 
   return (

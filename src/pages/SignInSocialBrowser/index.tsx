@@ -1,25 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { FormWrapper, Description } from 'styles/common';
 import { Button } from 'styles/primitives';
 import { FormHeader } from 'components';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { GRAY_TEXT } from 'styles/colors';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { getLauncherSocialLoginCheckRequest } from 'api';
 
 const SignInBrowser = () => {
   const { t } = useTranslation();
-  const [expired, setExpired] = useState();
   const history = useHistory();
+  let requestIntervalID: number;
+
+  useEffect(() => {
+    requestIntervalID = setInterval(async () => {
+      const { status, url } = await getLauncherSocialLoginCheckRequest('facebook');
+
+      console.log('get status', status);
+      console.log('get url', url);
+
+      if (status === 'success') {
+        console.log('get SUCCESS');
+        clearInterval(requestIntervalID);
+        window.location.href = url.url;
+      }
+
+      if (status === 'expired') {
+        clearInterval(requestIntervalID);
+        history.push('/sign-in-social-expired');
+      }
+
+    }, 2000);
+  }, []);
 
   const handleCancel = () => {
-    // close socket
+    clearInterval(requestIntervalID);
     history.push('/sign-in');
   };
-
-  if (expired) {
-    return <Redirect to={'/sign-in-social-expired'} />;
-  }
 
   return (
     <FormWrapper>
