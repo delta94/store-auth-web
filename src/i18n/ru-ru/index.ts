@@ -41,6 +41,7 @@ export default {
     'ok': 'Ok',
     'or': 'или',
     'cancel': 'Отмена',
+    'close': 'Закрыть',
     'continue': 'Продолжить',
     'try-again': 'Повторить',
     'sign-in-later': 'Войти Позже',

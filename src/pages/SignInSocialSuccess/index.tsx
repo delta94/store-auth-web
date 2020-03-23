@@ -16,7 +16,7 @@ const SignInSuccess = () => {
 };
 
 const StyledDescription = styled(Description)`
-  margin-top: 15px;
+  margin: auto 0;
 `;
 
 export default SignInSuccess;

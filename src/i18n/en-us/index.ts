@@ -41,6 +41,7 @@ export default {
     'ok': 'Ok',
     'or': 'or',
     'cancel': 'Cancel',
+    'close': 'Close',
     'continue': 'Continue',
     'try-again': 'Try again',
     'sign-in-later': 'Sign In Later',
