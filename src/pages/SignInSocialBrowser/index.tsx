@@ -18,9 +18,6 @@ const SignInBrowser = () => {
     requestIntervalID = setInterval(async () => {
       const { status, url } = await getLauncherSocialLoginCheckRequest('facebook');
 
-      console.log('get status', status);
-      console.log('get url', url);
-
       if (status === 'success') {
         console.log('get SUCCESS');
         clearInterval(requestIntervalID);

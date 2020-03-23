@@ -47,6 +47,8 @@ export default {
     'sign-in-with': 'Войти с {{platform}}',
     'sign-in-confirm-title': 'Почти готово!',
     'sign-in-confirm-description': 'Нажмите продолжить что бы авторизоваться в лаунчере',
+    'sign-in-success-title': 'Вы авторизовались!',
+    'sign-in-success-description': 'Вернитесь в лаунчер. Вы можете закрыть эту страницу',
     'sign-in-expired-title': 'Время ожидания истекло',
     'sign-in-expired-description': 'Пожалуйста, повторите попытку, чтобы инициировать новый сеанс авторизации в вашем браузере',
     'expired-link-title': 'Срок действия ссылки истек',

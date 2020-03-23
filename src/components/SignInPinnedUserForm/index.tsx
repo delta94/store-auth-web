@@ -1,6 +1,6 @@
 import React, { FormEvent, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { passwordValidate, getUrlWithSearch } from 'helpers';
+import { passwordValidate, getUrlWithSearch, windowAlias } from 'helpers';
 import { TinyText } from 'styles/primitives';
 import {
   Form,
@@ -11,7 +11,7 @@ import {
   StyledFormInput,
   StyledFormError,
 } from 'styles/common';
-import { PASSWORD } from 'const';
+import { PASSWORD, WEBVIEW_LOADING } from 'const';
 import { useForm } from 'hooks';
 import { signInRequest } from 'api';
 import { SubmitButton } from 'components';
@@ -42,16 +42,17 @@ const SignInPinnedUserForm = (props: Props) => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    
+
     setLoading(true);
     setFormError('');
-    
-    const { email } = user; 
+
+    const { email } = user;
     const formData = { remember, email, ...getFormSubmitData(event) };
 
     const { error, param, url } = await signInRequest(formData);
 
     if (!error) {
+      windowAlias.ipc?.send(WEBVIEW_LOADING, true);
       window.location.href = url;
       return;
     }
@@ -68,7 +69,7 @@ const SignInPinnedUserForm = (props: Props) => {
   return (
     <Form className={className} onSubmit={handleSubmit}>
       <StyledFormError message={formError} />
-      <StyledPinnedUser 
+      <StyledPinnedUser
         user={user}
         onChangeAccount={onChangeAccount}
       />

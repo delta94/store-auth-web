@@ -9,7 +9,7 @@ const SignInSuccess = () => {
   const { t } = useTranslation();
 
   const handleClose = () => {
-    console.log('handle close');
+    close();
   };
 
   return (

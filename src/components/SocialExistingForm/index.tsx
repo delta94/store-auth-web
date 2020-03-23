@@ -2,7 +2,7 @@ import React, { FormEvent, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Input, SubmitButton } from 'components';
-import { passwordValidate, getUrlWithSearch } from 'helpers';
+import { passwordValidate, getUrlWithSearch, windowAlias } from 'helpers';
 import { TinyText } from 'styles/primitives';
 import {
   Form,
@@ -13,7 +13,7 @@ import {
   StyledFormInput,
   StyledFormError,
 } from 'styles/common';
-import { PASSWORD } from 'const';
+import { PASSWORD, WEBVIEW_LOADING } from 'const';
 import { useForm } from 'hooks';
 import { createLinkSocialRequest } from 'api';
 import { AppContext } from 'App';
@@ -50,6 +50,7 @@ const SignInForm = (props: Props) => {
     setLoading(false);
 
     if (!error) {
+      windowAlias.ipc?.send(WEBVIEW_LOADING, true);
       window.location.href = url;
       return;
     }
