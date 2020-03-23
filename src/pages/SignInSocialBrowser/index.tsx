@@ -24,7 +24,7 @@ const SignInBrowser = () => {
       if (status === 'success') {
         console.log('get SUCCESS');
         clearInterval(requestIntervalID);
-        window.location.href = url.url;
+        window.location.href = url;
       }
 
       if (status === 'expired') {
