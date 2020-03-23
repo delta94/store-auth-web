@@ -11,11 +11,10 @@ import {
 import { useTranslation } from 'react-i18next';
 import backgroundImage from 'assets/images/background.jpg';
 import { Loader, FormError } from 'components';
-import { getUrlWithSearch, windowAlias } from 'helpers';
+import { getUrlWithSearch } from 'helpers';
 import useSocialProviders from 'hooks/useSocialProviders';
 import { getChallenge } from 'api';
 import { AppContextType } from 'types';
-import { WEBVIEW_LOADING } from 'const';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
@@ -49,8 +48,6 @@ const App: React.FC = () => {
     const isAuthSuccessPage = window.location.pathname.startsWith('/auth-success');
     const isUrlHasChallenge = !!challenge;
     const isUrlValid = isUrlHasChallenge || isErrorPage || isAuthSuccessPage;
-
-    windowAlias.ipc?.send(WEBVIEW_LOADING, false);
 
     if (!isUrlValid) {
       window.location.href = process.env.REACT_APP_STORE_URL || '';

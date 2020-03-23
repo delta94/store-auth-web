@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FormHeader, SignInForm, Privacy } from 'components';
 import {
@@ -8,7 +8,7 @@ import {
   BlueLink,
   AuthSkip,
 } from 'styles/common';
-import { PLATFORM } from 'const';
+import { PLATFORM, WEBVIEW_LOADING, AUTH_GUEST } from 'const';
 import { getUrlWithSearch, isLauncher, windowAlias } from 'helpers';
 import SignInPinnedUserForm from 'components/SignInPinnedUserForm';
 import { User } from 'types';
@@ -22,8 +22,12 @@ const SignIn = (props: Props) => {
   const { t } = useTranslation();
   const [pinnedUser, setPinnedUser] = useState<User | null>(null);
 
+  useEffect(() => {
+    windowAlias.ipc?.send(WEBVIEW_LOADING, false);
+  }, []);
+
   const handleSkipAuth = () => {
-    windowAlias.ipc?.send('AUTH_GUEST');
+    windowAlias.ipc?.send(AUTH_GUEST);
   };
 
   const handleUnsetPinnedUser = () => {
