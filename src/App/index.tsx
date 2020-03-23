@@ -112,7 +112,7 @@ const Wrapper = styled.div`
   background-position: center;
 `;
 
-const OfflineMessage = styled((props: any) => <FormError {...props} />) <{ hide: boolean }>`
+const OfflineMessage = styled((props: any) => <FormError {...props} />)<{ hide: boolean }>`
   opacity: ${({ hide }) => hide ? 0 : 1};
   position: absolute;
   top: 0;
