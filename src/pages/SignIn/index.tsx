@@ -8,11 +8,10 @@ import {
   BlueLink,
   AuthSkip,
 } from 'styles/common';
-import { PLATFORM } from 'const';
+import { PLATFORM, WEBVIEW_LOADING, AUTH_GUEST } from 'const';
 import { getUrlWithSearch, isLauncher, windowAlias } from 'helpers';
 import SignInPinnedUserForm from 'components/SignInPinnedUserForm';
 import { User } from 'types';
-import { WEBVIEW_LOADING } from 'const';
 
 interface Props {
   className?: string;
@@ -28,7 +27,7 @@ const SignIn = (props: Props) => {
   }, []);
 
   const handleSkipAuth = () => {
-    windowAlias.ipc?.send('AUTH_GUEST');
+    windowAlias.ipc?.send(AUTH_GUEST);
   };
 
   const handleUnsetPinnedUser = () => {
