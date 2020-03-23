@@ -27,7 +27,7 @@ const SocialButton = (props: Props) => {
 
   const handleClick = () => {
     setLoading(true);
-    const href = `${BASE_URL}${SOCIAL_URL}/${name}/forward`;
+    const href = `${BASE_URL}/${SOCIAL_URL}/${name}/forward`;
 
     if (isLauncher) {
       const loginChallenge = getUrlParameter('login_challenge');
