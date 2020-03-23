@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { GRAY_TEXT } from 'styles/colors';
 import { useHistory } from 'react-router-dom';
 import { getLauncherSocialLoginCheckRequest } from 'api';
+import { getUrlWithSearch } from 'helpers';
 
 const SignInBrowser = () => {
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ const SignInBrowser = () => {
 
       if (status === 'expired') {
         clearInterval(requestIntervalID);
-        history.push('/sign-in-social-expired');
+        history.push(getUrlWithSearch('/social-sign-in-expired'));
       }
 
     }, 2000);
@@ -36,7 +37,7 @@ const SignInBrowser = () => {
 
   const handleCancel = () => {
     clearInterval(requestIntervalID);
-    history.push('/sign-in');
+    history.push(getUrlWithSearch('/sign-in'));
   };
 
   return (
