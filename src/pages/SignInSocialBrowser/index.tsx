@@ -5,7 +5,7 @@ import { FormHeader } from 'components';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { GRAY_TEXT } from 'styles/colors';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import { getLauncherSocialLoginCheckRequest } from 'api';
 import { getUrlWithSearch, windowAlias, capitalize } from 'helpers';
 import { WEBVIEW_LOADING } from 'const';
@@ -18,11 +18,6 @@ const SignInBrowser = () => {
   let requestIntervalID: number;
 
   useEffect(() => {
-    if (!name) {
-      history.push(getUrlWithSearch('/sign-in'));
-      return;
-    }
-
     requestIntervalID = setInterval(async () => {
       const { status, url } = await getLauncherSocialLoginCheckRequest(name);
 
@@ -38,12 +33,20 @@ const SignInBrowser = () => {
       }
 
     }, 2000);
+
+    return () => {
+      clearInterval(requestIntervalID);
+    };
   }, []);
 
   const handleCancel = () => {
     clearInterval(requestIntervalID);
     history.push(getUrlWithSearch('/sign-in'));
   };
+
+  if (!name) {
+    return <Redirect to={getUrlWithSearch('/sign-in')}/>;
+  }
 
   return (
     <FormWrapper>
