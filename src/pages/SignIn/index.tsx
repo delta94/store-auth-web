@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FormHeader, SignInForm, Privacy } from 'components';
 import {
@@ -12,6 +12,7 @@ import { PLATFORM } from 'const';
 import { getUrlWithSearch, isLauncher, windowAlias } from 'helpers';
 import SignInPinnedUserForm from 'components/SignInPinnedUserForm';
 import { User } from 'types';
+import { WEBVIEW_LOADING } from 'const';
 
 interface Props {
   className?: string;
@@ -21,6 +22,10 @@ const SignIn = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
   const [pinnedUser, setPinnedUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    windowAlias.ipc?.send(WEBVIEW_LOADING, false);
+  }, []);
 
   const handleSkipAuth = () => {
     windowAlias.ipc?.send('AUTH_GUEST');
