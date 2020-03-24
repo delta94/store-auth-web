@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FormInput, CheckBox, SocialButtons, FormError } from 'components';
 import { BLUE_400, GRAY_900, GRAY_TEXT, BLACK } from 'styles/colors';
-import { Row, TinyText, Column } from 'styles/primitives';
+import { Row, TinyText, Column, Button } from 'styles/primitives';
 
 export const FormWrapper = styled.div`
   display: flex;
@@ -34,6 +34,13 @@ export const Form = styled.form`
 
 export const StyledSocialButtons = styled((props: any) => <SocialButtons {...props} />)`
   margin: 16px 0;
+`;
+
+export const StyledGrayButton = styled(Button)`
+  border: 1px solid ${GRAY_TEXT};
+  min-height: 46px;
+  margin: 24px 0 16px 0;
+  text-transform: uppercase;
 `;
 
 export const StyledFormInput = styled((props: any) => <FormInput {...props} />)`

@@ -16,3 +16,4 @@ export const TOKEN = 'token';
 export const AUTH_CALLBACK = 'AUTH_CALLBACK';
 export const AUTH_GUEST = 'AUTH_GUEST';
 export const WEBVIEW_LOADING = 'WEBVIEW_LOADING';
+export const OPEN_LINK = 'OPEN_LINK';
