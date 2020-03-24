@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
-import { FormWrapper, Description } from 'styles/common';
-import { Button } from 'styles/primitives';
+import { FormWrapper, Description, StyledGrayButton } from 'styles/common';
 import { FormHeader } from 'components';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { GRAY_TEXT } from 'styles/colors';
 import { useHistory, Redirect, useParams } from 'react-router-dom';
 import { getLauncherSocialLoginCheckRequest } from 'api';
 import { getUrlWithSearch, windowAlias, capitalize } from 'helpers';
@@ -47,20 +45,13 @@ const SignInBrowser = () => {
     <FormWrapper>
       <FormHeader title={t('sign-in-with', { platform: capitalize(name) })} />
       <StyledDescription>{t('sign-in-browser')}</StyledDescription>
-      <StyledButton color="transparent" onClick={handleCancel}>{t('cancel')}</StyledButton>
+      <StyledGrayButton color="transparent" onClick={handleCancel}>{t('cancel')}</StyledGrayButton>
     </FormWrapper>
   );
 };
 
 const StyledDescription = styled(Description)`
   margin-top: 15px;
-`;
-
-const StyledButton = styled(Button)`
-  border: 1px solid ${GRAY_TEXT};
-  min-height: 46px;
-  margin: 24px 0 16px 0;
-  text-transform: uppercase;
 `;
 
 export default SignInBrowser;
