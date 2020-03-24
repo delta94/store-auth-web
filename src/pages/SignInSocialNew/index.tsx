@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { FormHeader, Tabs, Tab, SignInForm, SignUpForm, Privacy, DontWantLink } from 'components';
-import { PLATFORM, TOKEN } from 'const';
+import { PLATFORM, TOKEN, WEBVIEW_LOADING } from 'const';
 import { FormWrapper, Description } from 'styles/common';
 import { useParams } from 'react-router-dom';
-import { capitalize, getUrlParameter } from 'helpers';
+import { capitalize, getUrlParameter, windowAlias } from 'helpers';
 
 interface Props {
   className?: string;
@@ -18,7 +18,11 @@ const SignInSocialNew = (props: Props) => {
   const { name = '' } = useParams();
   const capitalizedName = capitalize(name);
   const { t } = useTranslation();
-  
+
+  useEffect(() => {
+    windowAlias.ipc?.send(WEBVIEW_LOADING, false);
+  }, []);
+
   return (
     <FormWrapper className={className}>
       <FormHeader title={`${t('social-new')} ${capitalizedName}`} />
