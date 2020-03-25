@@ -14,12 +14,12 @@ interface Props {
 
 const PinnedUser = (props: Props) => {
   const { className, user, onChangeAccount } = props;
-  const { url, email } = user;
+  const { avatar, email } = user;
   const { t } = useTranslation();
 
   return (
     <Wrapper className={className}>
-      <StyledAvatar src={url} />
+      <StyledAvatar src={avatar} />
       <Content>
         <Email>{email}</Email>
         <ChangeButton onClick={onChangeAccount}>

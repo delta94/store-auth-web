@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormHeader, SignInForm, Privacy } from 'components';
+import { FormHeader, SignInForm, Privacy, Loader } from 'components';
 import {
   GreyText,
   StyledSocialButtons,
@@ -12,6 +12,7 @@ import { PLATFORM, WEBVIEW_LOADING, AUTH_GUEST } from 'const';
 import { getUrlWithSearch, isLauncher, windowAlias } from 'helpers';
 import SignInPinnedUserForm from 'components/SignInPinnedUserForm';
 import { User } from 'types';
+import usePreviosUser from 'hooks/usePreviosUser';
 
 interface Props {
   className?: string;
@@ -20,11 +21,16 @@ interface Props {
 const SignIn = (props: Props) => {
   const { className } = props;
   const { t } = useTranslation();
+  const { loading, previosUser } = usePreviosUser();
   const [pinnedUser, setPinnedUser] = useState<User | null>(null);
 
   useEffect(() => {
     windowAlias.ipc?.send(WEBVIEW_LOADING, false);
   }, []);
+
+  useEffect(() => {
+    setPinnedUser(previosUser);
+  }, [loading]);
 
   const handleSkipAuth = () => {
     windowAlias.ipc?.send(AUTH_GUEST);
@@ -34,11 +40,13 @@ const SignIn = (props: Props) => {
     setPinnedUser(null);
   };
 
+  if (loading) return <Loader color="white" size={14} />;
+
   return (
     <FormWrapper className={className}>
       <FormHeader title={t('sign-in')} />
       <StyledSocialButtons />
-      {pinnedUser
+      {pinnedUser && pinnedUser.email
         ? <SignInPinnedUserForm user={pinnedUser} onChangeAccount={handleUnsetPinnedUser} />
         : <SignInForm />
       }
