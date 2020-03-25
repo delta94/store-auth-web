@@ -28,7 +28,6 @@ export default () => {
 
   useEffect(() => {
     getUser();
-    // eslint-disable-next-line
   }, []);
 
   return { loading, previosUser };
