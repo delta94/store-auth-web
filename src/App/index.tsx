@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import backgroundImage from 'assets/images/background.jpg';
 import { Loader, FormError } from 'components';
 import { getUrlWithSearch } from 'helpers';
-import useSocialProviders from 'hooks/useSocialProviders';
+import { useSocialProviders } from 'hooks';
 import { getChallenge } from 'api';
 import { AppContextType } from 'types';
 

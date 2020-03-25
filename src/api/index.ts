@@ -11,6 +11,7 @@ import {
   UNKNOWN_ERROR,
   SET_PASSWORD_URL,
   SOCIAL_URL,
+  GET_PREVIOS_USER_URL,
 } from './const';
 
 const getXSRFToken = () => getCookie(XSRF_KEY) || '';
@@ -58,6 +59,8 @@ export const signUpRequest = getPOSTrequest(SIGN_UP_URL);
 export const passwordResetRequest = getPOSTrequest(PASSWORD_RESET_URL);
 export const setPasswordRequest = getPOSTrequest(SET_PASSWORD_URL);
 export const checkResetTokenRequest = getPOSTrequest(CHECK_RESET_TOKEN_URL);
+
+export const getPreviosUserRequest = getGETrequest(GET_PREVIOS_USER_URL);
 
 export const getSocialProvidersRequest = getGETrequest(getUrlWithSearch(SOCIAL_URL));
 
