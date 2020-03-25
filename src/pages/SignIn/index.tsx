@@ -12,7 +12,7 @@ import { PLATFORM, WEBVIEW_LOADING, AUTH_GUEST } from 'const';
 import { getUrlWithSearch, isLauncher, windowAlias } from 'helpers';
 import SignInPinnedUserForm from 'components/SignInPinnedUserForm';
 import { User } from 'types';
-import usePreviosUser from 'hooks/usePreviosUser';
+import { usePreviosUser } from 'hooks';
 
 interface Props {
   className?: string;
