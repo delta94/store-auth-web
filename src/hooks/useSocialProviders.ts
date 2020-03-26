@@ -1,23 +1,15 @@
 import { useState, useEffect, useContext } from 'react';
-import { getSocialProvidersRequest } from 'api';
+import { getSocialProvidersRequest, getChallenge } from 'api';
 import { SocialProvider } from 'types';
 import { AppContext } from 'App';
-import { getUrlParameter } from 'helpers';
-import { CHALLENGE_KEY } from 'api/const';
 
 export default () => {
   const { setLoading } = useContext(AppContext);
   const [providers, setProviders] = useState<SocialProvider[]>([]);
-  const loginChallenge = getUrlParameter(CHALLENGE_KEY);
+  const loginChallenge = getChallenge();
 
   const getProviders = async () => {
     setLoading(true);
-
-    if (!loginChallenge) {
-      setProviders([]);
-      setLoading(false);
-      return;
-    }
 
     const response = await getSocialProvidersRequest();
 
@@ -32,7 +24,7 @@ export default () => {
   };
 
   useEffect(() => {
-    getProviders();
+    if (loginChallenge) getProviders();
     // eslint-disable-next-line
   }, []);
 
