@@ -1,12 +1,13 @@
 import { useState, useEffect, useContext } from 'react';
-import { getSocialProvidersRequest } from 'api';
+import { getSocialProvidersRequest, getChallenge } from 'api';
 import { SocialProvider } from 'types';
 import { AppContext } from 'App';
 
 export default () => {
   const { setLoading } = useContext(AppContext);
   const [providers, setProviders] = useState<SocialProvider[]>([]);
-  
+  const loginChallenge = getChallenge();
+
   const getProviders = async () => {
     setLoading(true);
 
@@ -23,7 +24,7 @@ export default () => {
   };
 
   useEffect(() => {
-    getProviders();
+    if (loginChallenge) getProviders();
     // eslint-disable-next-line
   }, []);
 
