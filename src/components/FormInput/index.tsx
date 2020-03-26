@@ -72,7 +72,10 @@ const FormInput = (props: Props) => {
   }, [validatedValue]);
 
   const handleTouch = () => {
-    if (!touched) setTouched(true);
+    if (touched) return;
+    
+    setTouched(true);
+    onValidate(name, initError); // Set touched field on form
   };
 
   return (
