@@ -49,9 +49,9 @@ const FormInput = (props: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
 
-    if (!newValue) onValidate(name, error, true);
+    if (!newValue) onValidate(name, error, true); // Set empty
 
-    if (!value && newValue) onValidate(name, error, false);
+    if (!value && newValue) onValidate(name, error, false); // Set not empty
 
     setValue(newValue);
   };
@@ -79,7 +79,7 @@ const FormInput = (props: Props) => {
 
   const handleFocus = () => {
     setTouched(true);
-    onValidate(name, '', value.length === 0); // Set touched field on form
+    onValidate(name, '', value.length === 0); // Drop error on focus
   };
 
   return (
