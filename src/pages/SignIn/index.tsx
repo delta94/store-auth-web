@@ -48,7 +48,7 @@ const SignIn = (props: Props) => {
       <StyledSocialButtons />
       {pinnedUser && pinnedUser.email
         ? <SignInPinnedUserForm user={pinnedUser} onChangeAccount={handleUnsetPinnedUser} />
-        : <SignInForm />
+        : <SignInForm user={previosUser} />
       }
       <GreyText>
         {`${t('dont-have-account', { platform: PLATFORM })}? `}

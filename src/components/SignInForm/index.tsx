@@ -16,17 +16,19 @@ import { useForm } from 'hooks';
 import { signInRequest, createLinkSocialRequest } from 'api';
 import { SubmitButton } from 'components';
 import { AppContext } from 'App';
+import { User } from 'types';
 
 interface Props {
   className?: string;
   social?: string;
   token?: string;
+  user?: User;
 }
 
 const signInFields = [EMAIL, PASSWORD];
 
 const SignInForm = (props: Props) => {
-  const { className, token, social } = props;
+  const { className, token, social, user } = props;
   const { t } = useTranslation();
   const { loading, setLoading } = useContext(AppContext);
   const [formError, setFormError] = useState('');
@@ -78,6 +80,8 @@ const SignInForm = (props: Props) => {
         error={errors.email.value}
         validate={emailValidate}
         onValidate={handleErrorsChange}
+        value={user?.email}
+        autoFocus={!!user?.email}
       />
       <StyledFormInput
         type="password"
