@@ -3,6 +3,7 @@ import { useState, FormEvent } from 'react';
 type FieldError = {
   value: string;
   touched: boolean;
+  empty: boolean;
 }
 
 export default (fields: string[]) => {
@@ -11,17 +12,19 @@ export default (fields: string[]) => {
     [field]: {
       value: '',
       touched: false,
+      empty: true,
     },
   }), {});
 
   const [errors, setErrors] = useState<Record<string, FieldError>>(errorsInit);
 
-  const handleErrorsChange = (field: string, value: string) => {
+  const handleErrorsChange = (field: string, value: string, empty = false) => {
     setErrors({
       ...errors,
       [field]: {
         value,
         touched: true,
+        empty,
       },
     });
   };
@@ -36,7 +39,7 @@ export default (fields: string[]) => {
     return formData;
   };
 
-  const isFormValid = Object.values(errors).every(({ value, touched }) => !value && touched);
+  const isFormValid = Object.values(errors).every(({ value, touched, empty }) => !value && touched && !empty);
 
   return { errors, handleErrorsChange, isFormValid, getFormSubmitData };
 };
