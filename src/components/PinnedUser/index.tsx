@@ -46,7 +46,7 @@ const Email = styled.div`
   color: white;
 `;
 
-const ChangeButton = styled.div`
+const ChangeButton = styled.span`
   font-size: 12px;
   line-height: 150%;
   letter-spacing: 0.01em;
