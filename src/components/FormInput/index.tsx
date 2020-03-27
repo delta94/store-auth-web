@@ -14,7 +14,7 @@ interface Props {
   type: string;
   name: string;
   label: string;
-  onValidate: (field: string, value: string) => void;
+  onValidate: (field: string, value: string, empty?: boolean) => void;
   validate: (value: string) => ValidationResult | Promise<ValidationResult>;
   validationType?: 'blur' | 'change' | 'debounce'; 
   className?: string;
@@ -47,7 +47,13 @@ const FormInput = (props: Props) => {
   useEffect(() => setError(initError), [initError]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    const newValue = event.target.value;
+
+    if (!newValue) onValidate(name, error, true);
+
+    if (!value && newValue) onValidate(name, error, false);
+
+    setValue(newValue);
   };
 
   const handleValidate = async () => {
@@ -71,11 +77,9 @@ const FormInput = (props: Props) => {
     // eslint-disable-next-line
   }, [validatedValue]);
 
-  const handleTouch = () => {
-    if (touched) return;
-    
+  const handleFocus = () => {
     setTouched(true);
-    onValidate(name, initError); // Set touched field on form
+    onValidate(name, '', value.length === 0); // Set touched field on form
   };
 
   return (
@@ -83,7 +87,7 @@ const FormInput = (props: Props) => {
       {...rest}
       name={name}
       value={value}
-      onFocus={handleTouch}
+      onFocus={handleFocus}
       onChange={handleChange}
       onBlur={handleValidate}
       error={error}
