@@ -25,7 +25,7 @@ const SignInSocialNew = React.lazy(() => import('pages/SignInSocialNew'));
 const SignInSocialExisting = React.lazy(() => import('pages/SignInSocialExisting'));
 const ExpiredLink = React.lazy(() => import('pages/ExpiredLink'));
 const Error = React.lazy(() => import('pages/Error'));
-const AuthSuccess = React.lazy(() => import('pages/AuthSuccess'));
+const AuthCallback = React.lazy(() => import('pages/AuthCallback'));
 const SignInSocialBrowser = React.lazy(() => import('pages/SignInSocialBrowser'));
 const SignInSocialExpired = React.lazy(() => import('pages/SignInSocialExpired'));
 const SignInSocialConfirm = React.lazy(() => import('pages/SignInSocialConfirm'));
@@ -75,7 +75,7 @@ const App: React.FC = () => {
               <Route path="/change-password" component={NewPassword} />
               <Route path="/expired-link" component={ExpiredLink} />
               <Route path="/error" component={Error} />
-              <Route path="/auth-success" component={AuthSuccess} />
+              <Route path="/auth-callback" component={AuthCallback} />
               <Route path="/social-sign-in-browser/:name" component={SignInSocialBrowser} />
               <Route path="/social-sign-in-expired" component={SignInSocialExpired} />
               <Route path="/social-sign-in-confirm" component={SignInSocialConfirm} />

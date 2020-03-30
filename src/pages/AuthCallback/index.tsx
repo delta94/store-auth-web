@@ -3,7 +3,7 @@ import { windowAlias } from 'helpers';
 import { Loader } from 'components';
 import { AUTH_CALLBACK } from 'const';
 
-const AuthSuccess = () => {
+const AuthCallback = () => {
   useEffect(() => {
     windowAlias.ipc?.send(AUTH_CALLBACK);
   }, []);
@@ -11,4 +11,4 @@ const AuthSuccess = () => {
   return <Loader color="white" size={14} />;
 };
 
-export default AuthSuccess;
+export default AuthCallback;
