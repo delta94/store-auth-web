@@ -49,10 +49,10 @@ const App: React.FC = () => {
   useEffect(() => {
     const challenge = getChallenge();
     const isErrorPage = window.location.pathname.startsWith('/error');
-    const isAuthSuccessPage = window.location.pathname.startsWith('/auth-success');
+    const isAuthCallbackPage = window.location.pathname.startsWith('/auth-callback');
     const isSocialSignInPage = window.location.pathname.startsWith('/social-sign-in');
     const isUrlHasChallenge = !!challenge;
-    const isUrlValid = isUrlHasChallenge || isErrorPage || isAuthSuccessPage || isSocialSignInPage;
+    const isUrlValid = isUrlHasChallenge || isErrorPage || isAuthCallbackPage || isSocialSignInPage;
 
     if (!isUrlValid) {
       window.location.href = process.env.REACT_APP_STORE_URL || '';
