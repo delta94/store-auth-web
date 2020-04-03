@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { setCookie, deleteCookie } from 'helpers';
 import Centrifuge from 'centrifuge';
-import SockJS from 'sockjs-client';
 import { CHALLENGE_KEY, SOCKET_URL } from 'api/const';
 import { getChallenge } from 'api';
 
