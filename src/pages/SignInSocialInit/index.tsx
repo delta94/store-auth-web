@@ -1,56 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FormWrapper, Description, StyledGrayButton } from 'styles/common';
 import { FormHeader } from 'components';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { useHistory, useParams } from 'react-router-dom';
-import Centrifuge from 'centrifuge';
-import {  getChallenge } from 'api';
-import { getUrlWithSearch, windowAlias, capitalize, setCookie, deleteCookie } from 'helpers';
+import { getUrlWithSearch, windowAlias, capitalize } from 'helpers';
 import { WEBVIEW_LOADING } from 'const';
-import { BASE_URL, CHALLENGE_KEY } from 'api/const';
-
-type NotificationPayload = {
-  status: string;
-  url?: string;
-}
-
-const loginUrl = `${process.env.REACT_APP_STORE_URL}/api/v1/auth/login`;
-const authCallbackUrl = `https://${window.location.host}/auth-callback`;
-const socketUrl = `${BASE_URL}/api/providers/ws}`;
+import { LOGIN_URL, AUTH_CALLBACK_URL } from 'api/const';
+import { useSocialSignIn } from 'hooks';
 
 const SignInSocialInit = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const { name = '' } = useParams();
-  const [status, setStatus] = useState<string>();
-  const [redirectUrl, setRedirectUrl] = useState<string>();
-
-  const centrifuge = new Centrifuge(socketUrl);
-
-  useEffect(() => {
-    setCookie(CHALLENGE_KEY, getChallenge());
-
-    centrifuge.subscribe('notification', (payload: NotificationPayload) => {
-      const { status, url } = payload;
-      setStatus(status);
-      setRedirectUrl(url);
-    });
-
-    centrifuge.connect();
-
-    return () => {
-      centrifuge.disconnect();
-      deleteCookie(CHALLENGE_KEY);
-    };
-  }, []);
+  const { status, redirectUrl } = useSocialSignIn();
 
   const handleCancel = () => {
     history.push(getUrlWithSearch('/sign-in'));
   };
 
   const handleTryAgain = () => {
-    window.location.href = `${loginUrl}?redirect=${authCallbackUrl}`;
+    window.location.href = `${LOGIN_URL}?redirect=${AUTH_CALLBACK_URL}`;
   };
 
   if (status === 'success') {
@@ -81,4 +51,4 @@ const StyledDescription = styled(Description)`
   margin-top: 15px;
 `;
 
-export default SignInSocialInit;
+export default React.memo(SignInSocialInit);

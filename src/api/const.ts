@@ -16,3 +16,7 @@ export const UNKNOWN_ERROR = {
   error: 'errors.one.protocol.auth1.unknown',
   code: 'AU-1000',
 };
+
+export const LOGIN_URL = `${process.env.REACT_APP_STORE_URL}/api/v1/auth/login`;
+export const AUTH_CALLBACK_URL = `https://${window.location.host}/auth-callback`;
+export const SOCKET_URL = `${BASE_URL}/api/providers/ws}`;

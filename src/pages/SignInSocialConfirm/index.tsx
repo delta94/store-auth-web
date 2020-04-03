@@ -63,4 +63,4 @@ const StyledButton = styled(Button)`
   text-transform: uppercase;
 `;
 
-export default SignInSocialConfirm;
+export default React.memo(SignInSocialConfirm);
