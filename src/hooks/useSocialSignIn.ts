@@ -6,8 +6,14 @@ import { CHALLENGE_KEY, SOCKET_URL } from 'api/const';
 import { getChallenge } from 'api';
 
 type NotificationPayload = {
-  status: string;
-  url?: string;
+  data: {
+    data: {
+      result: {
+        status: string;
+        url?: string;
+      };
+    };
+  };
 }
 
 export default () => {
@@ -21,8 +27,8 @@ export default () => {
   useEffect(() => {
     setCookie(CHALLENGE_KEY, loginChallenge);
 
-    centrifuge.subscribe(`launcher#${loginChallenge}`, (payload: NotificationPayload) => {
-      const { status, url } = payload;
+    centrifuge.subscribe(`launcher#${loginChallenge}`, ({ data }: NotificationPayload) => {
+      const { status, url } = data.data.result;
       setStatus(status);
       setRedirectUrl(url);
     });
