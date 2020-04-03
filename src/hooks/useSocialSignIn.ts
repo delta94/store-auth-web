@@ -19,9 +19,7 @@ type NotificationPayload = {
 export default () => {
   const [status, setStatus] = useState<string>();
   const [redirectUrl, setRedirectUrl] = useState<string>();
-  const centrifuge = new Centrifuge(SOCKET_URL, {
-    sockjs: SockJS,
-  });
+  const centrifuge = new Centrifuge(SOCKET_URL);
   const loginChallenge = getChallenge();
 
   useEffect(() => {
