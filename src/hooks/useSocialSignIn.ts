@@ -24,7 +24,9 @@ export default () => {
   useEffect(() => {
     setCookie(CHALLENGE_KEY, loginChallenge);
 
-    centrifuge.subscribe(`launcher#${loginChallenge}`, ({ result }: Message) => {
+    centrifuge.subscribe(`launcher#${loginChallenge}`, (message: Message) => {
+      console.log('get message', message);
+      const { result } = message || {};
       const { status, url } = result?.data?.data || {};
       setStatus(status);
       setRedirectUrl(url);
