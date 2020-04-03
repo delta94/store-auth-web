@@ -19,4 +19,4 @@ export const UNKNOWN_ERROR = {
 
 export const LOGIN_URL = `${process.env.REACT_APP_STORE_URL}/api/v1/auth/login`;
 export const AUTH_CALLBACK_URL = `https://${window.location.host}/auth-callback`;
-export const SOCKET_URL = `wss://${window.location.host}/centrifugo/websocket}`;
+export const SOCKET_URL = `wss://${window.location.host}/centrifugo/websocket`;
