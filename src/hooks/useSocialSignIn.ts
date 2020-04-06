@@ -5,13 +5,9 @@ import { CHALLENGE_KEY, SOCKET_URL } from 'api/const';
 import { getChallenge } from 'api';
 
 type Message = {
-  result: {
-    data: {
-      data: {
-        status: string;
-        url?: string;
-      };
-    };
+  data: {
+    status: string;
+    url?: string;
   };
 }
 
@@ -25,9 +21,7 @@ export default () => {
     setCookie(CHALLENGE_KEY, loginChallenge);
 
     centrifuge.subscribe(`launcher#${loginChallenge}`, (message: Message) => {
-      console.log('get message', message);
-      const { result } = message || {};
-      const { status, url } = result?.data?.data || {};
+      const { status, url } = message?.data || {};
       setStatus(status);
       setRedirectUrl(url);
     });

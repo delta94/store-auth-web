@@ -15,10 +15,6 @@ const SignInSocialInit = () => {
   const { name = '' } = useParams();
   const { status, redirectUrl } = useSocialSignIn();
 
-  console.log('SignInSocialInit');
-  console.log('status', status);
-  console.log('redirectUrl', redirectUrl);
-
   const handleCancel = () => {
     history.push(getUrlWithSearch('/sign-in'));
   };
