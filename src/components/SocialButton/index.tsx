@@ -32,7 +32,7 @@ const SocialButton = (props: Props) => {
     if (isLauncher) {
       setLoading(false);
       const loginChallenge = getUrlParameter('login_challenge');
-      history.push(getUrlWithSearch(`/social-sign-in-browser/${name}`));
+      history.push(getUrlWithSearch(`/social-sign-in-init/${name}`));
       windowAlias.ipc?.send(OPEN_LINK, `${href}?login_challenge=${loginChallenge}&launcher=true`);
       return;
     }

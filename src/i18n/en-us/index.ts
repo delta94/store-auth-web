@@ -48,6 +48,8 @@ export default {
     'sign-in-with': 'Sign In with {{platform}}',
     'sign-in-confirm-title': 'We\'re almost there!',
     'sign-in-confirm-description': 'Press continue to authorize you in the launcher',
+    'sign-in-fail-title': 'Authorization fail',
+    'sign-in-fail-description': 'Session has expired or was canceled. Please go back to the launcher and try initiate new authorization session. You can close this page.',
     'sign-in-success-title': 'Authorization success!',
     'sign-in-success-description': 'You are signed in. Go back to the launcher. You can close this page',
     'sign-in-expired-title': 'Connection timeout has expired',
