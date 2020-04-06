@@ -15,7 +15,7 @@ const SignInSocialInit = () => {
   const history = useHistory();
   const { name = '' } = useParams();
   const { status, redirectUrl } = useSocialSignIn();
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   const handleCancel = async () => {
     setLoading(true);
