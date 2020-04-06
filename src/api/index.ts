@@ -64,8 +64,8 @@ export const getPreviosUserRequest = getGETrequest(GET_PREVIOS_USER_URL);
 
 export const getSocialProvidersRequest = getGETrequest(getUrlWithSearch(SOCIAL_URL));
 
-export const getLauncherSocialLoginCheckRequest = (name: string) => {
-  const url = `${SOCIAL_URL}/${name}/check`;
+export const getLauncherSocialLoginCancelRequest = (name: string) => {
+  const url = `${SOCIAL_URL}/${name}/cancel`;
   const request = getGETrequest(getUrlWithSearch(url));
   return request();
 };

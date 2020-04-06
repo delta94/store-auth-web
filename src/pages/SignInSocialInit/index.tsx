@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormWrapper, Description, StyledGrayButton } from 'styles/common';
 import { FormHeader } from 'components';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { useHistory, useParams } from 'react-router-dom';
 import { getUrlWithSearch, windowAlias, capitalize } from 'helpers';
+import { getLauncherSocialLoginCancelRequest } from 'api';
 import { WEBVIEW_LOADING } from 'const';
 import { LOGIN_URL, AUTH_CALLBACK_URL } from 'api/const';
 import { useSocialSignIn } from 'hooks';
@@ -14,8 +15,11 @@ const SignInSocialInit = () => {
   const history = useHistory();
   const { name = '' } = useParams();
   const { status, redirectUrl } = useSocialSignIn();
+  const [isLoading, setLoading] = useState(true);
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
+    setLoading(true);
+    await getLauncherSocialLoginCancelRequest(name);
     history.push(getUrlWithSearch('/sign-in'));
   };
 
@@ -42,7 +46,7 @@ const SignInSocialInit = () => {
     <FormWrapper>
       <FormHeader title={t('sign-in-with', { platform: capitalize(name) })} />
       <StyledDescription>{t('sign-in-browser')}</StyledDescription>
-      <StyledGrayButton color="transparent" onClick={handleCancel}>{t('cancel')}</StyledGrayButton>
+      <StyledGrayButton disabled={isLoading} color="transparent" onClick={handleCancel}>{t('cancel')}</StyledGrayButton>
     </FormWrapper>
   );
 };
