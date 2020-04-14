@@ -34,16 +34,21 @@ const areEqual = (prev: Props, next: Props) => prev === next;
 
 export default React.memo(PinnedUser, areEqual);
 
-const Wrapper = styled(Row)``;
+const Wrapper = styled(Row)`
+  overflow: hidden;
+`;
 
 const Content = styled.div`
   flex-grow: 1;
+  overflow: hidden;
 `;
 
 const Email = styled.div`
   font-size: 15px;
   line-height: 22px;
   color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const ChangeButton = styled.span`
@@ -58,4 +63,5 @@ const StyledAvatar = styled((props: any) => <Avatar {...props} />)`
   width: 40px;
   height: 40px;
   margin-right: 8px;
+  flex-shrink: 0;
 `;
