@@ -21,7 +21,7 @@ export default {
     'terms-agree': 'I have read and agree to the',
     'terms-of-use': 'Terms of Use',
     'privacy-policy': 'Privacy policy',
-    'password-tooltip': 'Password must have {{minPasswordLength}}+ characters, at least 1 number, at least 1 letter and no whitespace.',
+    'password-tooltip': 'Password must have {{minPasswordLength}}+ characters, at least 1 number and at least 1 capital letter.',
     'captcha': 'Captcha',
     'captcha-description': 'This question is for testing whether or not you are a human visitor prevent automated spam submissions',
     'verify': 'verify',
