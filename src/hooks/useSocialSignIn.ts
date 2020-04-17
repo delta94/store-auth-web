@@ -22,6 +22,7 @@ export default () => {
 
     centrifuge.subscribe(`launcher#${loginChallenge}`, (message: Message) => {
       const { status, url } = message?.data || {};
+      console.log('get message from socket', message);
       setStatus(status);
       setRedirectUrl(url);
     });

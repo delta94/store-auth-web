@@ -17,6 +17,11 @@ const SignInSocialInit = () => {
   const { status, redirectUrl } = useSocialSignIn();
   const [isLoading, setLoading] = useState(false);
 
+  console.log('render SignInSocialInit', {
+    status,
+    redirectUrl,
+  });
+
   const handleCancel = async () => {
     setLoading(true);
     await getLauncherSocialLoginCancelRequest(name);
