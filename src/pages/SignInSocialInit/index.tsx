@@ -17,11 +17,6 @@ const SignInSocialInit = () => {
   const { status, redirectUrl } = useSocialSignIn();
   const [isLoading, setLoading] = useState(false);
 
-  console.log('render SignInSocialInit', {
-    status,
-    redirectUrl,
-  });
-
   const handleCancel = async () => {
     setLoading(true);
     await getLauncherSocialLoginCancelRequest(name);
@@ -40,11 +35,13 @@ const SignInSocialInit = () => {
   }
 
   if (status === 'expired') {
-    <FormWrapper>
-      <FormHeader title={t('sign-in-expired-title')} />
-      <StyledDescription>{t('sign-in-expired-description')}</StyledDescription>
-      <StyledGrayButton color="transparent" onClick={handleTryAgain}>{t('try-again')}</StyledGrayButton>
-    </FormWrapper>;
+    return (
+      <FormWrapper>
+        <FormHeader title={t('sign-in-expired-title')} />
+        <StyledDescription>{t('sign-in-expired-description')}</StyledDescription>
+        <StyledGrayButton color="transparent" onClick={handleTryAgain}>{t('try-again')}</StyledGrayButton>
+      </FormWrapper>
+    );
   }
 
   return (
