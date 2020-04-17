@@ -35,11 +35,13 @@ const SignInSocialInit = () => {
   }
 
   if (status === 'expired') {
-    <FormWrapper>
-      <FormHeader title={t('sign-in-expired-title')} />
-      <StyledDescription>{t('sign-in-expired-description')}</StyledDescription>
-      <StyledGrayButton color="transparent" onClick={handleTryAgain}>{t('try-again')}</StyledGrayButton>
-    </FormWrapper>;
+    return (
+      <FormWrapper>
+        <FormHeader title={t('sign-in-expired-title')} />
+        <StyledDescription>{t('sign-in-expired-description')}</StyledDescription>
+        <StyledGrayButton color="transparent" onClick={handleTryAgain}>{t('try-again')}</StyledGrayButton>
+      </FormWrapper>
+    );
   }
 
   return (
