@@ -24,7 +24,7 @@ backend:
     protocol: TCP
     name: store-auth-web
   env:
-
+    - REACT_APP_API_URL
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
