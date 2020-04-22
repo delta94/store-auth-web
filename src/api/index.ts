@@ -2,7 +2,6 @@ import { getCookie, getUrlParameter, getUrlWithSearch } from 'helpers';
 
 import {
   XSRF_KEY,
-  BASE_URL,
   CHALLENGE_KEY,
   SIGN_IN_URL,
   SIGN_UP_URL,
@@ -19,11 +18,10 @@ const getXSRFToken = () => getCookie(XSRF_KEY) || '';
 export const getChallenge = () => getUrlParameter(CHALLENGE_KEY);
 
 const getPOSTrequest = (requestUrl: string) => async (data: any) => {
-  const url = `${BASE_URL}/${requestUrl}`;
   const challenge = getChallenge();
 
   try {
-    const responce = await fetch(url, {
+    const responce = await fetch(requestUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,10 +40,8 @@ const getPOSTrequest = (requestUrl: string) => async (data: any) => {
 };
 
 const getGETrequest = (requestUrl: string) => async () => {
-  const url = `${BASE_URL}/${requestUrl}`;
-
   try {
-    const responce = await fetch(url);
+    const responce = await fetch(requestUrl);
     const json = await responce.json();
 
     return json;
