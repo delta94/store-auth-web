@@ -18,11 +18,10 @@ const getXSRFToken = () => getCookie(XSRF_KEY) || '';
 export const getChallenge = () => getUrlParameter(CHALLENGE_KEY);
 
 const getPOSTrequest = (requestUrl: string) => async (data: any) => {
-  const url = `/${requestUrl}`;
   const challenge = getChallenge();
 
   try {
-    const responce = await fetch(url, {
+    const responce = await fetch(requestUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,10 +40,8 @@ const getPOSTrequest = (requestUrl: string) => async (data: any) => {
 };
 
 const getGETrequest = (requestUrl: string) => async () => {
-  const url = `/${requestUrl}`;
-
   try {
-    const responce = await fetch(url);
+    const responce = await fetch(requestUrl);
     const json = await responce.json();
 
     return json;

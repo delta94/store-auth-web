@@ -38,11 +38,10 @@ export const passwordValidate = (pass: string) => {
 };
 
 export const nameValidate = async (username: string) => {
-  const url = `/${CHECK_USERNAME_URL}`;
   const challenge = getUrlParameter(CHALLENGE_KEY);
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(CHECK_USERNAME_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

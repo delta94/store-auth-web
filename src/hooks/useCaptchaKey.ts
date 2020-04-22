@@ -10,8 +10,7 @@ export default () => {
   const init = async () => {
     setLoading(true);
     try {
-      const getKeyUrl = `/${GET_CAPTCHA_KEY_V3_URL}`;
-      const response = await fetch(getKeyUrl);
+      const response = await fetch(GET_CAPTCHA_KEY_V3_URL);
       const { key } = await response.json();
 
       setSitekey(key);

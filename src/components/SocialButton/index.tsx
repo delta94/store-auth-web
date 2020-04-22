@@ -27,7 +27,7 @@ const SocialButton = (props: Props) => {
 
   const handleClick = () => {
     setLoading(true);
-    const href = `/${SOCIAL_URL}/${name}/forward`;
+    const href = `${SOCIAL_URL}/${name}/forward`;
 
     if (isLauncher) {
       setLoading(false);
