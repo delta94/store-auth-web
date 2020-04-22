@@ -1,4 +1,4 @@
-import { BASE_URL, CHECK_USERNAME_URL, CHALLENGE_KEY } from 'api/const';
+import { CHECK_USERNAME_URL, CHALLENGE_KEY } from 'api/const';
 import { PASSWORD, EMAIL, USERNAME, CAPTCHA_REQUIRED_ERROR, MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH } from 'const';
 
 export const windowAlias = window as any;
@@ -38,7 +38,7 @@ export const passwordValidate = (pass: string) => {
 };
 
 export const nameValidate = async (username: string) => {
-  const url = `${BASE_URL}/${CHECK_USERNAME_URL}`;
+  const url = `/${CHECK_USERNAME_URL}`;
   const challenge = getUrlParameter(CHALLENGE_KEY);
 
   try {

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'styles/primitives';
 import { getUrlWithSearch, isLauncher, windowAlias, getUrlParameter } from 'helpers';
-import { SOCIAL_URL, BASE_URL } from 'api/const';
+import { SOCIAL_URL } from 'api/const';
 import { getSocialButtonParams } from 'helpers/social';
 import { AppContext } from 'App';
 import { useHistory } from 'react-router-dom';
@@ -27,7 +27,7 @@ const SocialButton = (props: Props) => {
 
   const handleClick = () => {
     setLoading(true);
-    const href = `${BASE_URL}/${SOCIAL_URL}/${name}/forward`;
+    const href = `/${SOCIAL_URL}/${name}/forward`;
 
     if (isLauncher) {
       setLoading(false);
