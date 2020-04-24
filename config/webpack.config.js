@@ -616,6 +616,7 @@ module.exports = function (webpackEnv) {
         navigateFallbackBlacklist: [
           // Exclude URLs starting with /_, as they're likely an API call
           new RegExp('^/_'),
+          new RegExp('^/oauth2'),
           new RegExp(`^${BASE_API_URL}`),
           // Exclude any URLs whose last part seems to be a file extension
           // as they're likely a resource and not a SPA route.
