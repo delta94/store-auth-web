@@ -25,6 +25,9 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
+// For adding to ignore path in WORKBOX PLUGIN
+const BASE_API_URL = process.env.REACT_APP_API_URL;
+
 const postcssNormalize = require('postcss-normalize');
 
 const appPackageJson = require(paths.appPackageJson);
@@ -613,8 +616,8 @@ module.exports = function (webpackEnv) {
         navigateFallbackBlacklist: [
           // Exclude URLs starting with /_, as they're likely an API call
           new RegExp('^/_'),
-          new RegExp('^/api'),
           new RegExp('^/oauth2'),
+          new RegExp(`^${BASE_API_URL}`),
           // Exclude any URLs whose last part seems to be a file extension
           // as they're likely a resource and not a SPA route.
           // URLs containing a "?" character won't be blacklisted as they're likely
