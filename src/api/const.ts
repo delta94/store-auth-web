@@ -1,8 +1,8 @@
 const BASE_API_URL = process.env.REACT_APP_API_URL;
 
-export const SIGN_IN_URL = '/oauth2/login';
-export const SIGN_UP_URL = '/oauth2/signup';
-export const CHECK_USERNAME_URL = '/oauth2/checkUsername';
+export const SIGN_IN_URL = `${BASE_API_URL}/login`;
+export const SIGN_UP_URL = `${BASE_API_URL}/signup`;
+export const CHECK_USERNAME_URL = `${BASE_API_URL}/checkUsername`;
 export const PASSWORD_RESET_URL = `${BASE_API_URL}/password/reset`;
 export const SET_PASSWORD_URL = `${BASE_API_URL}/password/reset/set`;
 export const CHECK_RESET_TOKEN_URL = `${BASE_API_URL}/password/reset/link`;

@@ -614,7 +614,6 @@ module.exports = function (webpackEnv) {
           // Exclude URLs starting with /_, as they're likely an API call
           new RegExp('^/_'),
           new RegExp('^/api'),
-          new RegExp('^/oauth2'),
           // Exclude any URLs whose last part seems to be a file extension
           // as they're likely a resource and not a SPA route.
           // URLs containing a "?" character won't be blacklisted as they're likely
