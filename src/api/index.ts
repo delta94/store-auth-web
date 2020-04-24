@@ -19,7 +19,7 @@ export const getChallenge = () => getUrlParameter(CHALLENGE_KEY);
 
 const getPOSTrequest = (requestUrl: string) => async (data: any) => {
   const challenge = getChallenge();
-
+  alert(requestUrl);
   try {
     const responce = await fetch(requestUrl, {
       method: 'POST',
