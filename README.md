@@ -1,44 +1,89 @@
+# Qilin Store Auth Web
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Build Status](https://travis-ci.com/qilin/store-auth-web.svg?branch=master)](https://travis-ci.com/qilin/store-auth-web)
+
+Qilin is an open-source digital distribution platform for game developers and publishers. Our mission is to distribute games by minimizing the effort of contracting, sharing documentation and providing comprehensive real-time statistics.
+
+Our solution is a part of Protocol One IAAS and is actively used in the Storefront constructor. Qilin can be used as a component in an existing P1-independent system, using its hardware or cloud platforms.
+
+**Qilin architecture schema**
+
+![Qilin architecture schema](qilin-schema.png)
+
+**Store Auth Web** is an authentication frontend application written in React for [Qilin Store](https://github.com/qilin/store-web).
+
+## Features
+
+- Authenticate Qilin Store users.
+
+---
+
+## Table of Contents
+
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Tests](#running-tests)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Usage
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+In the project directory, you can run the application in the development mode:
 
-In the project directory, you can run:
+`yarn start`
 
-### `yarn start`
-
-Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The page will reload if you make edits. You will also see any lint errors in the console.
 
-### `yarn test`
+## Deployment
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Build the app for production to the `build` folder:
 
-### `yarn build`
+`yarn build`
 
-Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+The build is minified and the filenames include the hashes. Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## Running Tests
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Launch the test runner in the interactive watch mode:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`yarn test`
+
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+## 
+
+If you aren’t satisfied with the build tool and configuration choices, you can eject at any time. 
+This command will remove the single build dependency from your project.
+
+`yarn eject`
+
+> **Note:** this is a one-way operation. Once you `eject`, you can’t go back.
 
 Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+You don’t have to ever use `eject`. Learn more about [ejecting](https://create-react-app.dev/docs/available-scripts/#npm-run-eject).
 
-## Learn More
+## Contributing, Feature Requests and Support
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If you like this project then you can put a ⭐ on it. It means a lot to us.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+If you have an idea of how to improve Qilin (or any of the product parts) or have general feedback, you're welcome to submit a [feature request](../../issues/new?assignees=&labels=&template=feature_request.md&title=).
+
+Chances are, you like what we have already but you may require a custom integration, a special license or something else big and specific to your needs. We're generally open to such conversations.
+
+If you have a question and can't find the answer yourself, you can [raise an issue](../../issues/new?assignees=&labels=&template=support-request.md&title=I+have+a+question+about+%3Cthis+and+that%3E+%5BSupport%5D) and describe what exactly you're trying to do. We'll do our best to reply in a meaningful time.
+
+Qilin welcomes contributions from anyone and everyone. Please refer to [our contribution guide to learn more](CONTRIBUTING.md).
+
+## License
+
+The project is available as open source under the terms of the [Apache-2.0 License](https://opensource.org/licenses/Apache-2.0).
