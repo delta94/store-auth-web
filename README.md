@@ -1,6 +1,7 @@
 # Qilin Store Auth Web
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/qilin/store-auth-web/issues)
 [![Build Status](https://travis-ci.com/qilin/store-auth-web.svg?branch=master)](https://travis-ci.com/qilin/store-auth-web)
 
 Qilin is an open-source digital distribution platform for game developers and publishers. Our mission is to distribute games by minimizing the effort of contracting, sharing documentation and providing comprehensive real-time statistics.
@@ -28,8 +29,6 @@ Our solution is a part of Protocol One IAAS and is actively used in the Storefro
 - [License](#license)
 
 ## Usage
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run the application in the development mode:
 
