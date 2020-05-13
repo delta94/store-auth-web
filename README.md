@@ -6,76 +6,56 @@
 
 Qilin is an open-source digital distribution platform for game developers and publishers. Our mission is to distribute games by minimizing the effort of contracting, sharing documentation and providing comprehensive real-time statistics.
 
-**Qilin architecture schema**
-
-![Qilin architecture schema](qilin-schema.png)
+| |Qilin Frontend Schema|
+|---|---|
+|**API Backend**|[Store API](https://github.com/qilin/store-api) is the GraphQL API server for the Qilin Store.|
+|**Storefront**|[Store Web](https://github.com/qilin/store-web) is the NextJS application for the Qilin Store.|
+|**Frontend for Authentication**|[Store Auth Web](https://github.com/qilin/store-auth-web) is an authentication frontend application written in React for Qilin Store.|
+|**Desktop Application**|[Store Launcher](https://github.com/qilin/store-launcher) is a Qilin Store desktop application launcher for Windows and MacOS.|
+|**Javascript Library**|[Store Library](https://github.com/qilin/store-library) is a library with React components for the Qilin Store launchers.|
 
 **Store Auth Web** is an authentication frontend application written in React for [Qilin Store](https://github.com/qilin/store-web).
 
 ## Features
 
-- Authenticate Qilin Store users.
+восстановление пароля, регистрация, авторизация через Facebook.
+
+- Log in or register the Qilin Store users.
+- Log in with social network accounts: Facebook.
+- Restore a password.
 
 ---
 
 ## Table of Contents
 
-- [Deployment](#deployment)
+- [Requirements](#requirements)
+- [Installation](#deployment)
 - [Usage](#usage)
-- [Tests](#running-tests)
 - [Contributing](#contributing)
 - [License](#license)
 
-## Deployment
+## Requirements
 
-Build the app for production to the `build` folder:
+- [Node.js 12.14.1](https://nodejs.org/en/) or later
+- [Yarn](https://classic.yarnpkg.com/en/docs/install)
 
-```bash
-yarn build
+## Installation
+
 ```
-
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes. Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+yarn install
+```
 
 ## Usage
 
 In the project directory, you can run the application in the development mode:
 
-```bash
+```
 yarn start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits. You will also see any lint errors in the console.
-
-## Running Tests
-
-Launch the test runner in the interactive watch mode:
-
-```bash
-yarn test
-```
-
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-***
-
-If you aren’t satisfied with the build tool and configuration choices, you can eject at any time. 
-This command will remove the single build dependency from your project.
-
-```bash
-yarn eject
-```
-
-> **Note:** this is a one-way operation. Once you `eject`, you can’t go back.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. Learn more about [ejecting](https://create-react-app.dev/docs/available-scripts/#npm-run-eject).
 
 ## Contributing, Feature Requests and Support
 
