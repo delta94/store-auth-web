@@ -15,7 +15,7 @@ export const BLUE_400 = '#4080FF';
 export const FACEBOOK_COLOR = '#3B5998';
 export const TWITTER_COLOR = '#1DA1F2';
 
-export const PURPLE_500 = '#7267E5';
+export const PURPLE_500 = '#7265E5';
 export const PURPLE_400 = '#7D73E5';
 
 export const ORANGE_500 = '#F25849';

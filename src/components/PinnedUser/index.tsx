@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Row } from 'styles/primitives';
 import Avatar from './components/Avatar';
 import { useTranslation } from 'react-i18next';
-import { BLUE_400 } from 'styles/colors';
+import { PURPLE_500 } from 'styles/colors';
 import { User } from 'types';
 
 interface Props {
@@ -55,7 +55,7 @@ const ChangeButton = styled.span`
   font-size: 12px;
   line-height: 150%;
   letter-spacing: 0.01em;
-  color: ${BLUE_400};
+  color: ${PURPLE_500};
   cursor: pointer;
 `;
 

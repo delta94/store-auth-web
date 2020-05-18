@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TinyText } from 'styles/primitives';
-import { GRAY_700, BLUE_400, GRAY_TEXT } from 'styles/colors';
+import { GRAY_700, PURPLE_500, GRAY_TEXT } from 'styles/colors';
 import { HintIcon } from 'assets/icons';
 
 interface Props {
@@ -65,7 +65,7 @@ const Wrapper = styled.span<{ disabled: boolean }>`
 
   ${StyledHintIcon} {
     path {
-      fill: ${({ disabled }) => disabled ? GRAY_TEXT : BLUE_400}
+      fill: ${({ disabled }) => disabled ? GRAY_TEXT : PURPLE_500}
     }
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BLUE_500, ORANGE_500, GRAY_900 } from 'styles/colors';
+import { PURPLE_500, ORANGE_500, GRAY_900 } from 'styles/colors';
 import { SuccessIcon } from 'assets/icons';
 
 interface Props {
@@ -15,10 +15,10 @@ const CheckBox = (props: Props) => {
   const { className, checked, onChange, name, error = false } = props;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const doNothing = () => {};
+  const doNothing = () => { };
 
   return (
-    <Wrapper 
+    <Wrapper
       tabIndex={1}
       onClick={onChange}
       checked={checked}
@@ -26,7 +26,7 @@ const CheckBox = (props: Props) => {
       className={className}
       aria-label={`${name} checkbox`}
     >
-      <StyledSuccessIcon checked={checked}/>
+      <StyledSuccessIcon checked={checked} />
       <HiddenCheckbox onChange={doNothing} checked={checked} name={name} />
     </Wrapper>
   );
@@ -40,7 +40,7 @@ const getBorderColor = (checked: boolean, error: boolean) => {
   return checked ? 'transparent' : 'rgba(255, 255, 255, 0.3)';
 };
 
-const StyledSuccessIcon = styled(SuccessIcon)<{ checked: boolean }>`
+const StyledSuccessIcon = styled(SuccessIcon) <{ checked: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -54,14 +54,15 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   display: none;
 `;
 
-const Wrapper = styled.button.attrs({ type: 'button' })<{ checked: boolean; error: boolean }>`
+const Wrapper = styled.button.attrs({ type: 'button' }) <{ checked: boolean; error: boolean }>`
   position: relative;
   width: 16px;
   height: 16px;
-  background: ${({ checked }) => checked ? BLUE_500 : GRAY_900};
+  background: ${({ checked }) => checked ? PURPLE_500 : GRAY_900};
   border-radius: 2px;
   border: 1px solid transparent;
   border-color: ${({ checked, error }) => getBorderColor(checked, error)};
   transition: all 150ms;
+  outline: none;
   cursor: pointer;
 `;

@@ -2,12 +2,12 @@ import React, { useState, DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { ErrorText, TinyText, Column } from 'styles/primitives';
 import { Hint } from 'components';
-import { GRAY_TEXT, ORANGE_500, GRAY_800, SUCCESS_FIELD, BLUE_500 } from 'styles/colors';
+import { GRAY_TEXT, ORANGE_500, GRAY_800, SUCCESS_FIELD, PURPLE_500 } from 'styles/colors';
 import { SuccessIcon, EyeLineThroughIcon, EyeIcon } from 'assets/icons';
 
 type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-interface Props extends InputProps{
+interface Props extends InputProps {
   label: string;
   className?: string;
   isSuccessed?: boolean;
@@ -57,14 +57,14 @@ const Input = (props: Props) => {
           {`${label}*`}
         </TinyText>
         {!!tooltip && (
-          <Hint 
+          <Hint
             title={tooltip}
             disabled={!!error}
           />
         )}
       </Label>
-      <FieldWrapper 
-        error={!!error} 
+      <FieldWrapper
+        error={!!error}
         active={active}
         disabled={disabled}
         isSuccessed={isSuccessed}
@@ -81,7 +81,7 @@ const Input = (props: Props) => {
         <IconWrapper onClick={toggleType}>
           {initType === 'password' && (
             <>
-              {type === 'password' && <StyledEyeLineThroughIcon  />}
+              {type === 'password' && <StyledEyeLineThroughIcon />}
               {type === 'text' && <StyledEyeIcon />}
             </>
           )}
@@ -102,7 +102,7 @@ export default React.memo(Input);
 const getBorderColor = (error: boolean, active: boolean) => {
   if (error) return ORANGE_500;
 
-  return active ? BLUE_500 : GRAY_800;
+  return active ? PURPLE_500 : GRAY_800;
 };
 
 const IconWrapper = styled.div`

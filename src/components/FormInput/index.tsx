@@ -16,7 +16,7 @@ interface Props {
   label: string;
   onValidate: (field: string, value: string, empty?: boolean) => void;
   validate: (value: string) => ValidationResult | Promise<ValidationResult>;
-  validationType?: 'blur' | 'change' | 'debounce'; 
+  validationType?: 'blur' | 'change' | 'debounce';
   className?: string;
   isSuccessed?: boolean;
   value?: string;

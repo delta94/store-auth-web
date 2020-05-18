@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FormInput, CheckBox, SocialButtons, FormError } from 'components';
-import { BLUE_400, GRAY_900, GRAY_TEXT, BLACK } from 'styles/colors';
+import { PURPLE_500, GRAY_900, GRAY_TEXT, BLACK } from 'styles/colors';
 import { Row, TinyText, Column, Button } from 'styles/primitives';
 
 export const FormWrapper = styled.div`
@@ -72,12 +72,12 @@ export const TermsAgree = styled(TinyText)`
 `;
 
 export const BlueLink = styled(Link)`
-  color: ${BLUE_400};
+  color: ${PURPLE_500};
   text-decoration: none;
 `;
 
 export const AuthSkip = styled.span`
-  color: ${BLUE_400};
+  color: ${PURPLE_500};
   cursor: pointer;
 `;
 
