@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormHeader, SignUpForm, Privacy } from 'components';
+import { FormHeader, SignUpForm } from 'components';
 import {
   BlueLink,
   GreyText,
@@ -28,7 +28,6 @@ const SignUp = () => {
           {t('sign-in')}
         </BlueLink>
       </GreyText>
-      <Privacy />
     </>
   );
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormHeader, SignInForm, Privacy, Loader } from 'components';
+import { FormHeader, SignInForm, Loader } from 'components';
 import {
   GreyText,
   StyledSocialButtons,
@@ -62,7 +62,6 @@ const SignIn = (props: Props) => {
           </>
         )}
       </GreyText>
-      <Privacy />
     </FormWrapper>
   );
 };
