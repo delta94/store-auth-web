@@ -1,6 +1,6 @@
 import React, { useState, DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
-import { ErrorText, TinyText, Column } from 'styles/primitives';
+import { ErrorText, Caps10, Column } from 'styles/primitives';
 import { Hint } from 'components';
 import { GRAY_TEXT, ORANGE_500, GRAY_800, SUCCESS_FIELD, PURPLE_500 } from 'styles/colors';
 import { SuccessIcon, EyeLineThroughIcon, EyeIcon } from 'assets/icons';
@@ -53,9 +53,9 @@ const Input = (props: Props) => {
   return (
     <Wrapper className={className}>
       <Label htmlFor={inputId}>
-        <TinyText>
-          {`${label}*`}
-        </TinyText>
+        <Caps10>
+          {`${label}`}
+        </Caps10>
         {!!tooltip && (
           <Hint
             title={tooltip}
@@ -123,7 +123,7 @@ const StyledSuccessIcon = styled(SuccessIcon)`
   cursor: default;
   stroke: ${SUCCESS_FIELD};
   fill: none;
-  
+
   path {
     fill: none;
   }
@@ -152,8 +152,7 @@ const Wrapper = styled(Column)`
 const Label = styled.label`
   display: inline-flex;
   align-items: center;
-  padding: 0 12px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
   color: ${GRAY_TEXT};
   font-weight: normal;
   font-size: 12px;
@@ -168,16 +167,16 @@ const Label = styled.label`
 const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: boolean; isSuccessed?: boolean }>`
   position: relative;
   overflow: hidden;
-  border: 0;
+  border-radius: 4px;
   /* dont move border to input! */
-  border-bottom: 2px solid ${({ error, active }) => getBorderColor(error, active)};
+  border: 1px solid ${({ error, active }) => getBorderColor(error, active)};
 
 
   input {
     min-width: 100%;
     margin: 0;
     padding: 10px 44px 10px 12px;
-    background-color: ${GRAY_800};
+    background-color: transparent;
     color: white;
     font-size: 15px;
     line-height: 22px;
@@ -206,5 +205,4 @@ const Error = styled.span<{ show: boolean }>`
   display: inline-flex;
   opacity: ${({ show }) => show ? 1 : 0};
   height: 16px;
-  padding: 0 12px;
 `;

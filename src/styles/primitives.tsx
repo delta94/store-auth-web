@@ -19,6 +19,13 @@ export const TinyText = styled.span`
   letter-spacing: 0.01em;
 `;
 
+export const Caps10 = styled.span`
+  font-size: 10px;
+  line-height: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+`;
+
 export const ErrorText = styled.span`
   font-weight: normal;
   font-size: 10px;
@@ -32,7 +39,7 @@ export const Button = styled.button<{ color?: string }>`
   background: ${({ disabled, color = PURPLE_500 }) => disabled ? GRAY_800 : color};
   color: white;
   border: 0;
-  border-radius: 2px;
+  border-radius: 4px;
   font-weight: 500;
   font-size: 12px;
   line-height: 150%;

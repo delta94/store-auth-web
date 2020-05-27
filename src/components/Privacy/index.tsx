@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { StyledLink, GreyText } from 'styles/common';
-import { Row } from 'styles/primitives';
+import { BlueLink } from 'styles/common';
+import { Row, TinyText } from 'styles/primitives';
 
 interface Props {
   className?: string;
@@ -14,11 +14,11 @@ const Privacy = (props: Props) => {
 
   return (
     <Wrapper className={className}>
-      <StyledLink to="/privacy-policy">
-        <GreyText>
+      <TinyText>
+        <BlueLink to="/privacy-policy">
           {t('privacy-policy')}
-        </GreyText>
-      </StyledLink>
+        </BlueLink>
+      </TinyText>
     </Wrapper>
   );
 };

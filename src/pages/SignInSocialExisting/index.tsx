@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { FormHeader, Privacy, DontWantLink, SocialExistingForm, Loader } from 'components';
+import { FormHeader, DontWantLink, SocialExistingForm, Loader } from 'components';
 import { PLATFORM, TOKEN } from 'const';
 import {
   FormWrapper,
@@ -40,7 +40,6 @@ const SignInSocialExisting = (props: Props) => {
       </StyledDescription>
       <SocialExistingForm email={email} social={name} token={token} />
       <DontWantLink />
-      <Privacy />
     </FormWrapper>
   );
 };

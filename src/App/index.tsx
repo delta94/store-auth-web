@@ -9,12 +9,12 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import backgroundImage from 'assets/images/background.jpg';
-import { Loader, FormError } from 'components';
+import { Loader, FormError, Privacy } from 'components';
 import { getUrlWithSearch } from 'helpers';
 import { useSocialProviders } from 'hooks';
 import { getChallenge } from 'api';
 import { AppContextType } from 'types';
+import { GRAY_900 } from 'styles/colors';
 
 const SignIn = React.lazy(() => import('pages/SignIn'));
 const SignUp = React.lazy(() => import('pages/SignUp'));
@@ -79,6 +79,7 @@ const App: React.FC = () => {
               <Redirect to={getUrlWithSearch('/sign-in')} />
             </Switch>
           </Suspense>
+          <StyledPrivacy />
         </Wrapper>
       </AppContext.Provider>
       <GlobalStyle />
@@ -108,16 +109,23 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Wrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${backgroundImage});
+  background: ${GRAY_900};
   background-size: cover;
   background-position: center;
 `;
 
-const OfflineMessage = styled((props: any) => <FormError {...props} />)<{ hide: boolean }>`
+const StyledPrivacy = styled(Privacy)`
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+`;
+
+const OfflineMessage = styled((props: any) => <FormError {...props} />) <{ hide: boolean }>`
   opacity: ${({ hide }) => hide ? 0 : 1};
   position: absolute;
   top: 0;
