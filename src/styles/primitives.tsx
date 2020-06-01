@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import { isLauncher } from 'helpers';
 
 import { PURPLE_500, GRAY_800, ORANGE_500 } from './colors';
-import { isLauncher } from 'helpers';
 
 export const Row = styled.div`
   display: flex;
