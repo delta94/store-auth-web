@@ -1,9 +1,10 @@
 import React, { useState, DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
-import { ErrorText, Caps10, Column } from 'styles/primitives';
+import { ErrorText, Caps10, Column, TinyText } from 'styles/primitives';
 import { Hint } from 'components';
 import { GRAY_TEXT, ORANGE_500, GRAY_800, SUCCESS_FIELD, PURPLE_500 } from 'styles/colors';
 import { SuccessIcon, EyeLineThroughIcon, EyeIcon } from 'assets/icons';
+import { isLauncher } from 'helpers';
 
 type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
@@ -50,12 +51,14 @@ const Input = (props: Props) => {
     setType(newType);
   };
 
+  const inputLabel = isLauncher
+    ? <Caps10>{`${label}`}</Caps10>
+    : <TinyText>{`${label}*`}</TinyText>;
+
   return (
     <Wrapper className={className}>
       <Label htmlFor={inputId}>
-        <Caps10>
-          {`${label}`}
-        </Caps10>
+        {inputLabel}
         {!!tooltip && (
           <Hint
             title={tooltip}
@@ -152,7 +155,8 @@ const Wrapper = styled(Column)`
 const Label = styled.label`
   display: inline-flex;
   align-items: center;
-  margin-bottom: 4px;
+  margin-bottom: ${isLauncher ? '4px' : '2px'};
+  ${isLauncher && 'padding: 0 12px;'}
   color: ${GRAY_TEXT};
   font-weight: normal;
   font-size: 12px;
@@ -167,16 +171,16 @@ const Label = styled.label`
 const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: boolean; isSuccessed?: boolean }>`
   position: relative;
   overflow: hidden;
-  border-radius: 4px;
+  ${isLauncher && 'border-radius: 4px;'}
   /* dont move border to input! */
-  border: 1px solid ${({ error, active }) => getBorderColor(error, active)};
-
+  border: ${({ error, active }) => isLauncher ? `1px solid ${getBorderColor(error, active)}` : 0};
+  ${({ error, active }) => !isLauncher && `border-bottom: 2px solid ${getBorderColor(error, active)}`};
 
   input {
     min-width: 100%;
     margin: 0;
     padding: 10px 44px 10px 12px;
-    background-color: transparent;
+    background-color: ${isLauncher ? 'transparent' : GRAY_800};
     color: white;
     font-size: 15px;
     line-height: 22px;
@@ -205,4 +209,5 @@ const Error = styled.span<{ show: boolean }>`
   display: inline-flex;
   opacity: ${({ show }) => show ? 1 : 0};
   height: 16px;
+  ${!isLauncher && 'padding: 0 12px;'}
 `;

@@ -1,7 +1,9 @@
+import { isLauncher } from 'helpers';
+
 export const BLACK = '#212226';
 
+export const GRAY_900 = isLauncher ? '#202023' : '#333740';
 export const GRAY_800 = '#454952';
-export const GRAY_900 = '#202023';
 export const GRAY_700 = '#5E636B';
 export const GRAY_600 = '#656A73';
 export const GRAY_2 = '#5C5F66';

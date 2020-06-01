@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { FormHeader, Tabs, Tab, SignInForm, SignUpForm, DontWantLink } from 'components';
+import { FormHeader, Tabs, Tab, SignInForm, SignUpForm, DontWantLink, Privacy } from 'components';
 import { PLATFORM, TOKEN, WEBVIEW_LOADING } from 'const';
 import { FormWrapper, Description } from 'styles/common';
 import { useParams } from 'react-router-dom';
-import { capitalize, getUrlParameter, windowAlias } from 'helpers';
+import { capitalize, getUrlParameter, windowAlias, isLauncher } from 'helpers';
 
 interface Props {
   className?: string;
@@ -38,6 +38,7 @@ const SignInSocialNew = (props: Props) => {
         </StyledTab>
       </StyledTabs>
       <DontWantLink />
+      {!isLauncher && <Privacy />}
     </FormWrapper>
   );
 };

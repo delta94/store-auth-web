@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormHeader, SignUpForm } from 'components';
+import { FormHeader, SignUpForm, Privacy } from 'components';
 import {
   BlueLink,
   GreyText,
@@ -8,7 +8,7 @@ import {
   FormWrapper,
 } from 'styles/common';
 import { PLATFORM } from 'const';
-import { getUrlWithSearch } from 'helpers';
+import { getUrlWithSearch, isLauncher } from 'helpers';
 
 const SignUp = () => {
   const { t } = useTranslation();
@@ -28,6 +28,7 @@ const SignUp = () => {
           {t('sign-in')}
         </BlueLink>
       </GreyText>
+      {!isLauncher && <Privacy />}
     </>
   );
 

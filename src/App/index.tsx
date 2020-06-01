@@ -9,8 +9,9 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import backgroundImage from 'assets/images/background.jpg';
 import { Loader, FormError, Privacy } from 'components';
-import { getUrlWithSearch } from 'helpers';
+import { getUrlWithSearch, isLauncher } from 'helpers';
 import { useSocialProviders } from 'hooks';
 import { getChallenge } from 'api';
 import { AppContextType } from 'types';
@@ -79,7 +80,7 @@ const App: React.FC = () => {
               <Redirect to={getUrlWithSearch('/sign-in')} />
             </Switch>
           </Suspense>
-          <StyledPrivacy />
+          {isLauncher && <StyledPrivacy />}
         </Wrapper>
       </AppContext.Provider>
       <GlobalStyle />
@@ -94,8 +95,8 @@ const GlobalStyle = createGlobalStyle`
 
   html, body {
     margin: 0;
-	  padding: 0;
-	  border: 0;
+    padding: 0;
+    border: 0;
     min-height: 100%;
   }
 
@@ -114,7 +115,8 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: ${GRAY_900};
+  background: ${isLauncher ? GRAY_900 : `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+  url(${backgroundImage});`};
   background-size: cover;
   background-position: center;
 `;

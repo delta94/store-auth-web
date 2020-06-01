@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { isLauncher } from 'helpers';
 
 import { PURPLE_500, GRAY_800, ORANGE_500 } from './colors';
 
@@ -39,7 +40,7 @@ export const Button = styled.button<{ color?: string }>`
   background: ${({ disabled, color = PURPLE_500 }) => disabled ? GRAY_800 : color};
   color: white;
   border: 0;
-  border-radius: 4px;
+  border-radius: ${isLauncher ? '4px' : '2px'};
   font-weight: 500;
   font-size: 12px;
   line-height: 150%;
