@@ -18,8 +18,6 @@ Qilin is an open-source digital distribution platform for game developers and pu
 
 ## Features
 
-восстановление пароля, регистрация, авторизация через Facebook.
-
 - Log in or register the Qilin Store users.
 - Log in with social network accounts: Facebook.
 - Restore a password.
