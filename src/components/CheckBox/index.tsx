@@ -58,6 +58,7 @@ const Wrapper = styled.button.attrs({ type: 'button' }) <{ checked: boolean; err
   position: relative;
   width: 16px;
   height: 16px;
+  padding: 0;
   background: ${({ checked }) => checked ? PURPLE_500 : GRAY_900};
   border-radius: 2px;
   border: 1px solid transparent;

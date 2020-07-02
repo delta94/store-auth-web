@@ -185,7 +185,8 @@ const FieldWrapper = styled.div<{ error: boolean; active: boolean; disabled?: bo
     font-size: 15px;
     line-height: 22px;
     outline: none;
-    border: 0;
+    border: none;
+    border-radius: 0;
 
     /* Hack for styling autocompleted input in chrome  */
     &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover {
