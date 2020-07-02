@@ -45,7 +45,8 @@ export const StyledGrayButton = styled(Button)`
 `;
 
 export const StyledFormInput = styled((props: any) => <FormInput {...props} />)`
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
 `;
 
 export const GreyText = styled(TinyText)`
