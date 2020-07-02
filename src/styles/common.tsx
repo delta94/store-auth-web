@@ -10,7 +10,8 @@ export const FormWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 480px;
+  max-width: 480px;
+  width: 100%;
   min-height: 206px;
   padding: 24px 40px;
   background-color: ${GRAY_900};
