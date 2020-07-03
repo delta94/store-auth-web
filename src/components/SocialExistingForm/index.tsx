@@ -101,5 +101,6 @@ const SignInForm = (props: Props) => {
 export default React.memo(SignInForm);
 
 const StyledInput = styled(Input)`
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
 `;
