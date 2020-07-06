@@ -119,7 +119,6 @@ const Wrapper = styled.div`
   url(${backgroundImage});`};
   background-size: cover;
   background-position: center;
-  padding: 0 16px;
 `;
 
 const StyledPrivacy = styled(Privacy)`

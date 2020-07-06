@@ -44,6 +44,7 @@ export default {
     'close': 'Закрыть',
     'continue': 'Продолжить',
     'try-again': 'Повторить',
+    'you-are-sign-in': 'Вы вошли',
     'sign-in-later': 'Войти Позже',
     'sign-in-with': 'Войти с {{platform}}',
     'sign-in-confirm-title': 'Почти готово!',

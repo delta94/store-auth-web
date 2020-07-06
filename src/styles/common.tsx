@@ -11,7 +11,8 @@ export const FormWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   max-width: 480px;
-  width: 100%;
+  width: calc(100% - 32px);
+  margin: 0 16px;
   min-height: 206px;
   padding: 24px 40px;
   background-color: ${GRAY_900};
