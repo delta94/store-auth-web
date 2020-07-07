@@ -9,6 +9,7 @@ import {
 } from 'styles/common';
 import { PLATFORM } from 'const';
 import { getUrlWithSearch, isLauncher } from 'helpers';
+import styled from 'styled-components';
 
 const SignUp = () => {
   const { t } = useTranslation();
@@ -22,12 +23,12 @@ const SignUp = () => {
 
   const formFooter = (
     <>
-      <GreyText>
+      <StyledText>
         {`${t('already-have-account', { platform: PLATFORM })} `}
         <BlueLink to={getUrlWithSearch('/sign-in')}>
           {t('sign-in')}
         </BlueLink>
-      </GreyText>
+      </StyledText>
       {!isLauncher && <Privacy />}
     </>
   );
@@ -43,3 +44,7 @@ const SignUp = () => {
 };
 
 export default React.memo(SignUp);
+
+const StyledText = styled(GreyText)`
+  text-align: center;
+`;

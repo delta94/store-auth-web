@@ -85,7 +85,6 @@ export const AuthSkip = styled.span`
 `;
 
 export const StyledLink = styled(Link)`
-  margin-right: 16px;
   color: ${GRAY_TEXT};
 `;
 
