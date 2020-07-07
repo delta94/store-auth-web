@@ -24,7 +24,7 @@ const SignInSocialConfirm = () => {
   };
 
   if (loading) {
-    return <Loader color="white" size={14}/>;
+    return <Loader color="white" size={14} />;
   }
 
   if (loaded) {

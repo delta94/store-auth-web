@@ -44,6 +44,7 @@ export default {
     'close': 'Close',
     'continue': 'Continue',
     'try-again': 'Try again',
+    'you-are-sign-in': 'You are signed in',
     'sign-in-later': 'Sign In Later',
     'sign-in-with': 'Sign In with {{platform}}',
     'sign-in-confirm-title': 'We\'re almost there!',
